@@ -29,3 +29,13 @@ runtime_v2_final_oris_sha=896bdc67942a27cea98b8a4eb8f49d946795a741
 Ran 5 tests in 0.000s
 
 OK
+[main 82f06ed] insight-rebuild(module-1): align product architecture with runtime v2
+ 8 files changed, 278 insertions(+)
+ create mode 100644 app/runtime_v2_alignment.py
+ create mode 100644 docs/rebuild/INSIGHT_REBUILD_MODULE_1_ARCHITECTURE.md
+ create mode 100644 docs/testing/INSIGHT_REBUILD_MODULE_1_TEST_PLAN.md
+ create mode 100644 reports/execution/insight_rebuild_module_1_bootstrap_latest.log
+ create mode 100644 reports/execution/insight_rebuild_module_1_execution_report.md
+ create mode 100644 reports/testing/insight_rebuild_module_1_test_result.json
+ create mode 100644 reports/testing/latest_test_result.json
+ create mode 100644 tests/test_runtime_v2_alignment.py

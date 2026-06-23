@@ -39,7 +39,7 @@ python3 -m unittest discover -s tests -p 'test_*.py' -q
 
 ## Insight Rebuild Module 1 Evidence Commit SHA
 
-Pending until evidence commit completes.
+82f06edfaa4d12f52e97d07189e84d1e6b38948e
 
 ## Next Module
 

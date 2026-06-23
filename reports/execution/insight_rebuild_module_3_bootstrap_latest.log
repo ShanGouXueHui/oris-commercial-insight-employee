@@ -1,0 +1,33 @@
+# Insight Rebuild Module 3 bootstrap log
+version=2026-06-23-insight-rebuild-module-3-official
+started_at=2026-06-23T20:47:47Z
+product_dir=/home/admin/projects/oris-commercial-insight-employee
+branch=main
+python_bin=python3
+
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+   21fb371..b88e9a0  main       -> origin/main
+Already on 'main'
+M	reports/execution/insight_rebuild_module_1_bootstrap_latest.log
+M	reports/execution/insight_rebuild_module_2_bootstrap_latest.log
+Your branch is behind 'origin/main' by 5 commits, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+ * branch            main       -> FETCH_HEAD
+Updating 21fb371..b88e9a0
+Fast-forward
+ app/evidence_ingestion.py                          | 130 +++++++++++++++++
+ .../INSIGHT_REBUILD_MODULE_3_EVIDENCE_INGESTION.md |  22 +++
+ docs/testing/INSIGHT_REBUILD_MODULE_3_TEST_PLAN.md |  17 +++
+ scripts/bootstrap_insight_rebuild_module_3.sh      | 159 +++++++++++++++++++++
+ tests/test_evidence_ingestion.py                   |  51 +++++++
+ 5 files changed, 379 insertions(+)
+ create mode 100644 app/evidence_ingestion.py
+ create mode 100644 docs/rebuild/INSIGHT_REBUILD_MODULE_3_EVIDENCE_INGESTION.md
+ create mode 100644 docs/testing/INSIGHT_REBUILD_MODULE_3_TEST_PLAN.md
+ create mode 100644 scripts/bootstrap_insight_rebuild_module_3.sh
+ create mode 100644 tests/test_evidence_ingestion.py
+----------------------------------------------------------------------
+Ran 16 tests in 0.001s
+
+OK

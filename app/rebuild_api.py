@@ -5,10 +5,10 @@ from typing import Dict
 from fastapi import APIRouter
 from pydantic import BaseModel, Field
 
-from app.brief_pipeline import generate_executive_brief_from_ingestion
-from app.domain_contracts import InsightVertical, build_default_domain_contract
-from app.evidence_ingestion import build_complete_sample_document, ingest_documents
-from app.quality_gates import assess_brief_quality
+from app.config import load_product_settings
+from app.domain_contracts import InsightVertical
+from app.runtime_orchestration import LocalRuntimeV2OrchestrationAdapter, RuntimeV2RunRequest
+from app.source_connectors import summarize_connector_modes
 
 router = APIRouter(prefix="/insights/rebuild")
 
@@ -21,26 +21,45 @@ class RebuildBriefRequest(BaseModel):
 
 @router.get("/acceptance")
 def rebuild_acceptance() -> Dict[str, object]:
+    settings = load_product_settings()
     return {
         "status": "ready",
         "runtime_v2_backed": True,
-        "next_step": "module_7_runtime_orchestration",
+        "module_7_runtime_orchestration": True,
+        "source_connector_boundary": True,
+        "config_separated_settings": True,
+        "evidence_persistence_boundary": True,
+        "external_provider_boundary": "configured_but_disabled",
+        "next_step": "module_8_real_persistence_or_deployment_smoke",
+        "runtime": settings.runtime.to_dict(),
+        "source": settings.source.to_dict(),
+        "model": settings.model.to_dict(),
+        "connector_modes": summarize_connector_modes(),
     }
 
 
 @router.post("/brief")
 def generate_rebuild_brief(request: RebuildBriefRequest) -> Dict[str, object]:
-    contract = build_default_domain_contract(request.company_name, request.vertical)
-    documents = [build_complete_sample_document(request.company_name)] if request.use_sample_evidence else []
-    ingestion = ingest_documents(contract, documents)
-    brief = generate_executive_brief_from_ingestion(ingestion)
-    quality = assess_brief_quality(brief)
+    adapter = LocalRuntimeV2OrchestrationAdapter()
+    run = adapter.execute(
+        RuntimeV2RunRequest(
+            company_name=request.company_name,
+            vertical=request.vertical,
+            use_sample_evidence=request.use_sample_evidence,
+        )
+    )
+    run_payload = run.to_dict()
     return {
         "company_name": request.company_name,
         "runtime_v2_backed": True,
-        "accepted": quality.accepted,
-        "recommended_action": quality.recommended_action,
-        "confidence_score": brief.confidence_score,
-        "brief": brief.to_dict(),
-        "quality": quality.to_dict(),
+        "accepted": run.quality.accepted,
+        "recommended_action": run.quality.recommended_action,
+        "confidence_score": run.brief.confidence_score,
+        "runtime_run_id": run.runtime_run_id,
+        "runtime_adapter": run.runtime_adapter,
+        "source_connector": run.source_result.metadata.to_dict(),
+        "evidence_persistence": run.persistence_record.to_dict(),
+        "brief": run.brief.to_dict(),
+        "quality": run.quality.to_dict(),
+        "runtime": run_payload,
     }

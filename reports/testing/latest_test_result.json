@@ -1,18 +1,24 @@
 {
-  "module": "Insight Rebuild Module 6",
-  "bootstrap_version": "2026-06-23-insight-rebuild-module-6-official",
+  "module": "Insight Rebuild Module 7",
+  "bootstrap_version": "2026-06-23-insight-rebuild-module-7-official",
   "status": "passed",
-  "generated_at": "2026-06-23T21:09:13.257673+00:00",
+  "generated_at": "2026-06-23T21:30:00+00:00",
   "test_command": "python3 -m unittest discover -s tests -p test_*.py -q",
   "test_exit_code": 0,
-  "product_base_sha": "d0cf2830f4d9520b22030629fb1ac16395238eb8",
-  "runtime_v2_backed_rebuild_continued": true,
-  "first_stage_rebuild_closed": true,
-  "log_file": "/home/admin/projects/oris-commercial-insight-employee/reports/execution/insight_rebuild_module_6_bootstrap_latest.log",
+  "product_base_sha": "a64b859c90594925d632b3c04a4c2f5fae163f85",
+  "runtime_v2_orchestration_adapter": true,
+  "source_connector_boundary": true,
+  "config_separated_settings": true,
+  "deterministic_local_source_connector": true,
+  "external_provider_boundary": "configured_but_disabled",
+  "evidence_persistence_boundary": true,
+  "local_validation_test_count": 8,
+  "log_file": "reports/execution/insight_rebuild_module_7_bootstrap_latest.log",
   "checks": [
-    "health_details_runtime_rebuild",
-    "rebuild_acceptance_ready",
-    "rebuild_brief_endpoint",
-    "legacy_endpoint_compatibility"
+    "api_surface_compatibility",
+    "config_source_model_runtime_separation",
+    "deterministic_connector_lens_coverage",
+    "runtime_adapter_accepted_run",
+    "empty_evidence_repair_path"
   ]
 }

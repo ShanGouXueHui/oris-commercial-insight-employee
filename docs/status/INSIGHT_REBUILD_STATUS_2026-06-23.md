@@ -2,7 +2,7 @@
 
 ## Context
 
-The ORIS Autonomous Dev Employee Runtime v2 has completed final acceptance in `ShanGouXueHui/oris`. The product repo `ShanGouXueHui/oris-commercial-insight-employee` has now completed the first Runtime v2 backed rebuild stage.
+The ORIS Autonomous Dev Employee Runtime v2 has completed final acceptance in `ShanGouXueHui/oris`. The product repo `ShanGouXueHui/oris-commercial-insight-employee` has now completed the first Runtime v2 backed rebuild stage and Module 7 commercialization boundary work.
 
 ## Accepted Product Rebuild Modules
 
@@ -29,7 +29,13 @@ The ORIS Autonomous Dev Employee Runtime v2 has completed final acceptance in `S
 6. Module 6: API Surface and Acceptance
    - Final commit: `8a66d3858c42721fa44f6bae3c4a66b7140f569b`
    - Evidence commit: `0a7cca536c42470ca2c551dcdede6c4fc8441f26`
-   - `reports/testing/latest_test_result.json` shows `status=passed`, `test_exit_code=0`, and `first_stage_rebuild_closed=true`.
+   - `reports/testing/latest_test_result.json` showed `status=passed`, `test_exit_code=0`, and `first_stage_rebuild_closed=true`.
+
+7. Module 7: Runtime v2 Orchestration and Real Evidence Source Integration
+   - Implementation base commit: `a64b859c90594925d632b3c04a4c2f5fae163f85`
+   - Evidence commit: `ddc33b79b6213559a3edbb0cb7ce87a0e02eb4c2`
+   - Execution report commit: `7882f6425f374c9ea1a164cc1a52ee61cf47d8ea`
+   - `reports/testing/latest_test_result.json` shows `status=passed`, `test_exit_code=0`, and `local_validation_test_count=8`.
 
 ## Current Product Capabilities
 
@@ -41,28 +47,29 @@ The ORIS Autonomous Dev Employee Runtime v2 has completed final acceptance in `S
 - Deterministic evidence ingestion exists.
 - Deterministic brief generation pipeline exists.
 - Deterministic quality gates exist.
-- API acceptance tests pass.
+- Product-side Runtime v2 orchestration adapter exists.
+- Source connector abstraction exists.
+- Config-separated source/model/runtime/API/evidence settings exist.
+- Deterministic local source connector exists for tests and offline acceptance.
+- Future external web/search/model provider boundary exists but remains disabled by default.
+- Evidence persistence boundary exists with in-memory default and filesystem development option.
+- API acceptance and Module 7 orchestration tests pass.
 
 ## Current Limitations
 
-- Evidence source integration is still sample/local deterministic only.
+- Evidence source integration is still deterministic local only.
+- No live public web/search connector is enabled.
 - No production database is configured.
 - No cache is configured.
-- No external model/provider adapter is integrated in the product repo yet.
-- Runtime v2 orchestration is accepted in ORIS, but the product has not yet been wired to an ORIS runtime run/executor path.
+- No external model/provider adapter is enabled.
+- Runtime v2 orchestration is product-side/local-contract aligned, not yet executing through a remote ORIS runtime worker queue.
 - No production deployment smoke test has been completed for the product.
 
 ## Next Module
 
-Insight Rebuild Module 7: Runtime v2 Orchestration and Real Evidence Source Integration.
+Insight Rebuild Module 8 should focus on one of the following commercialization hardening tracks:
 
-Expected focus:
-
-- product-side orchestration adapter contract;
-- source connector configuration contract;
-- real evidence source abstraction;
-- config separation for API/runtime/model/source settings;
-- deterministic local source implementation for tests;
-- boundary for future web/search/model providers;
-- Runtime v2 run/evidence alignment report;
-- tests and GitHub evidence.
+1. durable evidence persistence and database schema;
+2. deployment smoke test and runtime observability;
+3. authenticated source/model provider adapter behind the Module 7 config and approval boundaries;
+4. multi-tenant commercial guardrails such as auth, quota, rate limits, and error policy.

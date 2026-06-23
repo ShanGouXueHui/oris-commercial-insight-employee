@@ -1,0 +1,23 @@
+{
+  "module": "Insight Rebuild Module 1",
+  "bootstrap_version": "2026-06-23-insight-rebuild-module-1-official",
+  "status": "passed",
+  "generated_at": "2026-06-23T20:27:46.240515+00:00",
+  "test_command": "python3 -m unittest discover -s tests -p 'test_*.py' -q",
+  "test_exit_code": 0,
+  "product_base_sha": "946181bbc526ca73b96577781c4f6a5fcae25027",
+  "module0_expected_sha": "7d1d604b92b21f1213f990140b3345b4be2163ca",
+  "oris_check_status": "ls_remote_ok",
+  "oris_head": "896bdc67942a27cea98b8a4eb8f49d946795a741",
+  "runtime_v2_final_oris_sha": "896bdc67942a27cea98b8a4eb8f49d946795a741",
+  "old_interactive_insight_product_continued": false,
+  "runtime_v2_backed_rebuild_started": true,
+  "log_file": "/home/admin/projects/oris-commercial-insight-employee/reports/execution/insight_rebuild_module_1_bootstrap_latest.log",
+  "checks": [
+    "runtime_v2_alignment_is_valid",
+    "required_capabilities_are_complete",
+    "product_mutation_allowed_after_runtime_acceptance",
+    "rebuild_sequence_starts_with_architecture_alignment",
+    "architecture_summary_identifies_next_module"
+  ]
+}

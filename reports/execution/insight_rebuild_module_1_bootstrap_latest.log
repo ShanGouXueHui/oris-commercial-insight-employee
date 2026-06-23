@@ -1,0 +1,31 @@
+# Insight Rebuild Module 1 bootstrap log
+version=2026-06-23-insight-rebuild-module-1-official
+started_at=2026-06-23T20:27:45Z
+product_dir=/home/admin/projects/oris-commercial-insight-employee
+branch=main
+python_bin=python3
+
+# pre-log bootstrap output
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+   7d1d604..946181b  main       -> origin/main
+Already on 'main'
+Your branch is behind 'origin/main' by 1 commit, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+ * branch            main       -> FETCH_HEAD
+Updating 7d1d604..946181b
+Fast-forward
+ scripts/bootstrap_insight_rebuild_module_1.sh | 415 ++++++++++++++++++++++++++
+ 1 file changed, 415 insertions(+)
+ create mode 100644 scripts/bootstrap_insight_rebuild_module_1.sh
+
+# repository state
+product_base_sha=946181bbc526ca73b96577781c4f6a5fcae25027
+module0_expected_sha=7d1d604b92b21f1213f990140b3345b4be2163ca
+oris_check_status=ls_remote_ok
+oris_head=896bdc67942a27cea98b8a4eb8f49d946795a741
+runtime_v2_final_oris_sha=896bdc67942a27cea98b8a4eb8f49d946795a741
+----------------------------------------------------------------------
+Ran 5 tests in 0.000s
+
+OK

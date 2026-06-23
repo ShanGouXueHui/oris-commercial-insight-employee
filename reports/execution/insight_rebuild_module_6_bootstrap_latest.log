@@ -1,0 +1,37 @@
+# Insight Rebuild Module 6 bootstrap log
+version=2026-06-23-insight-rebuild-module-6-official
+started_at=2026-06-23T21:09:12Z
+product_dir=/home/admin/projects/oris-commercial-insight-employee
+branch=main
+python_bin=python3
+
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+   be403f2..d0cf283  main       -> origin/main
+Already on 'main'
+M	reports/execution/insight_rebuild_module_1_bootstrap_latest.log
+M	reports/execution/insight_rebuild_module_2_bootstrap_latest.log
+M	reports/execution/insight_rebuild_module_3_bootstrap_latest.log
+M	reports/execution/insight_rebuild_module_4_bootstrap_latest.log
+M	reports/execution/insight_rebuild_module_5_bootstrap_latest.log
+Your branch is behind 'origin/main' by 6 commits, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+ * branch            main       -> FETCH_HEAD
+Updating be403f2..d0cf283
+Fast-forward
+ app/main.py                                        | 188 +++++----------------
+ app/rebuild_api.py                                 |  46 +++++
+ ..._REBUILD_MODULE_6_API_SURFACE_AND_ACCEPTANCE.md |  20 +++
+ docs/testing/INSIGHT_REBUILD_MODULE_6_TEST_PLAN.md |  16 ++
+ scripts/bootstrap_insight_rebuild_module_6.sh      | 161 ++++++++++++++++++
+ tests/test_api_surface.py                          |  34 ++++
+ 6 files changed, 323 insertions(+), 142 deletions(-)
+ create mode 100644 app/rebuild_api.py
+ create mode 100644 docs/rebuild/INSIGHT_REBUILD_MODULE_6_API_SURFACE_AND_ACCEPTANCE.md
+ create mode 100644 docs/testing/INSIGHT_REBUILD_MODULE_6_TEST_PLAN.md
+ create mode 100644 scripts/bootstrap_insight_rebuild_module_6.sh
+ create mode 100644 tests/test_api_surface.py
+----------------------------------------------------------------------
+Ran 29 tests in 0.023s
+
+OK

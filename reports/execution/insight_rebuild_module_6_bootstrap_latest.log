@@ -35,3 +35,9 @@ Fast-forward
 Ran 29 tests in 0.023s
 
 OK
+[main 0a7cca5] insight-rebuild(module-6): add acceptance evidence reports
+ 4 files changed, 114 insertions(+), 17 deletions(-)
+ create mode 100644 reports/execution/insight_rebuild_module_6_bootstrap_latest.log
+ create mode 100644 reports/execution/insight_rebuild_module_6_execution_report.md
+ create mode 100644 reports/testing/insight_rebuild_module_6_test_result.json
+ rewrite reports/testing/latest_test_result.json (62%)

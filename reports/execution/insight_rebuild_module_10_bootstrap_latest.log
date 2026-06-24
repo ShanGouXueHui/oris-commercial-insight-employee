@@ -21,3 +21,9 @@ Already up to date.
 Ran 46 tests in 0.096s
 
 OK
+[main 1ca92f3] insight-rebuild(module-10): add guardrail acceptance evidence
+ 4 files changed, 137 insertions(+), 28 deletions(-)
+ create mode 100644 reports/execution/insight_rebuild_module_10_bootstrap_latest.log
+ create mode 100644 reports/execution/insight_rebuild_module_10_execution_report.md
+ create mode 100644 reports/testing/insight_rebuild_module_10_test_result.json
+ rewrite reports/testing/latest_test_result.json (90%)

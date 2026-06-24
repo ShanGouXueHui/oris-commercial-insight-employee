@@ -4,10 +4,12 @@ from datetime import datetime
 from typing import Any, Dict, List, Optional
 import uuid
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 
+from app.commercial_guardrails import evaluate_guardrails
 from app.config import PRODUCT_API_VERSION, load_product_settings
 from app.observability import build_runtime_observability_snapshot
 from app.rebuild_api import router as rebuild_router
@@ -26,6 +28,36 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.middleware("http")
+async def commercial_guardrail_middleware(request: Request, call_next):
+    settings = load_product_settings()
+    decision = evaluate_guardrails(
+        path=request.url.path,
+        method=request.method,
+        headers=request.headers,
+        settings=settings.commercial_guardrails,
+    )
+    if not decision.allowed:
+        payload = {
+            "error": decision.error.to_dict() if decision.error else None,
+            "guardrail": decision.to_dict(),
+        }
+        response = JSONResponse(status_code=decision.status_code, content=payload)
+    else:
+        response = await call_next(request)
+    response.headers["X-ORIS-Guardrail-Policy"] = decision.policy_version
+    response.headers["X-ORIS-Guardrail-Mode"] = decision.enforcement_mode
+    response.headers["X-ORIS-Guardrail-Reason"] = decision.reason
+    if decision.remaining_minute is not None:
+        response.headers["X-ORIS-RateLimit-Remaining-Minute"] = str(decision.remaining_minute)
+    if decision.remaining_day is not None:
+        response.headers["X-ORIS-Quota-Remaining-Day"] = str(decision.remaining_day)
+    if decision.retry_after_seconds is not None:
+        response.headers["Retry-After"] = str(decision.retry_after_seconds)
+    return response
+
 
 app.include_router(rebuild_router)
 
@@ -110,6 +142,7 @@ async def health_details() -> Dict[str, object]:
         "service": settings.api.service_name,
         "runtime_v2_backed_rebuild": True,
         "module_9_observability": True,
+        "module_10_commercial_guardrails": True,
         "dependencies": {"fastapi": "ok", "pydantic": "ok", "sqlite3": "ok"},
         "observability": observation.to_dict(),
     }

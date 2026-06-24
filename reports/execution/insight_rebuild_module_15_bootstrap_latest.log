@@ -26,3 +26,9 @@ Already up to date.
 Ran 74 tests in 0.134s
 
 OK
+[main 4ace5f3] insight-rebuild(module-15): add remote runtime queue evidence
+ 4 files changed, 140 insertions(+), 27 deletions(-)
+ create mode 100644 reports/execution/insight_rebuild_module_15_bootstrap_latest.log
+ create mode 100644 reports/execution/insight_rebuild_module_15_execution_report.md
+ create mode 100644 reports/testing/insight_rebuild_module_15_test_result.json
+ rewrite reports/testing/latest_test_result.json (73%)

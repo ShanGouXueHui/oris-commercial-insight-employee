@@ -15,6 +15,13 @@ def _bool_from_env(value: str | None, default: bool) -> bool:
     return value.strip().lower() in {"1", "true", "yes", "on"}
 
 
+def _csv_from_env(value: str | None, default: tuple[str, ...]) -> tuple[str, ...]:
+    if value is None:
+        return default
+    items = tuple(item.strip() for item in value.split(",") if item.strip())
+    return items or default
+
+
 @dataclass(frozen=True)
 class ApiSettings:
     version: str = PRODUCT_API_VERSION
@@ -68,12 +75,31 @@ class EvidencePersistenceSettings:
 
 
 @dataclass(frozen=True)
+class CommercialGuardrailsSettings:
+    enforcement_mode: str = "observe"
+    require_api_key: bool = False
+    accepted_api_keys: tuple[str, ...] = ()
+    rate_limit_per_minute: int = 60
+    quota_per_day: int = 1000
+    default_client_id: str = "anonymous"
+    error_policy: str = "structured_json"
+    exempt_paths: tuple[str, ...] = ("/healthz", "/healthz/details", "/healthz/observability")
+
+    def to_dict(self) -> dict[str, object]:
+        payload = asdict(self)
+        payload["accepted_api_keys"] = ["configured"] if self.accepted_api_keys else []
+        payload["exempt_paths"] = list(self.exempt_paths)
+        return payload
+
+
+@dataclass(frozen=True)
 class ProductSettings:
     api: ApiSettings
     runtime: RuntimeSettings
     source: SourceSettings
     model: ModelProviderSettings
     evidence_persistence: EvidencePersistenceSettings
+    commercial_guardrails: CommercialGuardrailsSettings
 
     def to_dict(self) -> dict[str, object]:
         return {
@@ -82,6 +108,7 @@ class ProductSettings:
             "source": self.source.to_dict(),
             "model": self.model.to_dict(),
             "evidence_persistence": self.evidence_persistence.to_dict(),
+            "commercial_guardrails": self.commercial_guardrails.to_dict(),
         }
 
 
@@ -118,5 +145,18 @@ def load_product_settings(env: Mapping[str, str] | None = None) -> ProductSettin
             local_path=values.get("ORIS_INSIGHT_EVIDENCE_LOCAL_PATH", "reports/evidence/runtime_runs"),
             persist_full_claim_text=_bool_from_env(values.get("ORIS_INSIGHT_PERSIST_FULL_CLAIM_TEXT"), True),
             schema_version=values.get("ORIS_INSIGHT_EVIDENCE_SCHEMA_VERSION", MODULE_8_EVIDENCE_SCHEMA_VERSION),
+        ),
+        commercial_guardrails=CommercialGuardrailsSettings(
+            enforcement_mode=values.get("ORIS_INSIGHT_GUARDRAILS_ENFORCEMENT", "observe"),
+            require_api_key=_bool_from_env(values.get("ORIS_INSIGHT_REQUIRE_API_KEY"), False),
+            accepted_api_keys=_csv_from_env(values.get("ORIS_INSIGHT_API_KEYS"), ()),
+            rate_limit_per_minute=int(values.get("ORIS_INSIGHT_RATE_LIMIT_PER_MINUTE", "60")),
+            quota_per_day=int(values.get("ORIS_INSIGHT_QUOTA_PER_DAY", "1000")),
+            default_client_id=values.get("ORIS_INSIGHT_DEFAULT_CLIENT_ID", "anonymous"),
+            error_policy=values.get("ORIS_INSIGHT_ERROR_POLICY", "structured_json"),
+            exempt_paths=_csv_from_env(
+                values.get("ORIS_INSIGHT_EXEMPT_PATHS"),
+                ("/healthz", "/healthz/details", "/healthz/observability"),
+            ),
         ),
     )

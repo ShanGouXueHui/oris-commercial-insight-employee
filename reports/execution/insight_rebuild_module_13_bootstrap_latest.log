@@ -24,3 +24,9 @@ Already up to date.
 Ran 60 tests in 0.124s
 
 OK
+[main b7399f0] insight-rebuild(module-13): add managed database evidence
+ 4 files changed, 131 insertions(+), 25 deletions(-)
+ create mode 100644 reports/execution/insight_rebuild_module_13_bootstrap_latest.log
+ create mode 100644 reports/execution/insight_rebuild_module_13_execution_report.md
+ create mode 100644 reports/testing/insight_rebuild_module_13_test_result.json
+ rewrite reports/testing/latest_test_result.json (74%)

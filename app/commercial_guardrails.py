@@ -1,19 +1,30 @@
 from __future__ import annotations
 
 import hashlib
+import os
+import sqlite3
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
-from typing import Mapping
+from pathlib import Path
+from typing import Mapping, Protocol
 
 from app.config import CommercialGuardrailsSettings
 
 MODULE_10_GUARDRAIL_POLICY_VERSION = "2026-06-24-module-10"
+MODULE_11_GUARDRAIL_LEDGER_SCHEMA_VERSION = "2026-06-24-module-11"
+SQLITE_GUARDRAIL_TABLES = ("guardrail_metadata", "guardrail_usage")
 BLOCKING_MODES = {"blocking", "enforce", "enforced"}
 OBSERVE_MODES = {"observe", "monitor", "disabled", "off"}
+SQLITE_LEDGER_MODES = {"sqlite", "sqlite_durable", "durable_sqlite"}
 
 
 def _utc_now() -> datetime:
     return datetime.now(timezone.utc)
+
+
+class GuardrailLedger(Protocol):
+    def consume(self, client_id: str, now: datetime | None = None) -> tuple[int, int]:
+        ...
 
 
 @dataclass(frozen=True)
@@ -77,11 +88,145 @@ class InMemoryGuardrailLedger:
         return self.minute_counts[minute_key], self.day_counts[day_key]
 
 
+class SQLiteGuardrailLedger:
+    """Durable local guardrail ledger for quota and rate-limit counters."""
+
+    def __init__(self, db_path: str, schema_version: str = MODULE_11_GUARDRAIL_LEDGER_SCHEMA_VERSION) -> None:
+        self.db_path = db_path
+        self.schema_version = schema_version
+        self.initialize_schema()
+
+    def initialize_schema(self) -> None:
+        if self.db_path != ":memory:":
+            Path(self.db_path).parent.mkdir(parents=True, exist_ok=True)
+        with sqlite3.connect(self.db_path) as conn:
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS guardrail_metadata (
+                    key TEXT PRIMARY KEY,
+                    value TEXT NOT NULL,
+                    updated_at TEXT NOT NULL
+                )
+                """
+            )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS guardrail_usage (
+                    client_id TEXT NOT NULL,
+                    scope TEXT NOT NULL,
+                    bucket TEXT NOT NULL,
+                    request_count INTEGER NOT NULL,
+                    updated_at TEXT NOT NULL,
+                    PRIMARY KEY (client_id, scope, bucket)
+                )
+                """
+            )
+            now = _utc_now().isoformat()
+            conn.execute(
+                """
+                INSERT INTO guardrail_metadata (key, value, updated_at)
+                VALUES (?, ?, ?)
+                ON CONFLICT(key) DO UPDATE SET value = excluded.value, updated_at = excluded.updated_at
+                """,
+                ("schema_version", self.schema_version, now),
+            )
+            conn.execute(
+                """
+                INSERT INTO guardrail_metadata (key, value, updated_at)
+                VALUES (?, ?, ?)
+                ON CONFLICT(key) DO UPDATE SET value = excluded.value, updated_at = excluded.updated_at
+                """,
+                ("ledger_type", "sqlite", now),
+            )
+
+    def consume(self, client_id: str, now: datetime | None = None) -> tuple[int, int]:
+        active_now = now or _utc_now()
+        minute_bucket = active_now.strftime("%Y-%m-%dT%H:%M")
+        day_bucket = active_now.strftime("%Y-%m-%d")
+        updated_at = active_now.isoformat()
+        with sqlite3.connect(self.db_path) as conn:
+            minute_count = self._increment(conn, client_id, "minute", minute_bucket, updated_at)
+            day_count = self._increment(conn, client_id, "day", day_bucket, updated_at)
+            return minute_count, day_count
+
+    def _increment(self, conn: sqlite3.Connection, client_id: str, scope: str, bucket: str, updated_at: str) -> int:
+        conn.execute(
+            """
+            INSERT INTO guardrail_usage (client_id, scope, bucket, request_count, updated_at)
+            VALUES (?, ?, ?, 1, ?)
+            ON CONFLICT(client_id, scope, bucket)
+            DO UPDATE SET request_count = request_count + 1, updated_at = excluded.updated_at
+            """,
+            (client_id, scope, bucket, updated_at),
+        )
+        row = conn.execute(
+            "SELECT request_count FROM guardrail_usage WHERE client_id = ? AND scope = ? AND bucket = ?",
+            (client_id, scope, bucket),
+        ).fetchone()
+        return int(row[0]) if row else 0
+
+    def count_rows(self, table_name: str) -> int:
+        if table_name not in SQLITE_GUARDRAIL_TABLES:
+            raise ValueError(f"unsupported guardrail ledger table: {table_name}")
+        with sqlite3.connect(self.db_path) as conn:
+            row = conn.execute(f"SELECT COUNT(*) FROM {table_name}").fetchone()
+            return int(row[0]) if row else 0
+
+    def load_usage_rows(self, client_id: str) -> list[dict[str, object]]:
+        with sqlite3.connect(self.db_path) as conn:
+            rows = conn.execute(
+                """
+                SELECT client_id, scope, bucket, request_count, updated_at
+                FROM guardrail_usage
+                WHERE client_id = ?
+                ORDER BY scope, bucket
+                """,
+                (client_id,),
+            ).fetchall()
+        return [
+            {
+                "client_id": row[0],
+                "scope": row[1],
+                "bucket": row[2],
+                "request_count": int(row[3]),
+                "updated_at": row[4],
+            }
+            for row in rows
+        ]
+
+
 DEFAULT_GUARDRAIL_LEDGER = InMemoryGuardrailLedger()
 
 
 def reset_default_guardrail_ledger() -> None:
     DEFAULT_GUARDRAIL_LEDGER.clear()
+
+
+def build_guardrail_ledger(env: Mapping[str, str] | None = None) -> GuardrailLedger:
+    values = os.environ if env is None else env
+    storage_mode = values.get("ORIS_INSIGHT_GUARDRAIL_LEDGER_STORAGE", "in_memory").strip().lower()
+    if storage_mode in SQLITE_LEDGER_MODES:
+        return SQLiteGuardrailLedger(
+            values.get("ORIS_INSIGHT_GUARDRAIL_LEDGER_PATH", "reports/guardrails/guardrail_ledger.sqlite3"),
+            values.get("ORIS_INSIGHT_GUARDRAIL_LEDGER_SCHEMA_VERSION", MODULE_11_GUARDRAIL_LEDGER_SCHEMA_VERSION),
+        )
+    return DEFAULT_GUARDRAIL_LEDGER
+
+
+def summarize_guardrail_ledger(env: Mapping[str, str] | None = None) -> dict[str, object]:
+    values = os.environ if env is None else env
+    storage_mode = values.get("ORIS_INSIGHT_GUARDRAIL_LEDGER_STORAGE", "in_memory").strip().lower()
+    local_path = values.get("ORIS_INSIGHT_GUARDRAIL_LEDGER_PATH", "reports/guardrails/guardrail_ledger.sqlite3")
+    schema_version = values.get("ORIS_INSIGHT_GUARDRAIL_LEDGER_SCHEMA_VERSION", MODULE_11_GUARDRAIL_LEDGER_SCHEMA_VERSION)
+    return {
+        "schema_version": schema_version,
+        "storage_mode": "sqlite" if storage_mode in SQLITE_LEDGER_MODES else "in_memory",
+        "durable_store": "sqlite" if storage_mode in SQLITE_LEDGER_MODES else None,
+        "local_path": local_path if storage_mode in SQLITE_LEDGER_MODES else None,
+        "tables": list(SQLITE_GUARDRAIL_TABLES) if storage_mode in SQLITE_LEDGER_MODES else [],
+        "persistent_quota_ready": storage_mode in SQLITE_LEDGER_MODES,
+        "supported_storage_modes": ["in_memory", "sqlite"],
+    }
 
 
 def _hash_key(api_key: str) -> str:
@@ -121,6 +266,7 @@ def summarize_guardrail_policy(settings: CommercialGuardrailsSettings) -> dict[s
         "error_policy": settings.error_policy,
         "exempt_paths": list(settings.exempt_paths),
         "default_behavior": "observe_non_blocking" if settings.enforcement_mode in OBSERVE_MODES else "blocking_when_configured",
+        "ledger": summarize_guardrail_ledger(),
     }
 
 
@@ -129,10 +275,10 @@ def evaluate_guardrails(
     method: str,
     headers: Mapping[str, str],
     settings: CommercialGuardrailsSettings,
-    ledger: InMemoryGuardrailLedger | None = None,
+    ledger: GuardrailLedger | None = None,
     now: datetime | None = None,
 ) -> GuardrailDecision:
-    active_ledger = ledger or DEFAULT_GUARDRAIL_LEDGER
+    active_ledger = ledger or build_guardrail_ledger()
     client_id = _client_id_from_headers(headers, settings)
     enforcement_mode = settings.enforcement_mode.strip().lower()
 

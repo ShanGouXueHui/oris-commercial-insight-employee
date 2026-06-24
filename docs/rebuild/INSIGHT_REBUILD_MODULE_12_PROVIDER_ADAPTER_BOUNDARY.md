@@ -4,7 +4,15 @@ Date: 2026-06-24
 
 ## Status
 
-prepared_pending_local_unit_validation
+accepted
+
+## Acceptance Evidence
+
+- Local validation evidence commit: `3aa0a69dfd23c13092f0f1339dfb6957ec2f26e4`
+- Evidence commit recorded in report: `d7de7d26a8e231db2438d8f3e0c61b3d41b5d71e`
+- Test command: `python3 -m unittest discover -s tests -p test_*.py -q`
+- Test exit code: `0`
+- Expected unit test count: `30`
 
 ## Purpose
 
@@ -58,10 +66,6 @@ Module 12 does not add:
 - provider cost accounting;
 - production secret manager integration;
 - tenant billing.
-
-## Acceptance Rule
-
-Module 12 is accepted only after the official bootstrap script runs in the user-controlled local/server environment and pushes unit-test evidence to GitHub.
 
 ## Next Recommended Module After Acceptance
 

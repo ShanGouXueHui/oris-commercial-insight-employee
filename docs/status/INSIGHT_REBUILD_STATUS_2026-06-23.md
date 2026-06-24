@@ -2,7 +2,7 @@
 
 ## Context
 
-The ORIS Autonomous Dev Employee Runtime v2 has completed final acceptance in `ShanGouXueHui/oris`. The product repo `ShanGouXueHui/oris-commercial-insight-employee` has now completed the first Runtime v2 backed rebuild stage, Module 7 commercialization boundary work, and Module 8 durable evidence persistence.
+The ORIS Autonomous Dev Employee Runtime v2 has completed final acceptance in `ShanGouXueHui/oris`. The product repo `ShanGouXueHui/oris-commercial-insight-employee` has completed the first Runtime v2 backed rebuild stage, Module 7 commercialization boundary work, and Module 8 durable evidence persistence. Module 9 deployment-smoke and runtime-observability code is prepared and pending local smoke execution evidence.
 
 ## Accepted Product Rebuild Modules
 
@@ -43,6 +43,14 @@ The ORIS Autonomous Dev Employee Runtime v2 has completed final acceptance in `S
    - Execution report commit: `30647144b5f093618234b73f956c7268b22480c1`
    - `reports/testing/latest_test_result.json` shows `status=passed`, `test_exit_code=0`, and `expected_test_count=12`.
 
+## Prepared Pending Module
+
+9. Module 9: Deployment Smoke Test and Runtime Observability
+   - Preparation status: `prepared_pending_local_smoke_execution`
+   - Prepared code/docs/script base commit: `9181e7a634e8b40357c815b89e899473533de145`
+   - Official bootstrap script: `scripts/bootstrap_insight_rebuild_module_9.sh`
+   - Acceptance requires the official bootstrap to run in the user-controlled local/server environment and push GitHub evidence.
+
 ## Current Product Capabilities
 
 - FastAPI API version: `0.2.0`.
@@ -61,10 +69,14 @@ The ORIS Autonomous Dev Employee Runtime v2 has completed final acceptance in `S
 - Evidence persistence boundary exists with in-memory, filesystem, and SQLite options.
 - SQLite durable evidence schema exists with `persistence_metadata`, `runtime_runs`, `evidence_sources`, and `evidence_items` tables.
 - Runtime adapter can persist evidence through SQLite when configured.
+- Runtime observability snapshot exists.
+- `/healthz/observability` exists.
+- Module 9 smoke runner exists and is ready for local execution.
 - API acceptance, Module 7 orchestration tests, and Module 8 durable persistence tests pass.
 
 ## Current Limitations
 
+- Module 9 is prepared but not accepted until local smoke evidence is pushed.
 - Evidence source integration is still deterministic local only.
 - No live public web/search connector is enabled.
 - SQLite is a durable local/deployment-smoke store, not a managed production database.
@@ -73,11 +85,12 @@ The ORIS Autonomous Dev Employee Runtime v2 has completed final acceptance in `S
 - Runtime v2 orchestration is product-side/local-contract aligned, not yet executing through a remote ORIS runtime worker queue.
 - No production deployment smoke test has been completed for the product.
 
-## Next Module
+## Next Step
 
-Insight Rebuild Module 9 should focus on one of the following commercialization hardening tracks:
+Run the official Module 9 bootstrap script in the user-controlled local/server environment. After it pushes evidence, read:
 
-1. deployment smoke test and runtime observability;
-2. authenticated source/model provider adapter behind the Module 7 and Module 8 config/approval boundaries;
-3. multi-tenant commercial guardrails such as auth, quota, rate limits, and error policy;
-4. managed production database transition plan from SQLite schema to PostgreSQL or equivalent.
+1. `reports/testing/latest_test_result.json`
+2. `reports/testing/insight_rebuild_module_9_smoke_result.json`
+3. `reports/execution/insight_rebuild_module_9_execution_report.md`
+
+Then mark Module 9 accepted if `status=passed`, unit test exit code is `0`, and smoke test exit code is `0`.

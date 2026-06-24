@@ -4,6 +4,7 @@ from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from typing import Iterable
 
+from app.commercial_guardrails import summarize_guardrail_policy
 from app.config import ProductSettings, load_product_settings
 from app.evidence_persistence import summarize_evidence_schema
 from app.source_connectors import summarize_connector_modes
@@ -34,10 +35,12 @@ class RuntimeObservabilitySnapshot:
     version: str
     runtime_v2_backed: bool
     module_9_deployment_smoke_ready: bool
+    module_10_commercial_guardrails_ready: bool
     checks: list[RuntimeObservationCheck]
     settings_snapshot: dict[str, object]
     connector_modes: dict[str, object]
     evidence_schema: dict[str, object]
+    guardrail_policy: dict[str, object]
 
     def to_dict(self) -> dict[str, object]:
         return {
@@ -48,10 +51,12 @@ class RuntimeObservabilitySnapshot:
             "version": self.version,
             "runtime_v2_backed": self.runtime_v2_backed,
             "module_9_deployment_smoke_ready": self.module_9_deployment_smoke_ready,
+            "module_10_commercial_guardrails_ready": self.module_10_commercial_guardrails_ready,
             "checks": [check.to_dict() for check in self.checks],
             "settings_snapshot": self.settings_snapshot,
             "connector_modes": self.connector_modes,
             "evidence_schema": self.evidence_schema,
+            "guardrail_policy": self.guardrail_policy,
         }
 
 
@@ -95,6 +100,11 @@ def build_runtime_observability_snapshot(settings: ProductSettings | None = None
             status="pass",
             message="Module 9 smoke runner can validate live HTTP endpoints and SQLite evidence persistence.",
         ),
+        RuntimeObservationCheck(
+            check_id="commercial_guardrails_ready",
+            status="pass",
+            message="Module 10 commercial guardrails expose API key, quota, rate-limit, and structured error policy boundaries.",
+        ),
     ]
     return RuntimeObservabilitySnapshot(
         status=_overall_status(checks),
@@ -104,8 +114,10 @@ def build_runtime_observability_snapshot(settings: ProductSettings | None = None
         version=active_settings.api.version,
         runtime_v2_backed=True,
         module_9_deployment_smoke_ready=True,
+        module_10_commercial_guardrails_ready=True,
         checks=checks,
         settings_snapshot=active_settings.to_dict(),
         connector_modes=summarize_connector_modes(),
         evidence_schema=summarize_evidence_schema(),
+        guardrail_policy=summarize_guardrail_policy(active_settings.commercial_guardrails),
     )

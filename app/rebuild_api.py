@@ -7,6 +7,7 @@ from pydantic import BaseModel, Field
 
 from app.config import load_product_settings
 from app.domain_contracts import InsightVertical
+from app.evidence_persistence import summarize_evidence_schema
 from app.runtime_orchestration import LocalRuntimeV2OrchestrationAdapter, RuntimeV2RunRequest
 from app.source_connectors import summarize_connector_modes
 
@@ -26,15 +27,19 @@ def rebuild_acceptance() -> Dict[str, object]:
         "status": "ready",
         "runtime_v2_backed": True,
         "module_7_runtime_orchestration": True,
+        "module_8_durable_persistence": True,
         "source_connector_boundary": True,
         "config_separated_settings": True,
         "evidence_persistence_boundary": True,
+        "durable_evidence_store": "sqlite_available",
         "external_provider_boundary": "configured_but_disabled",
-        "next_step": "module_8_real_persistence_or_deployment_smoke",
+        "next_step": "module_9_deployment_smoke_or_provider_adapter",
         "runtime": settings.runtime.to_dict(),
         "source": settings.source.to_dict(),
         "model": settings.model.to_dict(),
+        "evidence_persistence": settings.evidence_persistence.to_dict(),
         "connector_modes": summarize_connector_modes(),
+        "evidence_schema": summarize_evidence_schema(),
     }
 
 

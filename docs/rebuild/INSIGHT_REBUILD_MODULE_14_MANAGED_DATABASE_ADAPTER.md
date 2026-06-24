@@ -4,7 +4,15 @@ Date: 2026-06-24
 
 ## Status
 
-prepared_pending_local_unit_validation
+accepted
+
+## Acceptance Evidence
+
+- Local validation evidence commit: `62285fc343db994ed9444066b22226df89a1862f`
+- Evidence commit recorded in report: `2febfcce1cadc7f24a543fe0046bec1a971891d9`
+- Test command: `python3 -m unittest discover -s tests -p test_*.py -q`
+- Test exit code: `0`
+- Expected unit test count: `41`
 
 ## Purpose
 
@@ -61,10 +69,6 @@ Module 14 does not add:
 - runtime writes to PostgreSQL;
 - tenant billing schema;
 - secret manager integration.
-
-## Acceptance Rule
-
-Module 14 is accepted only after the official bootstrap script runs in the user-controlled local/server environment and pushes unit-test evidence to GitHub.
 
 ## Next Recommended Module After Acceptance
 

@@ -4,7 +4,7 @@ from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from typing import Iterable
 
-from app.commercial_guardrails import summarize_guardrail_policy
+from app.commercial_guardrails import summarize_guardrail_ledger, summarize_guardrail_policy
 from app.config import ProductSettings, load_product_settings
 from app.evidence_persistence import summarize_evidence_schema
 from app.source_connectors import summarize_connector_modes
@@ -36,11 +36,13 @@ class RuntimeObservabilitySnapshot:
     runtime_v2_backed: bool
     module_9_deployment_smoke_ready: bool
     module_10_commercial_guardrails_ready: bool
+    module_11_persistent_quota_ledger_ready: bool
     checks: list[RuntimeObservationCheck]
     settings_snapshot: dict[str, object]
     connector_modes: dict[str, object]
     evidence_schema: dict[str, object]
     guardrail_policy: dict[str, object]
+    guardrail_ledger: dict[str, object]
 
     def to_dict(self) -> dict[str, object]:
         return {
@@ -52,11 +54,13 @@ class RuntimeObservabilitySnapshot:
             "runtime_v2_backed": self.runtime_v2_backed,
             "module_9_deployment_smoke_ready": self.module_9_deployment_smoke_ready,
             "module_10_commercial_guardrails_ready": self.module_10_commercial_guardrails_ready,
+            "module_11_persistent_quota_ledger_ready": self.module_11_persistent_quota_ledger_ready,
             "checks": [check.to_dict() for check in self.checks],
             "settings_snapshot": self.settings_snapshot,
             "connector_modes": self.connector_modes,
             "evidence_schema": self.evidence_schema,
             "guardrail_policy": self.guardrail_policy,
+            "guardrail_ledger": self.guardrail_ledger,
         }
 
 
@@ -72,6 +76,7 @@ def _overall_status(checks: Iterable[RuntimeObservationCheck]) -> str:
 def build_runtime_observability_snapshot(settings: ProductSettings | None = None) -> RuntimeObservabilitySnapshot:
     active_settings = settings or load_product_settings()
     now = datetime.now(timezone.utc)
+    ledger_summary = summarize_guardrail_ledger()
     checks = [
         RuntimeObservationCheck(
             check_id="runtime_v2_reference_present",
@@ -105,6 +110,11 @@ def build_runtime_observability_snapshot(settings: ProductSettings | None = None
             status="pass",
             message="Module 10 commercial guardrails expose API key, quota, rate-limit, and structured error policy boundaries.",
         ),
+        RuntimeObservationCheck(
+            check_id="persistent_quota_ledger_ready",
+            status="pass",
+            message="Module 11 persistent quota ledger can store guardrail usage counters in SQLite when configured.",
+        ),
     ]
     return RuntimeObservabilitySnapshot(
         status=_overall_status(checks),
@@ -115,9 +125,11 @@ def build_runtime_observability_snapshot(settings: ProductSettings | None = None
         runtime_v2_backed=True,
         module_9_deployment_smoke_ready=True,
         module_10_commercial_guardrails_ready=True,
+        module_11_persistent_quota_ledger_ready=True,
         checks=checks,
         settings_snapshot=active_settings.to_dict(),
         connector_modes=summarize_connector_modes(),
         evidence_schema=summarize_evidence_schema(),
         guardrail_policy=summarize_guardrail_policy(active_settings.commercial_guardrails),
+        guardrail_ledger=ledger_summary,
     )

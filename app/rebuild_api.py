@@ -8,6 +8,7 @@ from pydantic import BaseModel, Field
 from app.config import load_product_settings
 from app.domain_contracts import InsightVertical
 from app.evidence_persistence import summarize_evidence_schema
+from app.observability import build_runtime_observability_snapshot
 from app.runtime_orchestration import LocalRuntimeV2OrchestrationAdapter, RuntimeV2RunRequest
 from app.source_connectors import summarize_connector_modes
 
@@ -23,23 +24,27 @@ class RebuildBriefRequest(BaseModel):
 @router.get("/acceptance")
 def rebuild_acceptance() -> Dict[str, object]:
     settings = load_product_settings()
+    observation = build_runtime_observability_snapshot(settings)
     return {
         "status": "ready",
         "runtime_v2_backed": True,
         "module_7_runtime_orchestration": True,
         "module_8_durable_persistence": True,
+        "module_9_deployment_smoke_ready": True,
         "source_connector_boundary": True,
         "config_separated_settings": True,
         "evidence_persistence_boundary": True,
         "durable_evidence_store": "sqlite_available",
+        "observability_boundary": True,
         "external_provider_boundary": "configured_but_disabled",
-        "next_step": "module_9_deployment_smoke_or_provider_adapter",
+        "next_step": "run_module_9_smoke_then_module_10_provider_or_commercial_guardrails",
         "runtime": settings.runtime.to_dict(),
         "source": settings.source.to_dict(),
         "model": settings.model.to_dict(),
         "evidence_persistence": settings.evidence_persistence.to_dict(),
         "connector_modes": summarize_connector_modes(),
         "evidence_schema": summarize_evidence_schema(),
+        "observability": observation.to_dict(),
     }
 
 

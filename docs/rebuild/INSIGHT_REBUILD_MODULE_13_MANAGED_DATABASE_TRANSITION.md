@@ -4,7 +4,15 @@ Date: 2026-06-24
 
 ## Status
 
-prepared_pending_local_unit_validation
+accepted
+
+## Acceptance Evidence
+
+- Local validation evidence commit: `814731566f24faf5ef190b79150c3dc78275a972`
+- Evidence commit recorded in report: `b7399f0adc0218eb6baa45de9224038a337e60f7`
+- Test command: `python3 -m unittest discover -s tests -p test_*.py -q`
+- Test exit code: `0`
+- Expected unit test count: `35`
 
 ## Purpose
 
@@ -59,10 +67,6 @@ Module 13 does not add:
 - connection pooling;
 - ORM migration framework;
 - tenant billing schema.
-
-## Acceptance Rule
-
-Module 13 is accepted only after the official bootstrap script runs in the user-controlled local/server environment and pushes unit-test evidence to GitHub.
 
 ## Next Recommended Module After Acceptance
 

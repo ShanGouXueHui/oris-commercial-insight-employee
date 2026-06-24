@@ -27,3 +27,9 @@ Already up to date.
 Ran 81 tests in 0.124s
 
 OK
+[main 5fbf09a] insight-rebuild(module-16): add tenant entitlement evidence
+ 4 files changed, 154 insertions(+), 29 deletions(-)
+ create mode 100644 reports/execution/insight_rebuild_module_16_bootstrap_latest.log
+ create mode 100644 reports/execution/insight_rebuild_module_16_execution_report.md
+ create mode 100644 reports/testing/insight_rebuild_module_16_test_result.json
+ rewrite reports/testing/latest_test_result.json (78%)

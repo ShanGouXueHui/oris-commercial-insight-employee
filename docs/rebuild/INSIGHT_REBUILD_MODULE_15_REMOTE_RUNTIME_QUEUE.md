@@ -4,7 +4,15 @@ Date: 2026-06-24
 
 ## Status
 
-prepared_pending_local_unit_validation
+accepted
+
+## Acceptance Evidence
+
+- Local validation evidence commit: `9981a53a5e10605dbcf3b188d9f7ad380eb1a401`
+- Evidence commit recorded in report: `4ace5f3c6b121a3c5cd48a551c2abe2e8d3f2c89`
+- Test command: `python3 -m unittest discover -s tests -p test_*.py -q`
+- Test exit code: `0`
+- Expected unit test count: `49`
 
 ## Purpose
 
@@ -63,10 +71,6 @@ Module 15 does not add:
 - distributed tracing;
 - production secret manager integration;
 - tenant billing schema.
-
-## Acceptance Rule
-
-Module 15 is accepted only after the official bootstrap script runs in the user-controlled local/server environment and pushes unit-test evidence to GitHub.
 
 ## Next Recommended Module After Acceptance
 

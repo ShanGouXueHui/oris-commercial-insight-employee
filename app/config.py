@@ -6,6 +6,7 @@ from typing import Mapping
 
 PRODUCT_API_VERSION = "0.2.0"
 RUNTIME_V2_FINAL_REFERENCE = "896bdc67942a27cea98b8a4eb8f49d946795a741"
+MODULE_8_EVIDENCE_SCHEMA_VERSION = "2026-06-24-module-8"
 
 
 def _bool_from_env(value: str | None, default: bool) -> bool:
@@ -60,6 +61,7 @@ class EvidencePersistenceSettings:
     storage_mode: str = "in_memory"
     local_path: str = "reports/evidence/runtime_runs"
     persist_full_claim_text: bool = True
+    schema_version: str = MODULE_8_EVIDENCE_SCHEMA_VERSION
 
     def to_dict(self) -> dict[str, object]:
         return asdict(self)
@@ -115,5 +117,6 @@ def load_product_settings(env: Mapping[str, str] | None = None) -> ProductSettin
             storage_mode=values.get("ORIS_INSIGHT_EVIDENCE_STORAGE", "in_memory"),
             local_path=values.get("ORIS_INSIGHT_EVIDENCE_LOCAL_PATH", "reports/evidence/runtime_runs"),
             persist_full_claim_text=_bool_from_env(values.get("ORIS_INSIGHT_PERSIST_FULL_CLAIM_TEXT"), True),
+            schema_version=values.get("ORIS_INSIGHT_EVIDENCE_SCHEMA_VERSION", MODULE_8_EVIDENCE_SCHEMA_VERSION),
         ),
     )

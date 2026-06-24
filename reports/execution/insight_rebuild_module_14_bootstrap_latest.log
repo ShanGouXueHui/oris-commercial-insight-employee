@@ -25,3 +25,9 @@ Already up to date.
 Ran 66 tests in 0.119s
 
 OK
+[main 2febfcc] insight-rebuild(module-14): add managed database adapter evidence
+ 4 files changed, 133 insertions(+), 26 deletions(-)
+ create mode 100644 reports/execution/insight_rebuild_module_14_bootstrap_latest.log
+ create mode 100644 reports/execution/insight_rebuild_module_14_execution_report.md
+ create mode 100644 reports/testing/insight_rebuild_module_14_test_result.json
+ rewrite reports/testing/latest_test_result.json (74%)

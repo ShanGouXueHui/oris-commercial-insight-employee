@@ -2,7 +2,7 @@
 
 ## Context
 
-The ORIS Autonomous Dev Employee Runtime v2 has completed final acceptance in `ShanGouXueHui/oris`. The product repo `ShanGouXueHui/oris-commercial-insight-employee` has completed the first Runtime v2 backed rebuild stage, Module 7 commercialization boundary work, and Module 8 durable evidence persistence. Module 9 deployment-smoke and runtime-observability code is prepared and pending local smoke execution evidence.
+The ORIS Autonomous Dev Employee Runtime v2 has completed final acceptance in `ShanGouXueHui/oris`. The product repo `ShanGouXueHui/oris-commercial-insight-employee` has completed the first Runtime v2 backed rebuild stage, Module 7 commercialization boundary work, Module 8 durable evidence persistence, and Module 9 deployment smoke plus runtime observability acceptance.
 
 ## Accepted Product Rebuild Modules
 
@@ -43,13 +43,13 @@ The ORIS Autonomous Dev Employee Runtime v2 has completed final acceptance in `S
    - Execution report commit: `30647144b5f093618234b73f956c7268b22480c1`
    - `reports/testing/latest_test_result.json` shows `status=passed`, `test_exit_code=0`, and `expected_test_count=12`.
 
-## Prepared Pending Module
-
 9. Module 9: Deployment Smoke Test and Runtime Observability
-   - Preparation status: `prepared_pending_local_smoke_execution`
-   - Prepared code/docs/script base commit: `9181e7a634e8b40357c815b89e899473533de145`
+   - Preparation base commit: `9181e7a634e8b40357c815b89e899473533de145`
+   - Local smoke evidence commit: `80b2b40a04a0711ad76bf1b7f9a2867a8cb21155`
+   - Evidence commit recorded in report: `3b34c5ab4d6bf3937c6aef98869c25be6357033e`
    - Official bootstrap script: `scripts/bootstrap_insight_rebuild_module_9.sh`
-   - Acceptance requires the official bootstrap to run in the user-controlled local/server environment and push GitHub evidence.
+   - `reports/testing/latest_test_result.json` shows `status=passed`, `unit_test_exit_code=0`, `smoke_test_exit_code=0`, and `expected_unit_test_count=16`.
+   - `reports/testing/insight_rebuild_module_9_smoke_result.json` shows health, observability, rebuild acceptance, rebuild brief, and SQLite persistence count checks passed.
 
 ## Current Product Capabilities
 
@@ -71,26 +71,25 @@ The ORIS Autonomous Dev Employee Runtime v2 has completed final acceptance in `S
 - Runtime adapter can persist evidence through SQLite when configured.
 - Runtime observability snapshot exists.
 - `/healthz/observability` exists.
-- Module 9 smoke runner exists and is ready for local execution.
-- API acceptance, Module 7 orchestration tests, and Module 8 durable persistence tests pass.
+- Local deployment smoke test has passed against uvicorn on `127.0.0.1:8099`.
+- SQLite smoke persistence produced one runtime run, three evidence sources, and nine evidence items.
+- API acceptance, Module 7 orchestration tests, Module 8 durable persistence tests, and Module 9 deployment smoke tests pass.
 
 ## Current Limitations
 
-- Module 9 is prepared but not accepted until local smoke evidence is pushed.
 - Evidence source integration is still deterministic local only.
 - No live public web/search connector is enabled.
 - SQLite is a durable local/deployment-smoke store, not a managed production database.
 - No production cache is configured.
 - No external model/provider adapter is enabled.
 - Runtime v2 orchestration is product-side/local-contract aligned, not yet executing through a remote ORIS runtime worker queue.
-- No production deployment smoke test has been completed for the product.
+- No production deployment has been completed; Module 9 validated local deployment smoke only.
 
-## Next Step
+## Next Module
 
-Run the official Module 9 bootstrap script in the user-controlled local/server environment. After it pushes evidence, read:
+Insight Rebuild Module 10 should focus on one of the following commercialization hardening tracks:
 
-1. `reports/testing/latest_test_result.json`
-2. `reports/testing/insight_rebuild_module_9_smoke_result.json`
-3. `reports/execution/insight_rebuild_module_9_execution_report.md`
-
-Then mark Module 9 accepted if `status=passed`, unit test exit code is `0`, and smoke test exit code is `0`.
+1. authenticated source/model provider adapter behind the Module 7 and Module 8 config/approval boundaries;
+2. commercial guardrails such as auth, quota, rate limits, and error policy;
+3. managed production database transition plan from SQLite schema to PostgreSQL or equivalent;
+4. remote ORIS Runtime v2 worker queue integration for product runs.

@@ -1,24 +1,28 @@
 {
-  "module": "Insight Rebuild Module 7",
-  "bootstrap_version": "2026-06-23-insight-rebuild-module-7-official",
+  "module": "Insight Rebuild Module 8",
+  "bootstrap_version": "2026-06-24-insight-rebuild-module-8-official",
   "status": "passed",
-  "generated_at": "2026-06-23T21:30:00+00:00",
+  "generated_at": "2026-06-24T00:00:00+00:00",
   "test_command": "python3 -m unittest discover -s tests -p test_*.py -q",
   "test_exit_code": 0,
-  "product_base_sha": "a64b859c90594925d632b3c04a4c2f5fae163f85",
-  "runtime_v2_orchestration_adapter": true,
-  "source_connector_boundary": true,
-  "config_separated_settings": true,
-  "deterministic_local_source_connector": true,
-  "external_provider_boundary": "configured_but_disabled",
-  "evidence_persistence_boundary": true,
-  "local_validation_test_count": 8,
-  "log_file": "reports/execution/insight_rebuild_module_7_bootstrap_latest.log",
+  "product_base_sha": "6d5674bb0776e3cf78fd53d010930775d2d0d63b",
+  "durable_evidence_persistence": true,
+  "sqlite_schema_version": "2026-06-24-module-8",
+  "sqlite_tables": [
+    "persistence_metadata",
+    "runtime_runs",
+    "evidence_sources",
+    "evidence_items"
+  ],
+  "runtime_adapter_sqlite_persistence": true,
+  "expected_test_count": 12,
+  "log_file": "reports/execution/insight_rebuild_module_8_bootstrap_latest.log",
   "checks": [
     "api_surface_compatibility",
-    "config_source_model_runtime_separation",
-    "deterministic_connector_lens_coverage",
-    "runtime_adapter_accepted_run",
-    "empty_evidence_repair_path"
+    "module_7_orchestration_compatibility",
+    "sqlite_schema_initialization",
+    "sqlite_source_and_evidence_persistence",
+    "config_driven_sqlite_store_selection",
+    "runtime_adapter_sqlite_persistence"
   ]
 }

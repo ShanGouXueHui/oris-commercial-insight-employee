@@ -5,6 +5,7 @@ from typing import Dict
 from fastapi import APIRouter
 from pydantic import BaseModel, Field
 
+from app.commercial_guardrails import summarize_guardrail_policy
 from app.config import load_product_settings
 from app.domain_contracts import InsightVertical
 from app.evidence_persistence import summarize_evidence_schema
@@ -31,17 +32,21 @@ def rebuild_acceptance() -> Dict[str, object]:
         "module_7_runtime_orchestration": True,
         "module_8_durable_persistence": True,
         "module_9_deployment_smoke_ready": True,
+        "module_10_commercial_guardrails": True,
         "source_connector_boundary": True,
         "config_separated_settings": True,
         "evidence_persistence_boundary": True,
         "durable_evidence_store": "sqlite_available",
         "observability_boundary": True,
+        "commercial_guardrails_boundary": True,
         "external_provider_boundary": "configured_but_disabled",
-        "next_step": "run_module_9_smoke_then_module_10_provider_or_commercial_guardrails",
+        "next_step": "module_11_provider_adapter_or_managed_database_transition",
         "runtime": settings.runtime.to_dict(),
         "source": settings.source.to_dict(),
         "model": settings.model.to_dict(),
         "evidence_persistence": settings.evidence_persistence.to_dict(),
+        "commercial_guardrails": settings.commercial_guardrails.to_dict(),
+        "guardrail_policy": summarize_guardrail_policy(settings.commercial_guardrails),
         "connector_modes": summarize_connector_modes(),
         "evidence_schema": summarize_evidence_schema(),
         "observability": observation.to_dict(),

@@ -4,7 +4,15 @@ Date: 2026-06-24
 
 ## Status
 
-prepared_pending_local_unit_validation
+accepted
+
+## Acceptance Evidence
+
+- Local validation evidence commit: `8a8509ca7be4af26ecdb1c948436377c13322c1b`
+- Evidence commit recorded in report: `132c11688076e4b7fcc7eccf09510e31f8faf258`
+- Test command: `python3 -m unittest discover -s tests -p test_*.py -q`
+- Test exit code: `0`
+- Expected unit test count: `25`
 
 ## Purpose
 
@@ -105,10 +113,6 @@ Module 11 does not add:
 - live web/search connector;
 - live model/provider connector;
 - production deployment.
-
-## Acceptance Rule
-
-Module 11 is accepted only after the official bootstrap script runs in the user-controlled local/server environment and pushes unit-test evidence to GitHub.
 
 ## Next Recommended Module After Acceptance
 

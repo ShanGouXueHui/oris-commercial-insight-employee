@@ -23,3 +23,9 @@ Already up to date.
 Ran 55 tests in 0.123s
 
 OK
+[main d7de7d2] insight-rebuild(module-12): add provider adapter evidence
+ 4 files changed, 127 insertions(+), 27 deletions(-)
+ create mode 100644 reports/execution/insight_rebuild_module_12_bootstrap_latest.log
+ create mode 100644 reports/execution/insight_rebuild_module_12_execution_report.md
+ create mode 100644 reports/testing/insight_rebuild_module_12_test_result.json
+ rewrite reports/testing/latest_test_result.json (75%)

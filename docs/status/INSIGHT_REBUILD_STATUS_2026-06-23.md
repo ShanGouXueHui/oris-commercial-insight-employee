@@ -1,8 +1,8 @@
-# Insight Rebuild Status - 2026-06-23
+# Insight Rebuild Status - 2026-06-24
 
 ## Context
 
-The ORIS Autonomous Dev Employee Runtime v2 has completed final acceptance in `ShanGouXueHui/oris`. The product repo `ShanGouXueHui/oris-commercial-insight-employee` has now completed the first Runtime v2 backed rebuild stage and Module 7 commercialization boundary work.
+The ORIS Autonomous Dev Employee Runtime v2 has completed final acceptance in `ShanGouXueHui/oris`. The product repo `ShanGouXueHui/oris-commercial-insight-employee` has now completed the first Runtime v2 backed rebuild stage, Module 7 commercialization boundary work, and Module 8 durable evidence persistence.
 
 ## Accepted Product Rebuild Modules
 
@@ -35,7 +35,13 @@ The ORIS Autonomous Dev Employee Runtime v2 has completed final acceptance in `S
    - Implementation base commit: `a64b859c90594925d632b3c04a4c2f5fae163f85`
    - Evidence commit: `ddc33b79b6213559a3edbb0cb7ce87a0e02eb4c2`
    - Execution report commit: `7882f6425f374c9ea1a164cc1a52ee61cf47d8ea`
-   - `reports/testing/latest_test_result.json` shows `status=passed`, `test_exit_code=0`, and `local_validation_test_count=8`.
+   - `reports/testing/latest_test_result.json` showed `status=passed`, `test_exit_code=0`, and `local_validation_test_count=8`.
+
+8. Module 8: Durable Evidence Persistence and Database Schema
+   - Implementation base commit: `6d5674bb0776e3cf78fd53d010930775d2d0d63b`
+   - Evidence commit: `974a6f71c4dac5463a3da77c759cd3bdb76c6cf8`
+   - Execution report commit: `30647144b5f093618234b73f956c7268b22480c1`
+   - `reports/testing/latest_test_result.json` shows `status=passed`, `test_exit_code=0`, and `expected_test_count=12`.
 
 ## Current Product Capabilities
 
@@ -52,24 +58,26 @@ The ORIS Autonomous Dev Employee Runtime v2 has completed final acceptance in `S
 - Config-separated source/model/runtime/API/evidence settings exist.
 - Deterministic local source connector exists for tests and offline acceptance.
 - Future external web/search/model provider boundary exists but remains disabled by default.
-- Evidence persistence boundary exists with in-memory default and filesystem development option.
-- API acceptance and Module 7 orchestration tests pass.
+- Evidence persistence boundary exists with in-memory, filesystem, and SQLite options.
+- SQLite durable evidence schema exists with `persistence_metadata`, `runtime_runs`, `evidence_sources`, and `evidence_items` tables.
+- Runtime adapter can persist evidence through SQLite when configured.
+- API acceptance, Module 7 orchestration tests, and Module 8 durable persistence tests pass.
 
 ## Current Limitations
 
 - Evidence source integration is still deterministic local only.
 - No live public web/search connector is enabled.
-- No production database is configured.
-- No cache is configured.
+- SQLite is a durable local/deployment-smoke store, not a managed production database.
+- No production cache is configured.
 - No external model/provider adapter is enabled.
 - Runtime v2 orchestration is product-side/local-contract aligned, not yet executing through a remote ORIS runtime worker queue.
 - No production deployment smoke test has been completed for the product.
 
 ## Next Module
 
-Insight Rebuild Module 8 should focus on one of the following commercialization hardening tracks:
+Insight Rebuild Module 9 should focus on one of the following commercialization hardening tracks:
 
-1. durable evidence persistence and database schema;
-2. deployment smoke test and runtime observability;
-3. authenticated source/model provider adapter behind the Module 7 config and approval boundaries;
-4. multi-tenant commercial guardrails such as auth, quota, rate limits, and error policy.
+1. deployment smoke test and runtime observability;
+2. authenticated source/model provider adapter behind the Module 7 and Module 8 config/approval boundaries;
+3. multi-tenant commercial guardrails such as auth, quota, rate limits, and error policy;
+4. managed production database transition plan from SQLite schema to PostgreSQL or equivalent.

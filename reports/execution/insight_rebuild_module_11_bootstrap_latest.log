@@ -22,3 +22,9 @@ Already up to date.
 Ran 50 tests in 0.120s
 
 OK
+[main 132c116] insight-rebuild(module-11): add persistent ledger evidence
+ 4 files changed, 133 insertions(+), 28 deletions(-)
+ create mode 100644 reports/execution/insight_rebuild_module_11_bootstrap_latest.log
+ create mode 100644 reports/execution/insight_rebuild_module_11_execution_report.md
+ create mode 100644 reports/testing/insight_rebuild_module_11_test_result.json
+ rewrite reports/testing/latest_test_result.json (79%)

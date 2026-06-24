@@ -2,7 +2,7 @@
 
 ## Context
 
-The ORIS Autonomous Dev Employee Runtime v2 has completed final acceptance in `ShanGouXueHui/oris`. The product repo `ShanGouXueHui/oris-commercial-insight-employee` has completed the first Runtime v2 backed rebuild stage, Module 7 commercialization boundary work, Module 8 durable evidence persistence, and Module 9 deployment smoke plus runtime observability acceptance. Module 10 commercial guardrail code is prepared and pending local unit validation evidence.
+The ORIS Autonomous Dev Employee Runtime v2 has completed final acceptance in `ShanGouXueHui/oris`. The product repo `ShanGouXueHui/oris-commercial-insight-employee` has completed the first Runtime v2 backed rebuild stage, Module 7 commercialization boundary work, Module 8 durable evidence persistence, Module 9 deployment smoke plus runtime observability acceptance, and Module 10 commercial guardrails acceptance.
 
 ## Accepted Product Rebuild Modules
 
@@ -51,13 +51,13 @@ The ORIS Autonomous Dev Employee Runtime v2 has completed final acceptance in `S
    - `reports/testing/latest_test_result.json` shows `status=passed`, `unit_test_exit_code=0`, `smoke_test_exit_code=0`, and `expected_unit_test_count=16`.
    - `reports/testing/insight_rebuild_module_9_smoke_result.json` shows health, observability, rebuild acceptance, rebuild brief, and SQLite persistence count checks passed.
 
-## Prepared Pending Module
-
 10. Module 10: Commercial Guardrails
-   - Preparation status: `prepared_pending_local_unit_validation`
-   - Prepared code/docs/script base commit: `aa8b3711f492fa369195edbd06b01690622938d3`
-   - Official bootstrap script: `scripts/bootstrap_insight_rebuild_module_10.sh`
-   - Acceptance requires the official bootstrap to run in the user-controlled local/server environment and push GitHub evidence.
+    - Preparation base commit: `aa8b3711f492fa369195edbd06b01690622938d3`
+    - Local validation evidence commit: `c7f803d7f5304476d244c1059611ab38aa87ec40`
+    - Evidence commit recorded in report: `1ca92f31f6696ac00002065691441140201efa9a`
+    - Official bootstrap script: `scripts/bootstrap_insight_rebuild_module_10.sh`
+    - `reports/testing/latest_test_result.json` shows `status=passed`, `test_exit_code=0`, and `expected_unit_test_count=21`.
+    - Module 10 evidence covers API key boundary, quota boundary, rate-limit boundary, structured error policy, default observe mode, blocking missing API-key rejection, valid API-key allowance, rate-limit rejection, and health path exemption.
 
 ## Current Product Capabilities
 
@@ -84,11 +84,10 @@ The ORIS Autonomous Dev Employee Runtime v2 has completed final acceptance in `S
 - Commercial guardrail settings exist for API key, quota, rate limit, default client ID, structured error policy, and exempt paths.
 - Commercial guardrail middleware exists in default observe mode and optional blocking mode.
 - Commercial guardrail readiness is exposed through `/healthz/details`, `/healthz/observability`, and `/insights/rebuild/acceptance`.
-- API acceptance, Module 7 orchestration tests, Module 8 durable persistence tests, and Module 9 deployment smoke tests pass.
+- API acceptance, Module 7 orchestration tests, Module 8 durable persistence tests, Module 9 deployment smoke tests, and Module 10 commercial guardrail tests pass.
 
 ## Current Limitations
 
-- Module 10 is prepared but not accepted until local unit evidence is pushed.
 - Evidence source integration is still deterministic local only.
 - No live public web/search connector is enabled.
 - SQLite is a durable local/deployment-smoke store, not a managed production database.
@@ -97,13 +96,13 @@ The ORIS Autonomous Dev Employee Runtime v2 has completed final acceptance in `S
 - Runtime v2 orchestration is product-side/local-contract aligned, not yet executing through a remote ORIS runtime worker queue.
 - No production deployment has been completed; Module 9 validated local deployment smoke only.
 - Module 10 guardrail ledger is in-memory and not yet persistent or distributed.
+- Module 10 does not include OAuth/OIDC, billing integration, or tenant database schema.
 
-## Next Step
+## Next Module
 
-Run the official Module 10 bootstrap script in the user-controlled local/server environment. After it pushes evidence, read:
+Insight Rebuild Module 11 should focus on one of the following commercialization hardening tracks:
 
-1. `reports/testing/latest_test_result.json`
-2. `reports/testing/insight_rebuild_module_10_test_result.json`
-3. `reports/execution/insight_rebuild_module_10_execution_report.md`
-
-Then mark Module 10 accepted if `status=passed` and `test_exit_code=0`.
+1. persistent commercial quota ledger backed by SQLite or a future managed database;
+2. authenticated source/model provider adapter behind the Module 10 guardrail boundary;
+3. managed production database transition plan from SQLite schema to PostgreSQL or equivalent;
+4. remote ORIS Runtime v2 worker queue integration for product runs.

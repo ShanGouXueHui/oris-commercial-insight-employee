@@ -1,0 +1,38 @@
+# Insight Rebuild Module 9 bootstrap log
+version=2026-06-24-insight-rebuild-module-9-official
+started_at=2026-06-24T19:28:17Z
+product_dir=/home/admin/projects/oris-commercial-insight-employee
+branch=main
+python_bin=python3
+base_url=http://127.0.0.1:8099
+
+Already on 'main'
+M	reports/execution/insight_rebuild_module_1_bootstrap_latest.log
+M	reports/execution/insight_rebuild_module_2_bootstrap_latest.log
+M	reports/execution/insight_rebuild_module_3_bootstrap_latest.log
+M	reports/execution/insight_rebuild_module_4_bootstrap_latest.log
+M	reports/execution/insight_rebuild_module_5_bootstrap_latest.log
+M	reports/execution/insight_rebuild_module_6_bootstrap_latest.log
+Your branch is up to date with 'origin/main'.
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+----------------------------------------------------------------------
+Ran 41 tests in 0.080s
+
+OK
+server_pid=796149
+INFO:     Started server process [796149]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8099 (Press CTRL+C to quit)
+INFO:     127.0.0.1:45282 - "GET /healthz HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45284 - "GET /healthz/details HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45292 - "GET /healthz/observability HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45302 - "GET /insights/rebuild/acceptance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45308 - "POST /insights/rebuild/brief HTTP/1.1" 200 OK
+{"status": "passed", "base_url": "http://127.0.0.1:8099", "sqlite_path": "/home/admin/projects/oris-commercial-insight-employee/reports/evidence/runtime_runs/module9_smoke.sqlite3"}
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [796149]

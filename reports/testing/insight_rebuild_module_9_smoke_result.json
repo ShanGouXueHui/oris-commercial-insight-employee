@@ -1,0 +1,970 @@
+{
+  "module": "Insight Rebuild Module 9",
+  "status": "passed",
+  "generated_at": "2026-06-24T19:28:19.299031+00:00",
+  "base_url": "http://127.0.0.1:8099",
+  "sqlite_path": "/home/admin/projects/oris-commercial-insight-employee/reports/evidence/runtime_runs/module9_smoke.sqlite3",
+  "checks": [
+    {
+      "check_id": "healthz",
+      "passed": true,
+      "payload": {
+        "status": "healthy",
+        "timestamp": "2026-06-25T03:28:19.272548"
+      }
+    },
+    {
+      "check_id": "healthz_details",
+      "passed": true,
+      "payload": {
+        "status": "healthy",
+        "timestamp": "2026-06-25T03:28:19.274662",
+        "version": "0.2.0",
+        "service": "ORIS Commercial Insight Employee API",
+        "runtime_v2_backed_rebuild": true,
+        "module_9_observability": true,
+        "dependencies": {
+          "fastapi": "ok",
+          "pydantic": "ok",
+          "sqlite3": "ok"
+        },
+        "observability": {
+          "status": "healthy",
+          "generated_at": "2026-06-24T19:28:19.274571+00:00",
+          "service_started_at": "2026-06-24T19:28:18.624028+00:00",
+          "service_uptime_seconds": 0.651,
+          "version": "0.2.0",
+          "runtime_v2_backed": true,
+          "module_9_deployment_smoke_ready": true,
+          "checks": [
+            {
+              "check_id": "runtime_v2_reference_present",
+              "status": "pass",
+              "message": "Runtime v2 reference is configured for product-side orchestration."
+            },
+            {
+              "check_id": "source_connector_boundary_present",
+              "status": "pass",
+              "message": "Source connector boundary is available; live external providers remain disabled by default."
+            },
+            {
+              "check_id": "evidence_persistence_boundary_present",
+              "status": "pass",
+              "message": "Evidence persistence boundary is available with in-memory, filesystem, and SQLite modes."
+            },
+            {
+              "check_id": "external_provider_default_disabled",
+              "status": "pass",
+              "message": "Network source and external model provider access should remain disabled unless explicitly configured."
+            },
+            {
+              "check_id": "deployment_smoke_ready",
+              "status": "pass",
+              "message": "Module 9 smoke runner can validate live HTTP endpoints and SQLite evidence persistence."
+            }
+          ],
+          "settings_snapshot": {
+            "api": {
+              "version": "0.2.0",
+              "service_name": "ORIS Commercial Insight Employee API"
+            },
+            "runtime": {
+              "adapter_mode": "local_runtime_v2_contract",
+              "runtime_v2_reference": "896bdc67942a27cea98b8a4eb8f49d946795a741",
+              "evidence_mode": "github_report_aligned",
+              "approval_required_for_external_side_effects": true
+            },
+            "source": {
+              "connector_mode": "deterministic_local",
+              "allow_network_sources": false,
+              "deterministic_fixture_version": "2026-06-23-module-7",
+              "query_limit": 3
+            },
+            "model": {
+              "provider_mode": "deterministic_template",
+              "allow_external_provider": false,
+              "default_model": "none"
+            },
+            "evidence_persistence": {
+              "storage_mode": "sqlite",
+              "local_path": "/home/admin/projects/oris-commercial-insight-employee/reports/evidence/runtime_runs/module9_smoke.sqlite3",
+              "persist_full_claim_text": true,
+              "schema_version": "2026-06-24-module-8"
+            }
+          },
+          "connector_modes": {
+            "active_mode": "deterministic_local",
+            "available_modes": [
+              "deterministic_local",
+              "future_external_web_search",
+              "future_external_model_provider"
+            ],
+            "network_access_default": false,
+            "external_provider_default": false
+          },
+          "evidence_schema": {
+            "schema_version": "2026-06-24-module-8",
+            "durable_store": "sqlite",
+            "default_storage_mode": "in_memory",
+            "supported_storage_modes": [
+              "in_memory",
+              "filesystem",
+              "sqlite"
+            ],
+            "tables": [
+              "persistence_metadata",
+              "runtime_runs",
+              "evidence_sources",
+              "evidence_items"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "check_id": "healthz_observability",
+      "passed": true,
+      "payload": {
+        "status": "healthy",
+        "generated_at": "2026-06-24T19:28:19.276158+00:00",
+        "service_started_at": "2026-06-24T19:28:18.624028+00:00",
+        "service_uptime_seconds": 0.652,
+        "version": "0.2.0",
+        "runtime_v2_backed": true,
+        "module_9_deployment_smoke_ready": true,
+        "checks": [
+          {
+            "check_id": "runtime_v2_reference_present",
+            "status": "pass",
+            "message": "Runtime v2 reference is configured for product-side orchestration."
+          },
+          {
+            "check_id": "source_connector_boundary_present",
+            "status": "pass",
+            "message": "Source connector boundary is available; live external providers remain disabled by default."
+          },
+          {
+            "check_id": "evidence_persistence_boundary_present",
+            "status": "pass",
+            "message": "Evidence persistence boundary is available with in-memory, filesystem, and SQLite modes."
+          },
+          {
+            "check_id": "external_provider_default_disabled",
+            "status": "pass",
+            "message": "Network source and external model provider access should remain disabled unless explicitly configured."
+          },
+          {
+            "check_id": "deployment_smoke_ready",
+            "status": "pass",
+            "message": "Module 9 smoke runner can validate live HTTP endpoints and SQLite evidence persistence."
+          }
+        ],
+        "settings_snapshot": {
+          "api": {
+            "version": "0.2.0",
+            "service_name": "ORIS Commercial Insight Employee API"
+          },
+          "runtime": {
+            "adapter_mode": "local_runtime_v2_contract",
+            "runtime_v2_reference": "896bdc67942a27cea98b8a4eb8f49d946795a741",
+            "evidence_mode": "github_report_aligned",
+            "approval_required_for_external_side_effects": true
+          },
+          "source": {
+            "connector_mode": "deterministic_local",
+            "allow_network_sources": false,
+            "deterministic_fixture_version": "2026-06-23-module-7",
+            "query_limit": 3
+          },
+          "model": {
+            "provider_mode": "deterministic_template",
+            "allow_external_provider": false,
+            "default_model": "none"
+          },
+          "evidence_persistence": {
+            "storage_mode": "sqlite",
+            "local_path": "/home/admin/projects/oris-commercial-insight-employee/reports/evidence/runtime_runs/module9_smoke.sqlite3",
+            "persist_full_claim_text": true,
+            "schema_version": "2026-06-24-module-8"
+          }
+        },
+        "connector_modes": {
+          "active_mode": "deterministic_local",
+          "available_modes": [
+            "deterministic_local",
+            "future_external_web_search",
+            "future_external_model_provider"
+          ],
+          "network_access_default": false,
+          "external_provider_default": false
+        },
+        "evidence_schema": {
+          "schema_version": "2026-06-24-module-8",
+          "durable_store": "sqlite",
+          "default_storage_mode": "in_memory",
+          "supported_storage_modes": [
+            "in_memory",
+            "filesystem",
+            "sqlite"
+          ],
+          "tables": [
+            "persistence_metadata",
+            "runtime_runs",
+            "evidence_sources",
+            "evidence_items"
+          ]
+        }
+      }
+    },
+    {
+      "check_id": "rebuild_acceptance",
+      "passed": true,
+      "payload": {
+        "status": "ready",
+        "runtime_v2_backed": true,
+        "module_7_runtime_orchestration": true,
+        "module_8_durable_persistence": true,
+        "module_9_deployment_smoke_ready": true,
+        "source_connector_boundary": true,
+        "config_separated_settings": true,
+        "evidence_persistence_boundary": true,
+        "durable_evidence_store": "sqlite_available",
+        "observability_boundary": true,
+        "external_provider_boundary": "configured_but_disabled",
+        "next_step": "run_module_9_smoke_then_module_10_provider_or_commercial_guardrails",
+        "runtime": {
+          "adapter_mode": "local_runtime_v2_contract",
+          "runtime_v2_reference": "896bdc67942a27cea98b8a4eb8f49d946795a741",
+          "evidence_mode": "github_report_aligned",
+          "approval_required_for_external_side_effects": true
+        },
+        "source": {
+          "connector_mode": "deterministic_local",
+          "allow_network_sources": false,
+          "deterministic_fixture_version": "2026-06-23-module-7",
+          "query_limit": 3
+        },
+        "model": {
+          "provider_mode": "deterministic_template",
+          "allow_external_provider": false,
+          "default_model": "none"
+        },
+        "evidence_persistence": {
+          "storage_mode": "sqlite",
+          "local_path": "/home/admin/projects/oris-commercial-insight-employee/reports/evidence/runtime_runs/module9_smoke.sqlite3",
+          "persist_full_claim_text": true,
+          "schema_version": "2026-06-24-module-8"
+        },
+        "connector_modes": {
+          "active_mode": "deterministic_local",
+          "available_modes": [
+            "deterministic_local",
+            "future_external_web_search",
+            "future_external_model_provider"
+          ],
+          "network_access_default": false,
+          "external_provider_default": false
+        },
+        "evidence_schema": {
+          "schema_version": "2026-06-24-module-8",
+          "durable_store": "sqlite",
+          "default_storage_mode": "in_memory",
+          "supported_storage_modes": [
+            "in_memory",
+            "filesystem",
+            "sqlite"
+          ],
+          "tables": [
+            "persistence_metadata",
+            "runtime_runs",
+            "evidence_sources",
+            "evidence_items"
+          ]
+        },
+        "observability": {
+          "status": "healthy",
+          "generated_at": "2026-06-24T19:28:19.282299+00:00",
+          "service_started_at": "2026-06-24T19:28:18.624028+00:00",
+          "service_uptime_seconds": 0.658,
+          "version": "0.2.0",
+          "runtime_v2_backed": true,
+          "module_9_deployment_smoke_ready": true,
+          "checks": [
+            {
+              "check_id": "runtime_v2_reference_present",
+              "status": "pass",
+              "message": "Runtime v2 reference is configured for product-side orchestration."
+            },
+            {
+              "check_id": "source_connector_boundary_present",
+              "status": "pass",
+              "message": "Source connector boundary is available; live external providers remain disabled by default."
+            },
+            {
+              "check_id": "evidence_persistence_boundary_present",
+              "status": "pass",
+              "message": "Evidence persistence boundary is available with in-memory, filesystem, and SQLite modes."
+            },
+            {
+              "check_id": "external_provider_default_disabled",
+              "status": "pass",
+              "message": "Network source and external model provider access should remain disabled unless explicitly configured."
+            },
+            {
+              "check_id": "deployment_smoke_ready",
+              "status": "pass",
+              "message": "Module 9 smoke runner can validate live HTTP endpoints and SQLite evidence persistence."
+            }
+          ],
+          "settings_snapshot": {
+            "api": {
+              "version": "0.2.0",
+              "service_name": "ORIS Commercial Insight Employee API"
+            },
+            "runtime": {
+              "adapter_mode": "local_runtime_v2_contract",
+              "runtime_v2_reference": "896bdc67942a27cea98b8a4eb8f49d946795a741",
+              "evidence_mode": "github_report_aligned",
+              "approval_required_for_external_side_effects": true
+            },
+            "source": {
+              "connector_mode": "deterministic_local",
+              "allow_network_sources": false,
+              "deterministic_fixture_version": "2026-06-23-module-7",
+              "query_limit": 3
+            },
+            "model": {
+              "provider_mode": "deterministic_template",
+              "allow_external_provider": false,
+              "default_model": "none"
+            },
+            "evidence_persistence": {
+              "storage_mode": "sqlite",
+              "local_path": "/home/admin/projects/oris-commercial-insight-employee/reports/evidence/runtime_runs/module9_smoke.sqlite3",
+              "persist_full_claim_text": true,
+              "schema_version": "2026-06-24-module-8"
+            }
+          },
+          "connector_modes": {
+            "active_mode": "deterministic_local",
+            "available_modes": [
+              "deterministic_local",
+              "future_external_web_search",
+              "future_external_model_provider"
+            ],
+            "network_access_default": false,
+            "external_provider_default": false
+          },
+          "evidence_schema": {
+            "schema_version": "2026-06-24-module-8",
+            "durable_store": "sqlite",
+            "default_storage_mode": "in_memory",
+            "supported_storage_modes": [
+              "in_memory",
+              "filesystem",
+              "sqlite"
+            ],
+            "tables": [
+              "persistence_metadata",
+              "runtime_runs",
+              "evidence_sources",
+              "evidence_items"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "check_id": "rebuild_brief_sqlite_persistence",
+      "passed": true,
+      "payload": {
+        "company_name": "Module9SmokeCo",
+        "runtime_v2_backed": true,
+        "accepted": true,
+        "recommended_action": "publish",
+        "confidence_score": 0.8,
+        "runtime_run_id": "rtv2-556835e20f05f087",
+        "runtime_adapter": "local_runtime_v2_contract",
+        "source_connector": {
+          "connector_id": "deterministic_local_source_connector",
+          "connector_mode": "deterministic_local",
+          "fixture_version": "2026-06-23-module-7",
+          "network_access_used": false,
+          "external_provider_used": false,
+          "provider_boundary": "future_web_search_model_provider_not_enabled"
+        },
+        "evidence_persistence": {
+          "runtime_run_id": "rtv2-556835e20f05f087",
+          "subject_company": "Module9SmokeCo",
+          "storage_mode": "sqlite",
+          "persisted_at": "2026-06-24T19:28:19.294744+00:00",
+          "source_ids": [
+            "module7_local_company_disclosure",
+            "module7_local_market_data",
+            "module7_local_risk_model"
+          ],
+          "evidence_ids": [
+            "module9smokeco_module7_company_packet:company_profile",
+            "module9smokeco_module7_company_packet:product_capability",
+            "module9smokeco_module7_company_packet:strategy_signals",
+            "module9smokeco_module7_market_packet:market_structure",
+            "module9smokeco_module7_market_packet:competitor_landscape",
+            "module9smokeco_module7_market_packet:financial_quality",
+            "module9smokeco_module7_risk_packet:risks",
+            "module9smokeco_module7_risk_packet:scenarios",
+            "module9smokeco_module7_risk_packet:limitations"
+          ],
+          "path": "/home/admin/projects/oris-commercial-insight-employee/reports/evidence/runtime_runs/module9_smoke.sqlite3",
+          "schema_version": "2026-06-24-module-8",
+          "source_count": 3,
+          "evidence_count": 9
+        },
+        "brief": {
+          "company_name": "Module9SmokeCo",
+          "sections": [
+            {
+              "lens": "company_profile",
+              "title": "Company Profile",
+              "content": "Company Profile for Module9SmokeCo: generated from 1 evidence item(s). This section is deterministic and evidence-linked.",
+              "evidence_ids": [
+                "module9smokeco_module7_company_packet:company_profile"
+              ],
+              "confidence_score": 0.8
+            },
+            {
+              "lens": "market_structure",
+              "title": "Market Structure",
+              "content": "Market Structure for Module9SmokeCo: generated from 1 evidence item(s). This section is deterministic and evidence-linked.",
+              "evidence_ids": [
+                "module9smokeco_module7_market_packet:market_structure"
+              ],
+              "confidence_score": 0.8
+            },
+            {
+              "lens": "competitor_landscape",
+              "title": "Competitor Landscape",
+              "content": "Competitor Landscape for Module9SmokeCo: generated from 1 evidence item(s). This section is deterministic and evidence-linked.",
+              "evidence_ids": [
+                "module9smokeco_module7_market_packet:competitor_landscape"
+              ],
+              "confidence_score": 0.8
+            },
+            {
+              "lens": "financial_quality",
+              "title": "Financial Quality",
+              "content": "Financial Quality for Module9SmokeCo: generated from 1 evidence item(s). This section is deterministic and evidence-linked.",
+              "evidence_ids": [
+                "module9smokeco_module7_market_packet:financial_quality"
+              ],
+              "confidence_score": 0.8
+            },
+            {
+              "lens": "product_capability",
+              "title": "Product Capability",
+              "content": "Product Capability for Module9SmokeCo: generated from 1 evidence item(s). This section is deterministic and evidence-linked.",
+              "evidence_ids": [
+                "module9smokeco_module7_company_packet:product_capability"
+              ],
+              "confidence_score": 0.8
+            },
+            {
+              "lens": "strategy_signals",
+              "title": "Strategy Signals",
+              "content": "Strategy Signals for Module9SmokeCo: generated from 1 evidence item(s). This section is deterministic and evidence-linked.",
+              "evidence_ids": [
+                "module9smokeco_module7_company_packet:strategy_signals"
+              ],
+              "confidence_score": 0.8
+            },
+            {
+              "lens": "risks",
+              "title": "Risks",
+              "content": "Risks for Module9SmokeCo: generated from 1 evidence item(s). This section is deterministic and evidence-linked.",
+              "evidence_ids": [
+                "module9smokeco_module7_risk_packet:risks"
+              ],
+              "confidence_score": 0.8
+            },
+            {
+              "lens": "scenarios",
+              "title": "Scenarios",
+              "content": "Scenarios for Module9SmokeCo: generated from 1 evidence item(s). This section is deterministic and evidence-linked.",
+              "evidence_ids": [
+                "module9smokeco_module7_risk_packet:scenarios"
+              ],
+              "confidence_score": 0.8
+            },
+            {
+              "lens": "limitations",
+              "title": "Limitations",
+              "content": "Limitations for Module9SmokeCo: generated from 1 evidence item(s). This section is deterministic and evidence-linked.",
+              "evidence_ids": [
+                "module9smokeco_module7_risk_packet:limitations"
+              ],
+              "confidence_score": 0.8
+            }
+          ],
+          "risks": [
+            {
+              "category": "evidence_quality",
+              "description": "Insight quality depends on source credibility, lens coverage, and evidence recency.",
+              "probability": 0.45,
+              "impact": 0.7,
+              "evidence_ids": [
+                "module9smokeco_module7_risk_packet:risks"
+              ]
+            }
+          ],
+          "scenarios": [
+            {
+              "name": "Base Case",
+              "description": "Company trajectory follows currently observed evidence signals.",
+              "probability": 0.5,
+              "impact": 0.6,
+              "evidence_ids": [
+                "module9smokeco_module7_risk_packet:scenarios"
+              ]
+            },
+            {
+              "name": "Upside Case",
+              "description": "Execution improves and evidence signals strengthen across core lenses.",
+              "probability": 0.3,
+              "impact": 0.8,
+              "evidence_ids": [
+                "module9smokeco_module7_risk_packet:scenarios"
+              ]
+            },
+            {
+              "name": "Downside Case",
+              "description": "Risk signals dominate and evidence coverage weakens.",
+              "probability": 0.2,
+              "impact": 0.7,
+              "evidence_ids": [
+                "module9smokeco_module7_risk_packet:scenarios"
+              ]
+            }
+          ],
+          "limitations": [],
+          "confidence_score": 0.8,
+          "accepted": true
+        },
+        "quality": {
+          "accepted": true,
+          "overall_status": "pass",
+          "gate_results": [
+            {
+              "gate_id": "minimum_confidence",
+              "status": "pass",
+              "score": 0.8,
+              "threshold": 0.65,
+              "message": "Overall brief confidence must meet the minimum threshold."
+            },
+            {
+              "gate_id": "evidence_linkage",
+              "status": "pass",
+              "score": 1.0,
+              "threshold": 0.8,
+              "message": "Most generated sections must link back to evidence IDs."
+            },
+            {
+              "gate_id": "risk_and_scenario_presence",
+              "status": "pass",
+              "score": 1.0,
+              "threshold": 1.0,
+              "message": "Brief must include at least one risk and scenario set."
+            },
+            {
+              "gate_id": "limitations_control",
+              "status": "pass",
+              "score": 1.0,
+              "threshold": 0.8,
+              "message": "Limitations must be absent for accepted briefs or explicit for incomplete briefs."
+            }
+          ],
+          "limitations": [],
+          "recommended_action": "publish"
+        },
+        "runtime": {
+          "runtime_run_id": "rtv2-556835e20f05f087",
+          "runtime_adapter": "local_runtime_v2_contract",
+          "runtime_v2_reference": "896bdc67942a27cea98b8a4eb8f49d946795a741",
+          "runtime_v2_backed": true,
+          "request": {
+            "company_name": "Module9SmokeCo",
+            "vertical": "technology",
+            "geography": "global",
+            "time_horizon": "12_months",
+            "use_sample_evidence": true
+          },
+          "source": {
+            "query": {
+              "company_name": "Module9SmokeCo",
+              "vertical": "technology",
+              "geography": "global",
+              "time_horizon": "12_months",
+              "required_lenses": [
+                "company_profile",
+                "market_structure",
+                "competitor_landscape",
+                "financial_quality",
+                "product_capability",
+                "strategy_signals",
+                "risks",
+                "scenarios",
+                "limitations"
+              ]
+            },
+            "document_count": 3,
+            "document_ids": [
+              "module9smokeco_module7_company_packet",
+              "module9smokeco_module7_market_packet",
+              "module9smokeco_module7_risk_packet"
+            ],
+            "metadata": {
+              "connector_id": "deterministic_local_source_connector",
+              "connector_mode": "deterministic_local",
+              "fixture_version": "2026-06-23-module-7",
+              "network_access_used": false,
+              "external_provider_used": false,
+              "provider_boundary": "future_web_search_model_provider_not_enabled"
+            }
+          },
+          "ingestion": {
+            "subject_company": "Module9SmokeCo",
+            "accepted": true,
+            "sources": [
+              {
+                "source_id": "module7_local_company_disclosure",
+                "source_type": "company_disclosure",
+                "title": "Deterministic company packet for Module9SmokeCo",
+                "credibility_score": 0.92,
+                "url": null
+              },
+              {
+                "source_id": "module7_local_market_data",
+                "source_type": "market_data",
+                "title": "Deterministic market packet for technology",
+                "credibility_score": 0.88,
+                "url": null
+              },
+              {
+                "source_id": "module7_local_risk_model",
+                "source_type": "public_web",
+                "title": "Deterministic risk and scenario packet for Module9SmokeCo",
+                "credibility_score": 0.86,
+                "url": null
+              }
+            ],
+            "evidence_items": [
+              {
+                "evidence_id": "module9smokeco_module7_company_packet:company_profile",
+                "source_id": "module7_local_company_disclosure",
+                "claim": "Module9SmokeCo has a defined commercial profile in technology.",
+                "lens": "company_profile",
+                "relevance_score": 0.92
+              },
+              {
+                "evidence_id": "module9smokeco_module7_company_packet:product_capability",
+                "source_id": "module7_local_company_disclosure",
+                "claim": "Module9SmokeCo product capability can be evaluated through roadmap, adoption, and delivery evidence.",
+                "lens": "product_capability",
+                "relevance_score": 0.92
+              },
+              {
+                "evidence_id": "module9smokeco_module7_company_packet:strategy_signals",
+                "source_id": "module7_local_company_disclosure",
+                "claim": "Module9SmokeCo strategy signals are tracked through repeatable commercial evidence lenses.",
+                "lens": "strategy_signals",
+                "relevance_score": 0.92
+              },
+              {
+                "evidence_id": "module9smokeco_module7_market_packet:market_structure",
+                "source_id": "module7_local_market_data",
+                "claim": "The technology market can be analyzed through segment, channel, and demand structure.",
+                "lens": "market_structure",
+                "relevance_score": 0.88
+              },
+              {
+                "evidence_id": "module9smokeco_module7_market_packet:competitor_landscape",
+                "source_id": "module7_local_market_data",
+                "claim": "Module9SmokeCo competitors should be compared by capability, monetization, and go-to-market reach.",
+                "lens": "competitor_landscape",
+                "relevance_score": 0.88
+              },
+              {
+                "evidence_id": "module9smokeco_module7_market_packet:financial_quality",
+                "source_id": "module7_local_market_data",
+                "claim": "Financial quality should be assessed through growth, margin, cash conversion, and funding durability.",
+                "lens": "financial_quality",
+                "relevance_score": 0.88
+              },
+              {
+                "evidence_id": "module9smokeco_module7_risk_packet:risks",
+                "source_id": "module7_local_risk_model",
+                "claim": "Commercial insight quality is exposed to source recency, source credibility, and missing real-world data risk.",
+                "lens": "risks",
+                "relevance_score": 0.86
+              },
+              {
+                "evidence_id": "module9smokeco_module7_risk_packet:scenarios",
+                "source_id": "module7_local_risk_model",
+                "claim": "Base, upside, and downside cases must remain tied to explicit evidence coverage.",
+                "lens": "scenarios",
+                "relevance_score": 0.86
+              },
+              {
+                "evidence_id": "module9smokeco_module7_risk_packet:limitations",
+                "source_id": "module7_local_risk_model",
+                "claim": "This Module 7 connector uses deterministic local evidence and does not perform live web, search, model, or database access.",
+                "lens": "limitations",
+                "relevance_score": 0.86
+              }
+            ],
+            "validation_errors": [],
+            "coverage_by_lens": {
+              "company_profile": 1,
+              "market_structure": 1,
+              "competitor_landscape": 1,
+              "financial_quality": 1,
+              "product_capability": 1,
+              "strategy_signals": 1,
+              "risks": 1,
+              "scenarios": 1,
+              "limitations": 1
+            }
+          },
+          "brief": {
+            "company_name": "Module9SmokeCo",
+            "sections": [
+              {
+                "lens": "company_profile",
+                "title": "Company Profile",
+                "content": "Company Profile for Module9SmokeCo: generated from 1 evidence item(s). This section is deterministic and evidence-linked.",
+                "evidence_ids": [
+                  "module9smokeco_module7_company_packet:company_profile"
+                ],
+                "confidence_score": 0.8
+              },
+              {
+                "lens": "market_structure",
+                "title": "Market Structure",
+                "content": "Market Structure for Module9SmokeCo: generated from 1 evidence item(s). This section is deterministic and evidence-linked.",
+                "evidence_ids": [
+                  "module9smokeco_module7_market_packet:market_structure"
+                ],
+                "confidence_score": 0.8
+              },
+              {
+                "lens": "competitor_landscape",
+                "title": "Competitor Landscape",
+                "content": "Competitor Landscape for Module9SmokeCo: generated from 1 evidence item(s). This section is deterministic and evidence-linked.",
+                "evidence_ids": [
+                  "module9smokeco_module7_market_packet:competitor_landscape"
+                ],
+                "confidence_score": 0.8
+              },
+              {
+                "lens": "financial_quality",
+                "title": "Financial Quality",
+                "content": "Financial Quality for Module9SmokeCo: generated from 1 evidence item(s). This section is deterministic and evidence-linked.",
+                "evidence_ids": [
+                  "module9smokeco_module7_market_packet:financial_quality"
+                ],
+                "confidence_score": 0.8
+              },
+              {
+                "lens": "product_capability",
+                "title": "Product Capability",
+                "content": "Product Capability for Module9SmokeCo: generated from 1 evidence item(s). This section is deterministic and evidence-linked.",
+                "evidence_ids": [
+                  "module9smokeco_module7_company_packet:product_capability"
+                ],
+                "confidence_score": 0.8
+              },
+              {
+                "lens": "strategy_signals",
+                "title": "Strategy Signals",
+                "content": "Strategy Signals for Module9SmokeCo: generated from 1 evidence item(s). This section is deterministic and evidence-linked.",
+                "evidence_ids": [
+                  "module9smokeco_module7_company_packet:strategy_signals"
+                ],
+                "confidence_score": 0.8
+              },
+              {
+                "lens": "risks",
+                "title": "Risks",
+                "content": "Risks for Module9SmokeCo: generated from 1 evidence item(s). This section is deterministic and evidence-linked.",
+                "evidence_ids": [
+                  "module9smokeco_module7_risk_packet:risks"
+                ],
+                "confidence_score": 0.8
+              },
+              {
+                "lens": "scenarios",
+                "title": "Scenarios",
+                "content": "Scenarios for Module9SmokeCo: generated from 1 evidence item(s). This section is deterministic and evidence-linked.",
+                "evidence_ids": [
+                  "module9smokeco_module7_risk_packet:scenarios"
+                ],
+                "confidence_score": 0.8
+              },
+              {
+                "lens": "limitations",
+                "title": "Limitations",
+                "content": "Limitations for Module9SmokeCo: generated from 1 evidence item(s). This section is deterministic and evidence-linked.",
+                "evidence_ids": [
+                  "module9smokeco_module7_risk_packet:limitations"
+                ],
+                "confidence_score": 0.8
+              }
+            ],
+            "risks": [
+              {
+                "category": "evidence_quality",
+                "description": "Insight quality depends on source credibility, lens coverage, and evidence recency.",
+                "probability": 0.45,
+                "impact": 0.7,
+                "evidence_ids": [
+                  "module9smokeco_module7_risk_packet:risks"
+                ]
+              }
+            ],
+            "scenarios": [
+              {
+                "name": "Base Case",
+                "description": "Company trajectory follows currently observed evidence signals.",
+                "probability": 0.5,
+                "impact": 0.6,
+                "evidence_ids": [
+                  "module9smokeco_module7_risk_packet:scenarios"
+                ]
+              },
+              {
+                "name": "Upside Case",
+                "description": "Execution improves and evidence signals strengthen across core lenses.",
+                "probability": 0.3,
+                "impact": 0.8,
+                "evidence_ids": [
+                  "module9smokeco_module7_risk_packet:scenarios"
+                ]
+              },
+              {
+                "name": "Downside Case",
+                "description": "Risk signals dominate and evidence coverage weakens.",
+                "probability": 0.2,
+                "impact": 0.7,
+                "evidence_ids": [
+                  "module9smokeco_module7_risk_packet:scenarios"
+                ]
+              }
+            ],
+            "limitations": [],
+            "confidence_score": 0.8,
+            "accepted": true
+          },
+          "quality": {
+            "accepted": true,
+            "overall_status": "pass",
+            "gate_results": [
+              {
+                "gate_id": "minimum_confidence",
+                "status": "pass",
+                "score": 0.8,
+                "threshold": 0.65,
+                "message": "Overall brief confidence must meet the minimum threshold."
+              },
+              {
+                "gate_id": "evidence_linkage",
+                "status": "pass",
+                "score": 1.0,
+                "threshold": 0.8,
+                "message": "Most generated sections must link back to evidence IDs."
+              },
+              {
+                "gate_id": "risk_and_scenario_presence",
+                "status": "pass",
+                "score": 1.0,
+                "threshold": 1.0,
+                "message": "Brief must include at least one risk and scenario set."
+              },
+              {
+                "gate_id": "limitations_control",
+                "status": "pass",
+                "score": 1.0,
+                "threshold": 0.8,
+                "message": "Limitations must be absent for accepted briefs or explicit for incomplete briefs."
+              }
+            ],
+            "limitations": [],
+            "recommended_action": "publish"
+          },
+          "evidence_persistence": {
+            "runtime_run_id": "rtv2-556835e20f05f087",
+            "subject_company": "Module9SmokeCo",
+            "storage_mode": "sqlite",
+            "persisted_at": "2026-06-24T19:28:19.294744+00:00",
+            "source_ids": [
+              "module7_local_company_disclosure",
+              "module7_local_market_data",
+              "module7_local_risk_model"
+            ],
+            "evidence_ids": [
+              "module9smokeco_module7_company_packet:company_profile",
+              "module9smokeco_module7_company_packet:product_capability",
+              "module9smokeco_module7_company_packet:strategy_signals",
+              "module9smokeco_module7_market_packet:market_structure",
+              "module9smokeco_module7_market_packet:competitor_landscape",
+              "module9smokeco_module7_market_packet:financial_quality",
+              "module9smokeco_module7_risk_packet:risks",
+              "module9smokeco_module7_risk_packet:scenarios",
+              "module9smokeco_module7_risk_packet:limitations"
+            ],
+            "path": "/home/admin/projects/oris-commercial-insight-employee/reports/evidence/runtime_runs/module9_smoke.sqlite3",
+            "schema_version": "2026-06-24-module-8",
+            "source_count": 3,
+            "evidence_count": 9
+          },
+          "settings_snapshot": {
+            "api": {
+              "version": "0.2.0",
+              "service_name": "ORIS Commercial Insight Employee API"
+            },
+            "runtime": {
+              "adapter_mode": "local_runtime_v2_contract",
+              "runtime_v2_reference": "896bdc67942a27cea98b8a4eb8f49d946795a741",
+              "evidence_mode": "github_report_aligned",
+              "approval_required_for_external_side_effects": true
+            },
+            "source": {
+              "connector_mode": "deterministic_local",
+              "allow_network_sources": false,
+              "deterministic_fixture_version": "2026-06-23-module-7",
+              "query_limit": 3
+            },
+            "model": {
+              "provider_mode": "deterministic_template",
+              "allow_external_provider": false,
+              "default_model": "none"
+            },
+            "evidence_persistence": {
+              "storage_mode": "sqlite",
+              "local_path": "/home/admin/projects/oris-commercial-insight-employee/reports/evidence/runtime_runs/module9_smoke.sqlite3",
+              "persist_full_claim_text": true,
+              "schema_version": "2026-06-24-module-8"
+            }
+          }
+        }
+      }
+    },
+    {
+      "check_id": "sqlite_persistence_counts",
+      "passed": true,
+      "payload": {
+        "database_exists": 1,
+        "runtime_runs": 1,
+        "evidence_sources": 3,
+        "evidence_items": 9
+      }
+    }
+  ]
+}

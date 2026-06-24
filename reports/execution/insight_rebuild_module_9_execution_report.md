@@ -45,7 +45,7 @@ python3 scripts/run_module_9_smoke.py
 
 ## Insight Rebuild Module 9 Evidence Commit SHA
 
-Pending until evidence commit completes.
+3b34c5ab4d6bf3937c6aef98869c25be6357033e
 
 ## Next Module
 

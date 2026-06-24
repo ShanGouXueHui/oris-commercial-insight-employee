@@ -36,3 +36,10 @@ INFO:     Shutting down
 INFO:     Waiting for application shutdown.
 INFO:     Application shutdown complete.
 INFO:     Finished server process [796149]
+[main 3b34c5a] insight-rebuild(module-9): add smoke evidence reports
+ 5 files changed, 1116 insertions(+), 28 deletions(-)
+ create mode 100644 reports/execution/insight_rebuild_module_9_bootstrap_latest.log
+ create mode 100644 reports/execution/insight_rebuild_module_9_execution_report.md
+ create mode 100644 reports/testing/insight_rebuild_module_9_smoke_result.json
+ create mode 100644 reports/testing/insight_rebuild_module_9_test_result.json
+ rewrite reports/testing/latest_test_result.json (94%)

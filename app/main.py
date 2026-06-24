@@ -8,13 +8,15 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
+from app.config import PRODUCT_API_VERSION, load_product_settings
+from app.observability import build_runtime_observability_snapshot
 from app.rebuild_api import router as rebuild_router
 
 
 app = FastAPI(
     title="ORIS Commercial Insight Employee API",
     description="Standalone commercial insight employee product API",
-    version="0.2.0",
+    version=PRODUCT_API_VERSION,
 )
 
 app.add_middleware(
@@ -99,14 +101,23 @@ async def health_check() -> Dict[str, object]:
 
 @app.get("/healthz/details")
 async def health_details() -> Dict[str, object]:
+    settings = load_product_settings()
+    observation = build_runtime_observability_snapshot(settings)
     return {
         "status": "healthy",
         "timestamp": datetime.now(),
-        "version": "0.2.0",
-        "service": "ORIS Commercial Insight Employee API",
+        "version": settings.api.version,
+        "service": settings.api.service_name,
         "runtime_v2_backed_rebuild": True,
-        "dependencies": {"fastapi": "ok", "pydantic": "ok"},
+        "module_9_observability": True,
+        "dependencies": {"fastapi": "ok", "pydantic": "ok", "sqlite3": "ok"},
+        "observability": observation.to_dict(),
     }
+
+
+@app.get("/healthz/observability")
+async def health_observability() -> Dict[str, object]:
+    return build_runtime_observability_snapshot().to_dict()
 
 
 @app.post("/insights/executive-brief", response_model=ExecutiveBriefResponse)

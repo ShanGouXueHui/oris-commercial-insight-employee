@@ -9,7 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 
-from app.commercial_guardrails import evaluate_guardrails
+from app.commercial_guardrails import build_guardrail_ledger, evaluate_guardrails
 from app.config import PRODUCT_API_VERSION, load_product_settings
 from app.observability import build_runtime_observability_snapshot
 from app.rebuild_api import router as rebuild_router
@@ -38,6 +38,7 @@ async def commercial_guardrail_middleware(request: Request, call_next):
         method=request.method,
         headers=request.headers,
         settings=settings.commercial_guardrails,
+        ledger=build_guardrail_ledger(),
     )
     if not decision.allowed:
         payload = {
@@ -143,6 +144,7 @@ async def health_details() -> Dict[str, object]:
         "runtime_v2_backed_rebuild": True,
         "module_9_observability": True,
         "module_10_commercial_guardrails": True,
+        "module_11_persistent_quota_ledger": True,
         "dependencies": {"fastapi": "ok", "pydantic": "ok", "sqlite3": "ok"},
         "observability": observation.to_dict(),
     }

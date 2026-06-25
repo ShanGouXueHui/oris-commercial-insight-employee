@@ -93,6 +93,23 @@ class CommercialGuardrailsSettings:
 
 
 @dataclass(frozen=True)
+class TenantGuardrailsSettings:
+    enabled: bool = False
+    entitlement_enforcement_mode: str = "observe"
+    require_tenant_entitlement: bool = False
+    tenant_header: str = "x-tenant-id"
+    default_tenant_id: str = "anonymous"
+    local_entitlements_enabled: bool = False
+    local_tenant_id: str = "tenant-demo"
+    local_plan_id: str = "free"
+    billing_provider_integrated: bool = False
+    payment_processing_enabled: bool = False
+
+    def to_dict(self) -> dict[str, object]:
+        return asdict(self)
+
+
+@dataclass(frozen=True)
 class ProductSettings:
     api: ApiSettings
     runtime: RuntimeSettings
@@ -100,6 +117,7 @@ class ProductSettings:
     model: ModelProviderSettings
     evidence_persistence: EvidencePersistenceSettings
     commercial_guardrails: CommercialGuardrailsSettings
+    tenant_guardrails: TenantGuardrailsSettings
 
     def to_dict(self) -> dict[str, object]:
         return {
@@ -109,6 +127,7 @@ class ProductSettings:
             "model": self.model.to_dict(),
             "evidence_persistence": self.evidence_persistence.to_dict(),
             "commercial_guardrails": self.commercial_guardrails.to_dict(),
+            "tenant_guardrails": self.tenant_guardrails.to_dict(),
         }
 
 
@@ -158,5 +177,21 @@ def load_product_settings(env: Mapping[str, str] | None = None) -> ProductSettin
                 values.get("ORIS_INSIGHT_EXEMPT_PATHS"),
                 ("/healthz", "/healthz/details", "/healthz/observability"),
             ),
+        ),
+        tenant_guardrails=TenantGuardrailsSettings(
+            enabled=_bool_from_env(values.get("ORIS_INSIGHT_TENANT_GUARDRAILS_ENABLED"), False),
+            entitlement_enforcement_mode=values.get("ORIS_INSIGHT_TENANT_GUARDRAILS_ENFORCEMENT", "observe"),
+            require_tenant_entitlement=_bool_from_env(
+                values.get("ORIS_INSIGHT_REQUIRE_TENANT_ENTITLEMENT"), False
+            ),
+            tenant_header=values.get("ORIS_INSIGHT_TENANT_HEADER", "x-tenant-id"),
+            default_tenant_id=values.get("ORIS_INSIGHT_DEFAULT_TENANT_ID", "anonymous"),
+            local_entitlements_enabled=_bool_from_env(
+                values.get("ORIS_INSIGHT_LOCAL_TENANT_ENTITLEMENTS_ENABLED"), False
+            ),
+            local_tenant_id=values.get("ORIS_INSIGHT_LOCAL_TENANT_ID", "tenant-demo"),
+            local_plan_id=values.get("ORIS_INSIGHT_LOCAL_TENANT_PLAN", "free"),
+            billing_provider_integrated=False,
+            payment_processing_enabled=False,
         ),
     )

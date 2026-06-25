@@ -69,7 +69,7 @@ from app.evidence_harness import EvidenceHarnessConfig, TestRunSnapshot, write_h
 config = EvidenceHarnessConfig(
     module_name="Insight Rebuild Module 21",
     bootstrap_version=os.environ.get("VERSION", ""),
-    expected_unit_test_count=90,
+    expected_unit_test_count=115,
     result_filename="insight_rebuild_module_21_test_result.json",
     report_filename="insight_rebuild_module_21_execution_report.md",
     implemented_boundaries=(

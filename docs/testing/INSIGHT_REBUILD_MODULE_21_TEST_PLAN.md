@@ -31,20 +31,7 @@ Bootstrap Evidence Harness Migration
 
 ## Expected Unit Test Count
 
-- Module 6 API surface tests: 4
-- Module 7 orchestration tests: 4
-- Module 8 durable persistence tests: 4
-- Module 9 observability tests: 4
-- Module 10 commercial guardrail tests: 5
-- Module 11 persistent ledger tests: 4
-- Module 12 provider adapter tests: 5
-- Module 13 managed database transition tests: 5
-- Module 14 managed database adapter tests: 6
-- Module 15 remote runtime queue tests: 8
-- Module 16 tenant entitlement tests: 7
-- Module 17 reuse adoption tests: 7
-- Module 18 loop engineering tests: 8
-- Module 19 harness upgrade loop tests: 6
-- Module 20 evidence harness tests: 7
-- Module 21 bootstrap migration tests: 6
-- Expected total: 90
+The current full repository unittest discovery suite runs 115 tests after Module 21.
+
+- Module 21 bootstrap migration tests added in this module: 6
+- Expected full-suite total: 115

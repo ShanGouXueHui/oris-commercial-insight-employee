@@ -49,7 +49,7 @@ python3 -m unittest discover -s tests -p test_*.py -q
 
 ## Evidence Commit SHA
 
-Pending until evidence commit completes.
+be42381d5209ef3bf5dadcad34fd81c6cf952d9f
 
 ## Next Module
 

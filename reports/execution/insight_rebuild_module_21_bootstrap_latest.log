@@ -40,3 +40,9 @@ AssertionError: 999 is not None
 Ran 115 tests in 0.123s
 
 FAILED (failures=1)
+[main be42381] insight-rebuild(module-21): add bootstrap migration evidence
+ 4 files changed, 154 insertions(+), 29 deletions(-)
+ create mode 100644 reports/execution/insight_rebuild_module_21_bootstrap_latest.log
+ create mode 100644 reports/execution/insight_rebuild_module_21_execution_report.md
+ create mode 100644 reports/testing/insight_rebuild_module_21_test_result.json
+ rewrite reports/testing/latest_test_result.json (76%)

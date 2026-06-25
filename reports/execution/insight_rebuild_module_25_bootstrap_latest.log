@@ -36,3 +36,9 @@ Already up to date.
 Ran 144 tests in 0.158s
 
 OK
+[main 5d3d34e] insight-rebuild(module-25): add tenant middleware usage ledger evidence
+ 4 files changed, 155 insertions(+), 29 deletions(-)
+ create mode 100644 reports/execution/insight_rebuild_module_25_bootstrap_latest.log
+ create mode 100644 reports/execution/insight_rebuild_module_25_execution_report.md
+ create mode 100644 reports/testing/insight_rebuild_module_25_test_result.json
+ rewrite reports/testing/latest_test_result.json (73%)

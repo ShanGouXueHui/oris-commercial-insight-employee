@@ -4,7 +4,15 @@ Date: 2026-06-25
 
 ## Status
 
-prepared_pending_local_unit_validation
+accepted
+
+## Acceptance Evidence
+
+- Local validation evidence commit: `ffeb8a3909ea82178f50c38838fd0726518fdee8`
+- Evidence commit recorded in report: `7097ac44f176b38247b8d4e962652181ea36af0c`
+- Test command: `python3 -m unittest discover -s tests -p test_*.py -q`
+- Test exit code: `0`
+- Expected unit test count: `71`
 
 ## Purpose
 
@@ -59,10 +67,6 @@ Module 18 does not add:
 - autonomous production deployment;
 - hidden network access;
 - unlimited token execution.
-
-## Acceptance Rule
-
-Module 18 is accepted only after the official bootstrap script runs in the user-controlled local/server environment and pushes unit-test evidence to GitHub.
 
 ## Next Recommended Module After Acceptance
 

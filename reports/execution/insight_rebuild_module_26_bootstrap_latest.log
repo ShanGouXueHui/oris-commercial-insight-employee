@@ -37,3 +37,9 @@ Already up to date.
 Ran 151 tests in 0.212s
 
 OK
+[main de98bda] insight-rebuild(module-26): add durable tenant usage ledger evidence
+ 4 files changed, 157 insertions(+), 31 deletions(-)
+ create mode 100644 reports/execution/insight_rebuild_module_26_bootstrap_latest.log
+ create mode 100644 reports/execution/insight_rebuild_module_26_execution_report.md
+ create mode 100644 reports/testing/insight_rebuild_module_26_test_result.json
+ rewrite reports/testing/latest_test_result.json (61%)

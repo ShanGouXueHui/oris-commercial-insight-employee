@@ -4,7 +4,17 @@ Date: 2026-06-25
 
 ## Status
 
-implemented_pending_user_controlled_evidence
+accepted
+
+## Acceptance Evidence
+
+- User-controlled bootstrap evidence commit: `de607415d01cee72da49531e70f053eef1615d17`
+- Evidence report SHA fix commit: `23dc602da0ba3d131e54c560000e1b327fa9e3c3`
+- Product base commit tested by bootstrap: `f26235bac9630ddb5f7ab67280332e8672787ccd`
+- Bootstrap version: `2026-06-25-insight-rebuild-module-28-official`
+- Test command: `python3 -m unittest discover -s tests -p test_*.py -q`
+- Test exit code: `0`
+- Expected unit test count: `168`
 
 ## Purpose
 
@@ -19,7 +29,7 @@ Module 28 adds a bounded tenant operational audit event trail behind explicit co
 5. Health details visibility for the audit trail boundary.
 6. Unit tests for disabled defaults, in-memory records, SQLite persistence, metadata rows, builder behavior, summary flags, and health details.
 7. Product guide and test plan.
-8. Official Module 28 bootstrap script using `app.evidence_harness`.
+8. Official Module 28 bootstrap script.
 
 ## Safety Properties
 
@@ -29,18 +39,12 @@ Module 28 adds a bounded tenant operational audit event trail behind explicit co
 - No external storage service, billing provider, payment processor, provider call, remote runtime dispatch, or live external database connection is enabled.
 - Existing default request behavior remains unchanged.
 
-## Acceptance Boundary
-
-This module is not accepted yet. Acceptance requires user-controlled bootstrap execution, pushed GitHub evidence, and verification of:
+## Verified Evidence Files
 
 - `reports/testing/latest_test_result.json`
 - `reports/testing/insight_rebuild_module_28_test_result.json`
 - `reports/execution/insight_rebuild_module_28_execution_report.md`
 - `reports/execution/insight_rebuild_module_28_bootstrap_latest.log`
-
-## Expected Test Count
-
-The expected full-suite unittest count after Module 28 is 168.
 
 ## Next Recommended Module After Acceptance
 

@@ -15,6 +15,12 @@ from app.tenant_operational_audit import (
     summarize_tenant_operational_audit_trail,
     tenant_operational_audit_enabled,
 )
+from app.tenant_operational_audit_query import (
+    TenantOperationalAuditQueryRequest,
+    query_tenant_operational_audit,
+    summarize_tenant_operational_audit_query,
+    tenant_operational_audit_query_enabled,
+)
 
 
 class Module28TenantOperationalAuditTrailTests(unittest.TestCase):
@@ -109,6 +115,80 @@ class Module28TenantOperationalAuditTrailTests(unittest.TestCase):
         self.assertTrue(payload["tenant_operational_audit_trail"]["enabled"])
         self.assertFalse(payload["tenant_operational_audit_trail"]["external_storage_enabled"])
         self.assertFalse(payload["tenant_operational_audit_trail"]["live_external_action_enabled"])
+
+
+class Module29TenantOperationalAuditQueryTests(unittest.TestCase):
+    def test_query_disabled_by_default(self):
+        trail = InMemoryTenantOperationalAuditTrail()
+        trail.record_event("tenant_usage_visibility_read", "operator", "tenant-a", "2026-06", "read", "allowed")
+        result = query_tenant_operational_audit(TenantOperationalAuditQueryRequest(tenant_id="tenant-a"), trail=trail, env={})
+        self.assertFalse(tenant_operational_audit_query_enabled(env={}))
+        self.assertFalse(result.allowed)
+        self.assertEqual(result.reason, "tenant_operational_audit_query_disabled")
+        self.assertEqual(result.events, [])
+
+    def test_enabled_query_returns_matching_tenant_events(self):
+        trail = InMemoryTenantOperationalAuditTrail()
+        trail.record_event("tenant_usage_visibility_read", "operator", "tenant-a", "2026-06", "read", "allowed")
+        trail.record_event("tenant_usage_visibility_read", "operator", "tenant-b", "2026-06", "read", "allowed")
+        result = query_tenant_operational_audit(
+            TenantOperationalAuditQueryRequest(tenant_id="tenant-a"),
+            trail=trail,
+            env={"ORIS_INSIGHT_TENANT_OPERATIONAL_AUDIT_QUERY_ENABLED": "true"},
+        )
+        self.assertTrue(result.allowed)
+        self.assertEqual(result.reason, "tenant_operational_audit_query_allowed")
+        self.assertEqual(result.to_dict()["event_count"], 1)
+        self.assertEqual(result.events[0]["tenant_id"], "tenant-a")
+
+    def test_enabled_query_supports_all_tenants(self):
+        trail = InMemoryTenantOperationalAuditTrail()
+        trail.record_event("tenant_usage_visibility_read", "operator", "tenant-a", "2026-06", "read", "allowed")
+        trail.record_event("tenant_usage_visibility_read", "operator", "tenant-b", "2026-06", "read", "allowed")
+        result = query_tenant_operational_audit(
+            TenantOperationalAuditQueryRequest(tenant_id=None),
+            trail=trail,
+            env={"ORIS_INSIGHT_TENANT_OPERATIONAL_AUDIT_QUERY_ENABLED": "true"},
+        )
+        self.assertEqual(result.to_dict()["event_count"], 2)
+
+    def test_query_limit_is_bounded(self):
+        trail = InMemoryTenantOperationalAuditTrail()
+        for index in range(3):
+            trail.record_event("tenant_usage_visibility_read", "operator", "tenant-a", "2026-06", f"read-{index}", "allowed")
+        result = query_tenant_operational_audit(
+            TenantOperationalAuditQueryRequest(tenant_id="tenant-a", limit=2),
+            trail=trail,
+            env={"ORIS_INSIGHT_TENANT_OPERATIONAL_AUDIT_QUERY_ENABLED": "true"},
+        )
+        self.assertEqual(result.limit, 2)
+        self.assertEqual(result.to_dict()["event_count"], 2)
+
+    def test_query_reads_sqlite_trail(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            db_path = f"{tmpdir}/audit.sqlite3"
+            SQLiteTenantOperationalAuditTrail(db_path).record_event(
+                "tenant_usage_visibility_read", "operator", "tenant-a", "2026-06", "read", "allowed"
+            )
+            result = query_tenant_operational_audit(
+                TenantOperationalAuditQueryRequest(tenant_id="tenant-a"),
+                trail=SQLiteTenantOperationalAuditTrail(db_path),
+                env={"ORIS_INSIGHT_TENANT_OPERATIONAL_AUDIT_QUERY_ENABLED": "true"},
+            )
+        self.assertTrue(result.allowed)
+        self.assertEqual(result.to_dict()["event_count"], 1)
+        self.assertEqual(result.events[0]["tenant_id"], "tenant-a")
+
+    def test_summary_reports_safe_defaults(self):
+        disabled = summarize_tenant_operational_audit_query(env={})
+        enabled = summarize_tenant_operational_audit_query(
+            env={"ORIS_INSIGHT_TENANT_OPERATIONAL_AUDIT_QUERY_ENABLED": "true"}
+        )
+        self.assertFalse(disabled["enabled"])
+        self.assertTrue(enabled["enabled"])
+        self.assertTrue(disabled["read_only"])
+        self.assertFalse(disabled["external_storage_enabled"])
+        self.assertFalse(disabled["live_external_action_enabled"])
 
 
 if __name__ == "__main__":

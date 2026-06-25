@@ -15,9 +15,15 @@ from app.tenant_entitlements import (
     build_default_entitlement,
     evaluate_entitlement,
 )
+from app.tenant_usage_ledger import (
+    DEFAULT_TENANT_USAGE_LEDGER,
+    MODULE_24_TENANT_USAGE_LEDGER_VERSION,
+    TenantUsageLedger,
+)
 
 MODULE_22_TENANT_GUARDRAIL_VERSION = "2026-06-25-module-22"
 MODULE_23_TENANT_MIDDLEWARE_VERSION = "2026-06-25-module-23"
+MODULE_25_TENANT_MIDDLEWARE_USAGE_LEDGER_VERSION = "2026-06-25-module-25"
 TENANT_GUARDRAIL_BLOCKING_MODES = {"blocking", "enforce", "enforced"}
 TENANT_GUARDRAIL_OBSERVE_MODES = {"observe", "monitor", "disabled", "off"}
 
@@ -30,6 +36,8 @@ class TenantGuardrailPolicy:
     default_tenant_id: str = "anonymous"
     billing_provider_integrated: bool = False
     payment_processing_enabled: bool = False
+    tenant_usage_ledger_enabled: bool = False
+    tenant_usage_consume_on_allowed_request: bool = False
 
     def to_dict(self) -> dict[str, object]:
         return asdict(self)
@@ -48,6 +56,11 @@ class TenantGuardrailDecision:
     entitlement_enforcement_mode: str
     billing_provider_integrated: bool = False
     payment_processing_enabled: bool = False
+    tenant_middleware_usage_ledger_version: str = MODULE_25_TENANT_MIDDLEWARE_USAGE_LEDGER_VERSION
+    tenant_usage_ledger_enabled: bool = False
+    tenant_usage_ledger_version: str | None = None
+    tenant_usage_request_count: int | None = None
+    tenant_usage_consumed: bool = False
 
     def to_dict(self) -> dict[str, object]:
         return asdict(self)
@@ -76,6 +89,8 @@ def tenant_guardrail_policy_from_settings(settings: TenantGuardrailsSettings) ->
         default_tenant_id=settings.default_tenant_id,
         billing_provider_integrated=settings.billing_provider_integrated,
         payment_processing_enabled=settings.payment_processing_enabled,
+        tenant_usage_ledger_enabled=settings.tenant_usage_ledger_enabled,
+        tenant_usage_consume_on_allowed_request=settings.tenant_usage_consume_on_allowed_request,
     )
 
 
@@ -95,6 +110,8 @@ def _base_decision(
     entitlement_decision: EntitlementDecision | None,
     policy: TenantGuardrailPolicy,
     reason: str,
+    usage: UsageRecord | None = None,
+    usage_consumed: bool = False,
 ) -> TenantGuardrailDecision:
     return TenantGuardrailDecision(
         allowed=allowed,
@@ -108,6 +125,66 @@ def _base_decision(
         entitlement_enforcement_mode=policy.entitlement_enforcement_mode,
         billing_provider_integrated=policy.billing_provider_integrated,
         payment_processing_enabled=policy.payment_processing_enabled,
+        tenant_usage_ledger_enabled=policy.tenant_usage_ledger_enabled,
+        tenant_usage_ledger_version=MODULE_24_TENANT_USAGE_LEDGER_VERSION if policy.tenant_usage_ledger_enabled else None,
+        tenant_usage_request_count=usage.request_count if usage else None,
+        tenant_usage_consumed=usage_consumed,
+    )
+
+
+def _usage_from_ledger(
+    tenant_id: str,
+    usage: UsageRecord | None,
+    policy: TenantGuardrailPolicy,
+    tenant_usage_ledger: TenantUsageLedger | None,
+    now: datetime | None,
+) -> UsageRecord | None:
+    if usage is not None or not policy.tenant_usage_ledger_enabled:
+        return usage
+    active_ledger = tenant_usage_ledger or DEFAULT_TENANT_USAGE_LEDGER
+    return active_ledger.get_usage(tenant_id, now=now)
+
+
+def _consume_usage_if_configured(
+    tenant_id: str,
+    usage: UsageRecord | None,
+    policy: TenantGuardrailPolicy,
+    tenant_usage_ledger: TenantUsageLedger | None,
+    now: datetime | None,
+) -> tuple[UsageRecord | None, bool]:
+    if not (policy.tenant_usage_ledger_enabled and policy.tenant_usage_consume_on_allowed_request):
+        return usage, False
+    active_ledger = tenant_usage_ledger or DEFAULT_TENANT_USAGE_LEDGER
+    return active_ledger.consume(tenant_id, now=now), True
+
+
+def _allowed_decision(
+    tenant_id: str,
+    commercial_decision: GuardrailDecision,
+    entitlement_decision: EntitlementDecision | None,
+    policy: TenantGuardrailPolicy,
+    reason: str,
+    usage: UsageRecord | None,
+    tenant_usage_ledger: TenantUsageLedger | None,
+    now: datetime | None,
+) -> TenantGuardrailDecision:
+    final_usage, usage_consumed = _consume_usage_if_configured(
+        tenant_id,
+        usage,
+        policy,
+        tenant_usage_ledger,
+        now,
+    )
+    return _base_decision(
+        allowed=True,
+        status_code=200,
+        tenant_id=tenant_id,
+        commercial_decision=commercial_decision,
+        entitlement_decision=entitlement_decision,
+        policy=policy,
+        reason=reason,
+        usage=final_usage,
+        usage_consumed=usage_consumed,
     )
 
 
@@ -121,6 +198,7 @@ def evaluate_tenant_entitlement_guardrails(
     policy: TenantGuardrailPolicy | None = None,
     ledger: GuardrailLedger | None = None,
     now: datetime | None = None,
+    tenant_usage_ledger: TenantUsageLedger | None = None,
 ) -> TenantGuardrailDecision:
     active_policy = policy or TenantGuardrailPolicy()
     tenant_id = _tenant_id_from_headers(headers, active_policy)
@@ -145,27 +223,30 @@ def evaluate_tenant_entitlement_guardrails(
             policy=active_policy,
             reason="exempt_path_entitlement_skipped",
         )
-    entitlement_decision = evaluate_entitlement(tenant_id, entitlements, usage)
+    active_usage = _usage_from_ledger(tenant_id, usage, active_policy, tenant_usage_ledger, now)
+    entitlement_decision = evaluate_entitlement(tenant_id, entitlements, active_usage)
     entitlement_mode = active_policy.entitlement_enforcement_mode.strip().lower()
     if entitlement_mode in TENANT_GUARDRAIL_OBSERVE_MODES:
-        return _base_decision(
-            allowed=True,
-            status_code=200,
+        return _allowed_decision(
             tenant_id=tenant_id,
             commercial_decision=commercial_decision,
             entitlement_decision=entitlement_decision,
             policy=active_policy,
             reason="tenant_entitlement_observe_mode",
+            usage=active_usage,
+            tenant_usage_ledger=tenant_usage_ledger,
+            now=now,
         )
     if entitlement_mode not in TENANT_GUARDRAIL_BLOCKING_MODES:
-        return _base_decision(
-            allowed=True,
-            status_code=200,
+        return _allowed_decision(
             tenant_id=tenant_id,
             commercial_decision=commercial_decision,
             entitlement_decision=entitlement_decision,
             policy=active_policy,
             reason="tenant_entitlement_unknown_mode_fails_open",
+            usage=active_usage,
+            tenant_usage_ledger=tenant_usage_ledger,
+            now=now,
         )
     if active_policy.require_tenant_entitlement and not entitlement_decision.allowed:
         return _base_decision(
@@ -176,15 +257,17 @@ def evaluate_tenant_entitlement_guardrails(
             entitlement_decision=entitlement_decision,
             policy=active_policy,
             reason=f"tenant_entitlement_{entitlement_decision.reason}",
+            usage=active_usage,
         )
-    return _base_decision(
-        allowed=True,
-        status_code=200,
+    return _allowed_decision(
         tenant_id=tenant_id,
         commercial_decision=commercial_decision,
         entitlement_decision=entitlement_decision,
         policy=active_policy,
         reason="tenant_entitlement_allowed",
+        usage=active_usage,
+        tenant_usage_ledger=tenant_usage_ledger,
+        now=now,
     )
 
 
@@ -198,6 +281,8 @@ def summarize_tenant_guardrail_bridge(policy: TenantGuardrailPolicy | None = Non
         "require_tenant_entitlement": active_policy.require_tenant_entitlement,
         "billing_provider_integrated": active_policy.billing_provider_integrated,
         "payment_processing_enabled": active_policy.payment_processing_enabled,
+        "tenant_usage_ledger_enabled": active_policy.tenant_usage_ledger_enabled,
+        "tenant_usage_consume_on_allowed_request": active_policy.tenant_usage_consume_on_allowed_request,
         "local_deterministic_only": True,
     }
 
@@ -209,7 +294,28 @@ def summarize_tenant_middleware_activation(settings: TenantGuardrailsSettings) -
         "local_entitlements_enabled": settings.local_entitlements_enabled,
         "entitlement_enforcement_mode": settings.entitlement_enforcement_mode,
         "require_tenant_entitlement": settings.require_tenant_entitlement,
+        "tenant_usage_ledger_enabled": settings.tenant_usage_ledger_enabled,
+        "tenant_usage_consume_on_allowed_request": settings.tenant_usage_consume_on_allowed_request,
         "billing_provider_integrated": settings.billing_provider_integrated,
         "payment_processing_enabled": settings.payment_processing_enabled,
         "default_behavior_changed": settings.enabled,
+    }
+
+
+def summarize_tenant_middleware_usage_ledger_bridge(settings: TenantGuardrailsSettings) -> dict[str, object]:
+    request_path_changed = settings.enabled and (
+        settings.tenant_usage_ledger_enabled or settings.tenant_usage_consume_on_allowed_request
+    )
+    return {
+        "tenant_middleware_usage_ledger_version": MODULE_25_TENANT_MIDDLEWARE_USAGE_LEDGER_VERSION,
+        "tenant_middleware_version": MODULE_23_TENANT_MIDDLEWARE_VERSION,
+        "tenant_usage_ledger_version": MODULE_24_TENANT_USAGE_LEDGER_VERSION,
+        "tenant_guardrails_enabled": settings.enabled,
+        "tenant_usage_ledger_enabled": settings.tenant_usage_ledger_enabled,
+        "tenant_usage_consume_on_allowed_request": settings.tenant_usage_consume_on_allowed_request,
+        "request_path_unchanged_by_default": not request_path_changed,
+        "external_storage_enabled": False,
+        "live_external_action_enabled": False,
+        "billing_provider_integrated": settings.billing_provider_integrated,
+        "payment_processing_enabled": settings.payment_processing_enabled,
     }

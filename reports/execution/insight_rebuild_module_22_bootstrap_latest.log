@@ -33,3 +33,9 @@ Already up to date.
 Ran 122 tests in 0.129s
 
 OK
+[main 7bfeb15] insight-rebuild(module-22): add tenant guardrail evidence
+ 4 files changed, 152 insertions(+), 28 deletions(-)
+ create mode 100644 reports/execution/insight_rebuild_module_22_bootstrap_latest.log
+ create mode 100644 reports/execution/insight_rebuild_module_22_execution_report.md
+ create mode 100644 reports/testing/insight_rebuild_module_22_test_result.json
+ rewrite reports/testing/latest_test_result.json (73%)

@@ -10,13 +10,36 @@ STATUS = "passed" if TEST_RC == 0 else "failed"
 TEST_COMMAND = os.environ.get("TEST_COMMAND", "")
 PRODUCT_BASE_SHA = os.environ.get("PRODUCT_BASE_SHA", "")
 LOG_FILE = os.environ.get("LOG_FILE", "")
-MODULE_NUMBER = "29" if "module-29" in VERSION else "28"
-EXPECTED_COUNT = 174 if MODULE_NUMBER == "29" else 168
+if "module-30" in VERSION:
+    MODULE_NUMBER = "30"
+elif "module-29" in VERSION:
+    MODULE_NUMBER = "29"
+else:
+    MODULE_NUMBER = "28"
+EXPECTED_COUNT = {"28": 168, "29": 174, "30": 179}[MODULE_NUMBER]
 MODULE_NAME = f"Insight Rebuild Module {MODULE_NUMBER}"
 RESULT_FILE = f"reports/testing/insight_rebuild_module_{MODULE_NUMBER}_test_result.json"
 REPORT_FILE = f"reports/execution/insight_rebuild_module_{MODULE_NUMBER}_execution_report.md"
 
-if MODULE_NUMBER == "29":
+if MODULE_NUMBER == "30":
+    checks = [
+        "prior_module_test_compatibility",
+        "retention_policy_disabled_by_default",
+        "retention_policy_can_be_enabled_explicitly",
+        "retention_days_are_bounded",
+        "retention_summary_is_visibility_only",
+        "invalid_retention_days_falls_back_to_default",
+    ]
+    flags = {
+        "tenant_operational_audit_retention": True,
+        "tenant_operational_audit_retention_default_enabled": False,
+        "visibility_only": True,
+        "explicit_configuration_required": True,
+        "request_path_unchanged_by_default": True,
+        "tenant_operational_audit_retention_version": "2026-06-25-module-30",
+    }
+    next_module = "Module 31 should proceed only after Module 30 evidence is verified."
+elif MODULE_NUMBER == "29":
     checks = [
         "prior_module_test_compatibility",
         "query_disabled_by_default",
@@ -54,7 +77,7 @@ else:
         "request_path_unchanged_by_default": True,
         "tenant_operational_audit_version": "2026-06-25-module-28",
     }
-    next_module = "Module 29 should proceed only after Module 28 user-controlled evidence is pushed and verified."
+    next_module = "Module 29 should proceed only after Module 28 evidence is verified."
 
 payload = {
     "module": MODULE_NAME,

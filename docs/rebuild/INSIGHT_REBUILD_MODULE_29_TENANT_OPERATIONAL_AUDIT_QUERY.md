@@ -30,9 +30,27 @@ Module 29 adds a bounded read-only tenant operational audit query helper behind 
 - No external storage service, billing provider, payment processor, provider call, remote runtime dispatch, or live external database connection is enabled.
 - Existing default request behavior remains unchanged.
 
+## Embedded Test Plan
+
+Command:
+
+`python3 -m unittest discover -s tests -p test_*.py -q`
+
+Required coverage:
+
+1. Prior modules remain compatible.
+2. Audit query is disabled by default.
+3. Enabled query returns matching tenant events.
+4. Enabled query supports all-tenant local visibility.
+5. Query limit is bounded.
+6. Query reads SQLite audit trail records.
+7. Summary reports safe defaults and explicit enablement.
+8. Health details reports Module 29 query summary.
+9. Official Module 29 bootstrap writes evidence.
+
 ## Acceptance Boundary
 
-This module is not accepted yet. Acceptance requires user-controlled bootstrap execution, pushed GitHub evidence, and verification of:
+This module is not accepted yet. Acceptance requires execution evidence and verification of:
 
 - `reports/testing/latest_test_result.json`
 - `reports/testing/insight_rebuild_module_29_test_result.json`

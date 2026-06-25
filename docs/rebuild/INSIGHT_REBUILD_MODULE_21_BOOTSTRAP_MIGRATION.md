@@ -4,7 +4,15 @@ Date: 2026-06-25
 
 ## Status
 
-prepared_pending_local_unit_validation
+accepted
+
+## Acceptance Evidence
+
+- Local validation evidence commit: `486bf27e6f38a28359b4a29b2de6e465d3b01e94`
+- Evidence commit recorded in report: `a004997d512f3d0765310a3a222ce7851db040a5`
+- Test command: `python3 -m unittest discover -s tests -p test_*.py -q`
+- Test exit code: `0`
+- Expected unit test count: `115`
 
 ## Purpose
 
@@ -46,10 +54,6 @@ Module 21 does not add:
 - live provider calls;
 - live remote runtime dispatch.
 
-## Acceptance Rule
-
-Module 21 is accepted only after the official bootstrap script runs in the user-controlled local/server environment and pushes unit-test evidence to GitHub.
-
 ## Next Recommended Module After Acceptance
 
-Module 22 should either migrate another selected bootstrap script to `app.evidence_harness`, or integrate tenant entitlements into commercial guardrails.
+Module 22 should integrate tenant entitlements into commercial guardrails while keeping all checks local, deterministic, and billing-provider-free.

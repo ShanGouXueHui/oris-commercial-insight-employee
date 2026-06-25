@@ -31,3 +31,9 @@ Already up to date.
 Ran 109 tests in 0.128s
 
 OK
+[main c8f1c4d] insight-rebuild(module-20): add evidence harness evidence
+ 4 files changed, 145 insertions(+), 29 deletions(-)
+ create mode 100644 reports/execution/insight_rebuild_module_20_bootstrap_latest.log
+ create mode 100644 reports/execution/insight_rebuild_module_20_execution_report.md
+ create mode 100644 reports/testing/insight_rebuild_module_20_test_result.json
+ rewrite reports/testing/latest_test_result.json (78%)

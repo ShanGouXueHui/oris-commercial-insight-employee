@@ -38,3 +38,9 @@ Already up to date.
 Ran 160 tests in 0.266s
 
 OK
+[main 03f2b6a] insight-rebuild(module-27): add tenant usage admin api evidence
+ 4 files changed, 171 insertions(+), 31 deletions(-)
+ create mode 100644 reports/execution/insight_rebuild_module_27_bootstrap_latest.log
+ create mode 100644 reports/execution/insight_rebuild_module_27_execution_report.md
+ create mode 100644 reports/testing/insight_rebuild_module_27_test_result.json
+ rewrite reports/testing/latest_test_result.json (62%)

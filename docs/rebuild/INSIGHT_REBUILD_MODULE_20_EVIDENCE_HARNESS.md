@@ -4,7 +4,15 @@ Date: 2026-06-25
 
 ## Status
 
-prepared_pending_local_unit_validation
+accepted
+
+## Acceptance Evidence
+
+- Local validation evidence commit: `f03bdec2e3ef01cb547ccf226cafe8fd5ab66a7a`
+- Evidence commit recorded in report: `c8f1c4d6a0df19efcf8d51d5edd0ff1cdb3bff37`
+- Test command: `python3 -m unittest discover -s tests -p test_*.py -q`
+- Test exit code: `0`
+- Expected unit test count: `84`
 
 ## Purpose
 
@@ -42,10 +50,6 @@ Module 20 does not add:
 - automatic migration of older bootstrap scripts;
 - live provider calls;
 - live remote runtime dispatch.
-
-## Acceptance Rule
-
-Module 20 is accepted only after the official bootstrap script runs in the user-controlled local/server environment and pushes unit-test evidence to GitHub.
 
 ## Next Recommended Module After Acceptance
 

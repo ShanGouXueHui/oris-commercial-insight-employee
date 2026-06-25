@@ -5,10 +5,19 @@ from datetime import datetime
 from typing import Mapping
 
 from app.commercial_guardrails import GuardrailDecision, GuardrailLedger, evaluate_guardrails
-from app.config import CommercialGuardrailsSettings
-from app.tenant_entitlements import EntitlementDecision, TenantEntitlementRecord, UsageRecord, evaluate_entitlement
+from app.config import CommercialGuardrailsSettings, TenantGuardrailsSettings
+from app.tenant_entitlements import (
+    DEFAULT_PLANS,
+    EntitlementDecision,
+    TenantEntitlementRecord,
+    TenantRecord,
+    UsageRecord,
+    build_default_entitlement,
+    evaluate_entitlement,
+)
 
 MODULE_22_TENANT_GUARDRAIL_VERSION = "2026-06-25-module-22"
+MODULE_23_TENANT_MIDDLEWARE_VERSION = "2026-06-25-module-23"
 TENANT_GUARDRAIL_BLOCKING_MODES = {"blocking", "enforce", "enforced"}
 TENANT_GUARDRAIL_OBSERVE_MODES = {"observe", "monitor", "disabled", "off"}
 
@@ -57,6 +66,25 @@ def _tenant_id_from_headers(headers: Mapping[str, str], policy: TenantGuardrailP
     if tenant_id:
         return tenant_id[:80]
     return policy.default_tenant_id
+
+
+def tenant_guardrail_policy_from_settings(settings: TenantGuardrailsSettings) -> TenantGuardrailPolicy:
+    return TenantGuardrailPolicy(
+        entitlement_enforcement_mode=settings.entitlement_enforcement_mode,
+        require_tenant_entitlement=settings.require_tenant_entitlement,
+        tenant_header=settings.tenant_header,
+        default_tenant_id=settings.default_tenant_id,
+        billing_provider_integrated=settings.billing_provider_integrated,
+        payment_processing_enabled=settings.payment_processing_enabled,
+    )
+
+
+def build_local_tenant_entitlements(settings: TenantGuardrailsSettings) -> tuple[TenantEntitlementRecord, ...]:
+    if not settings.local_entitlements_enabled:
+        return ()
+    plan = next((item for item in DEFAULT_PLANS if item.plan_id == settings.local_plan_id), DEFAULT_PLANS[0])
+    tenant = TenantRecord(tenant_id=settings.local_tenant_id, display_name=settings.local_tenant_id)
+    return (build_default_entitlement(tenant, plan, effective_from="2026-06-25T00:00:00+00:00"),)
 
 
 def _base_decision(
@@ -171,4 +199,17 @@ def summarize_tenant_guardrail_bridge(policy: TenantGuardrailPolicy | None = Non
         "billing_provider_integrated": active_policy.billing_provider_integrated,
         "payment_processing_enabled": active_policy.payment_processing_enabled,
         "local_deterministic_only": True,
+    }
+
+
+def summarize_tenant_middleware_activation(settings: TenantGuardrailsSettings) -> dict[str, object]:
+    return {
+        "tenant_middleware_version": MODULE_23_TENANT_MIDDLEWARE_VERSION,
+        "tenant_guardrails_enabled": settings.enabled,
+        "local_entitlements_enabled": settings.local_entitlements_enabled,
+        "entitlement_enforcement_mode": settings.entitlement_enforcement_mode,
+        "require_tenant_entitlement": settings.require_tenant_entitlement,
+        "billing_provider_integrated": settings.billing_provider_integrated,
+        "payment_processing_enabled": settings.payment_processing_enabled,
+        "default_behavior_changed": settings.enabled,
     }

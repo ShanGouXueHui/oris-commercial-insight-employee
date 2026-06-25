@@ -4,7 +4,15 @@ Date: 2026-06-25
 
 ## Status
 
-prepared_pending_local_unit_validation
+accepted
+
+## Acceptance Evidence
+
+- Local validation evidence commit: `57acd03e0c33af6c337bd7003d924478a14175fa`
+- Evidence commit recorded in report: `bd2167ef84c05a6c5c3e80ffab2563dbdd4e1d6a`
+- Test command: `python3 -m unittest discover -s tests -p test_*.py -q`
+- Test exit code: `0`
+- Expected unit test count: `63`
 
 ## Purpose
 
@@ -54,15 +62,6 @@ Module 17 does not add:
 - live provider calls;
 - live remote queue dispatch.
 
-## Acceptance Rule
-
-Module 17 is accepted only after the official bootstrap script runs in the user-controlled local/server environment and pushes unit-test evidence to GitHub.
-
 ## Next Recommended Module After Acceptance
 
-Module 18 should focus on one of:
-
-1. OpenClaw/harness upgrade implementation using the reuse adoption boundary;
-2. tenant entitlement integration into commercial guardrails;
-3. production deployment packaging;
-4. controlled non-production smoke for a selected live boundary.
+Module 18 should focus on Loop Engineering adoption for ORIS pages and harness orchestration, using reusable skills/OpenClaw components first and keeping all loops bounded by evidence, budget, and safety gates.

@@ -66,6 +66,11 @@ Rules:
 
 Module 25 should connect the Module 24 tenant usage ledger to the Module 23 tenant middleware behind explicit configuration. Default behavior must remain unchanged. Use `app.evidence_harness` for the official bootstrap.
 
+## Continuation Files
+
+- `docs/engineering/OPERATING_CONTEXT_AND_RULES_2026-06-25.md`
+- `docs/continuation/NEXT_CHAT_START_PROMPT_2026-06-25.md`
+
 ## Context Note
 
 The current chat is long. Continue from GitHub documents rather than chat memory.

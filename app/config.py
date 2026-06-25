@@ -7,6 +7,7 @@ from typing import Mapping
 PRODUCT_API_VERSION = "0.2.0"
 RUNTIME_V2_FINAL_REFERENCE = "896bdc67942a27cea98b8a4eb8f49d946795a741"
 MODULE_8_EVIDENCE_SCHEMA_VERSION = "2026-06-24-module-8"
+MODULE_26_TENANT_USAGE_LEDGER_STORAGE_SCHEMA_VERSION = "2026-06-25-module-26"
 
 
 def _bool_from_env(value: str | None, default: bool) -> bool:
@@ -104,6 +105,9 @@ class TenantGuardrailsSettings:
     local_plan_id: str = "free"
     tenant_usage_ledger_enabled: bool = False
     tenant_usage_consume_on_allowed_request: bool = False
+    tenant_usage_ledger_storage: str = "in_memory"
+    tenant_usage_ledger_path: str = "reports/tenant_usage/tenant_usage_ledger.sqlite3"
+    tenant_usage_ledger_schema_version: str = MODULE_26_TENANT_USAGE_LEDGER_STORAGE_SCHEMA_VERSION
     billing_provider_integrated: bool = False
     payment_processing_enabled: bool = False
 
@@ -198,6 +202,15 @@ def load_product_settings(env: Mapping[str, str] | None = None) -> ProductSettin
             ),
             tenant_usage_consume_on_allowed_request=_bool_from_env(
                 values.get("ORIS_INSIGHT_TENANT_USAGE_CONSUME_ON_ALLOWED_REQUEST"), False
+            ),
+            tenant_usage_ledger_storage=values.get("ORIS_INSIGHT_TENANT_USAGE_LEDGER_STORAGE", "in_memory"),
+            tenant_usage_ledger_path=values.get(
+                "ORIS_INSIGHT_TENANT_USAGE_LEDGER_PATH",
+                "reports/tenant_usage/tenant_usage_ledger.sqlite3",
+            ),
+            tenant_usage_ledger_schema_version=values.get(
+                "ORIS_INSIGHT_TENANT_USAGE_LEDGER_SCHEMA_VERSION",
+                MODULE_26_TENANT_USAGE_LEDGER_STORAGE_SCHEMA_VERSION,
             ),
             billing_provider_integrated=False,
             payment_processing_enabled=False,

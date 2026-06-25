@@ -1,13 +1,17 @@
 from __future__ import annotations
 
 import os
+import uuid
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from typing import Mapping
 
 MODULE_30_TENANT_OPERATIONAL_AUDIT_RETENTION_VERSION = "2026-06-25-module-30"
+MODULE_31_LOCAL_AUDIT_MANIFEST_VERSION = "2026-06-25-module-31"
 DEFAULT_RETENTION_DAYS = 90
 MIN_RETENTION_DAYS = 1
 MAX_RETENTION_DAYS = 3650
+MAX_MANIFEST_EVENT_COUNT = 1000
 
 
 def _env_bool(values: Mapping[str, str], name: str, default: bool) -> bool:
@@ -33,6 +37,18 @@ def _bounded_days(days: int) -> int:
     if days > MAX_RETENTION_DAYS:
         return MAX_RETENTION_DAYS
     return days
+
+
+def _bounded_count(value: int) -> int:
+    if value < 0:
+        return 0
+    if value > MAX_MANIFEST_EVENT_COUNT:
+        return MAX_MANIFEST_EVENT_COUNT
+    return value
+
+
+def _utc_now() -> str:
+    return datetime.now(timezone.utc).isoformat()
 
 
 @dataclass(frozen=True)
@@ -73,3 +89,55 @@ def summarize_tenant_operational_audit_retention_policy(
     env: Mapping[str, str] | None = None,
 ) -> dict[str, object]:
     return build_tenant_operational_audit_retention_policy(env=env).to_dict()
+
+
+def local_audit_manifest_enabled(env: Mapping[str, str] | None = None) -> bool:
+    values = os.environ if env is None else env
+    return _env_bool(values, "ORIS_INSIGHT_LOCAL_AUDIT_MANIFEST_ENABLED", False)
+
+
+def build_local_audit_manifest(
+    event_count: int = 0,
+    tenant_id: str | None = None,
+    env: Mapping[str, str] | None = None,
+) -> dict[str, object]:
+    values = os.environ if env is None else env
+    if not local_audit_manifest_enabled(values):
+        return {
+            "allowed": False,
+            "reason": "local_audit_manifest_disabled",
+            "local_audit_manifest_version": MODULE_31_LOCAL_AUDIT_MANIFEST_VERSION,
+            "manifest_only": True,
+            "file_written": False,
+            "external_storage_enabled": False,
+            "live_external_action_enabled": False,
+        }
+    return {
+        "allowed": True,
+        "reason": "local_audit_manifest_generated",
+        "manifest_id": str(uuid.uuid4()),
+        "tenant_id": tenant_id,
+        "event_count": _bounded_count(int(event_count)),
+        "generated_at": _utc_now(),
+        "local_audit_manifest_version": MODULE_31_LOCAL_AUDIT_MANIFEST_VERSION,
+        "manifest_only": True,
+        "file_written": False,
+        "external_storage_enabled": False,
+        "live_external_action_enabled": False,
+    }
+
+
+def summarize_local_audit_manifest(env: Mapping[str, str] | None = None) -> dict[str, object]:
+    values = os.environ if env is None else env
+    enabled = local_audit_manifest_enabled(values)
+    return {
+        "local_audit_manifest_version": MODULE_31_LOCAL_AUDIT_MANIFEST_VERSION,
+        "enabled": enabled,
+        "enabled_by_default": False,
+        "manifest_only": True,
+        "file_written": False,
+        "explicit_configuration_required": True,
+        "request_path_unchanged_by_default": not enabled,
+        "external_storage_enabled": False,
+        "live_external_action_enabled": False,
+    }

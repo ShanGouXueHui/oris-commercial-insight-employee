@@ -1,6 +1,6 @@
 # Insight Rebuild Module 16 bootstrap log
 version=2026-06-24-insight-rebuild-module-16-official
-started_at=2026-06-24T21:20:50Z
+started_at=2026-06-25T18:27:14Z
 product_dir=/home/admin/projects/oris-commercial-insight-employee
 branch=main
 python_bin=python3
@@ -12,6 +12,7 @@ M	reports/execution/insight_rebuild_module_12_bootstrap_latest.log
 M	reports/execution/insight_rebuild_module_13_bootstrap_latest.log
 M	reports/execution/insight_rebuild_module_14_bootstrap_latest.log
 M	reports/execution/insight_rebuild_module_15_bootstrap_latest.log
+M	reports/execution/insight_rebuild_module_16_bootstrap_latest.log
 M	reports/execution/insight_rebuild_module_1_bootstrap_latest.log
 M	reports/execution/insight_rebuild_module_2_bootstrap_latest.log
 M	reports/execution/insight_rebuild_module_3_bootstrap_latest.log
@@ -24,12 +25,6 @@ From github.com:ShanGouXueHui/oris-commercial-insight-employee
  * branch            main       -> FETCH_HEAD
 Already up to date.
 ----------------------------------------------------------------------
-Ran 81 tests in 0.124s
+Ran 81 tests in 0.121s
 
 OK
-[main 5fbf09a] insight-rebuild(module-16): add tenant entitlement evidence
- 4 files changed, 154 insertions(+), 29 deletions(-)
- create mode 100644 reports/execution/insight_rebuild_module_16_bootstrap_latest.log
- create mode 100644 reports/execution/insight_rebuild_module_16_execution_report.md
- create mode 100644 reports/testing/insight_rebuild_module_16_test_result.json
- rewrite reports/testing/latest_test_result.json (78%)

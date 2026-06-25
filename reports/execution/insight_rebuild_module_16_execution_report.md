@@ -10,7 +10,7 @@ Tenant and Entitlement Schema Boundary
 
 ## Product Base Commit
 
-90fc52e5618f7b8d589a1a72ac3fd65835e5e723
+4b705d7eb4cce5beeed1fd79c0412b53e3d4e23f
 
 ## Test Command
 
@@ -46,7 +46,7 @@ python3 -m unittest discover -s tests -p test_*.py -q
 
 ## Insight Rebuild Module 16 Evidence Commit SHA
 
-5fbf09a3fa3ffdbc349e1d5628f46a45b28cfb6c
+Pending until evidence commit completes.
 
 ## Next Module
 

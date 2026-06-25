@@ -2,10 +2,10 @@
   "module": "Insight Rebuild Module 16",
   "bootstrap_version": "2026-06-24-insight-rebuild-module-16-official",
   "status": "passed",
-  "generated_at": "2026-06-24T21:20:50.926671+00:00",
+  "generated_at": "2026-06-25T18:27:15.250058+00:00",
   "test_command": "python3 -m unittest discover -s tests -p test_*.py -q",
   "test_exit_code": 0,
-  "product_base_sha": "90fc52e5618f7b8d589a1a72ac3fd65835e5e723",
+  "product_base_sha": "4b705d7eb4cce5beeed1fd79c0412b53e3d4e23f",
   "tenant_entitlement_boundary": true,
   "tenant_schema_tables": [
     "tenants",

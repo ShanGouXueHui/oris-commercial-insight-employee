@@ -4,7 +4,15 @@ Date: 2026-06-24
 
 ## Status
 
-prepared_pending_local_unit_validation
+accepted
+
+## Acceptance Evidence
+
+- Local validation evidence commit: `fe25000f48ded18d31c1c9bdc6367fe21241cc4c`
+- Evidence commit recorded in report: `48d65193b21abe78b2967df0a77f208c5e682604`
+- Test command: `python3 -m unittest discover -s tests -p test_*.py -q`
+- Test exit code: `0`
+- Expected unit test count: `56`
 
 ## Purpose
 
@@ -53,15 +61,6 @@ Module 16 does not add:
 - payment provider webhooks;
 - customer-facing subscription portal.
 
-## Acceptance Rule
-
-Module 16 is accepted only after the official bootstrap script runs in the user-controlled local/server environment and pushes unit-test evidence to GitHub.
-
 ## Next Recommended Module After Acceptance
 
-Module 17 should focus on one of:
-
-1. tenant entitlement integration into commercial guardrails;
-2. production deployment packaging;
-3. remote runtime queue live smoke in a controlled non-production environment;
-4. provider-backed generation smoke with explicitly configured safe credentials.
+Module 17 should evaluate reusable GitHub/OpenClaw skills, harness upgrades, and AGENTS.md or agent.md reuse before building more custom scaffolding.

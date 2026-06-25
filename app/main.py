@@ -19,6 +19,7 @@ from app.tenant_guardrails import (
     summarize_tenant_middleware_usage_ledger_bridge,
     tenant_guardrail_policy_from_settings,
 )
+from app.tenant_usage_ledger import build_tenant_usage_ledger, summarize_tenant_usage_ledger
 
 
 app = FastAPI(
@@ -41,6 +42,9 @@ async def commercial_guardrail_middleware(request: Request, call_next):
     settings = load_product_settings()
     ledger = build_guardrail_ledger()
     if settings.tenant_guardrails.enabled:
+        tenant_usage_ledger = None
+        if settings.tenant_guardrails.tenant_usage_ledger_enabled:
+            tenant_usage_ledger = build_tenant_usage_ledger(settings.tenant_guardrails)
         tenant_decision = evaluate_tenant_entitlement_guardrails(
             path=request.url.path,
             method=request.method,
@@ -49,6 +53,7 @@ async def commercial_guardrail_middleware(request: Request, call_next):
             entitlements=build_local_tenant_entitlements(settings.tenant_guardrails),
             policy=tenant_guardrail_policy_from_settings(settings.tenant_guardrails),
             ledger=ledger,
+            tenant_usage_ledger=tenant_usage_ledger,
         )
         commercial_decision = tenant_decision.commercial_guardrail
         if not tenant_decision.allowed:
@@ -198,8 +203,10 @@ async def health_details() -> Dict[str, object]:
         "module_11_persistent_quota_ledger": True,
         "module_23_tenant_guardrail_middleware": True,
         "module_25_tenant_middleware_usage_ledger_bridge": True,
+        "module_26_durable_tenant_usage_ledger": True,
         "tenant_guardrails": settings.tenant_guardrails.to_dict(),
         "tenant_middleware_usage_ledger": summarize_tenant_middleware_usage_ledger_bridge(settings.tenant_guardrails),
+        "tenant_usage_ledger_storage": summarize_tenant_usage_ledger(settings=settings.tenant_guardrails),
         "dependencies": {"fastapi": "ok", "pydantic": "ok", "sqlite3": "ok"},
         "observability": observation.to_dict(),
     }

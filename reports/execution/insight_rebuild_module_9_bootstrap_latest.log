@@ -43,3 +43,7 @@ INFO:     Finished server process [796149]
  create mode 100644 reports/testing/insight_rebuild_module_9_smoke_result.json
  create mode 100644 reports/testing/insight_rebuild_module_9_test_result.json
  rewrite reports/testing/latest_test_result.json (94%)
+[main 80b2b40] insight-rebuild(module-9): record smoke evidence commit sha
+ 2 files changed, 8 insertions(+), 1 deletion(-)
+To github.com:ShanGouXueHui/oris-commercial-insight-employee.git
+   959ce4e..80b2b40  main -> main

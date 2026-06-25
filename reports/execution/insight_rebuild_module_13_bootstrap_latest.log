@@ -30,3 +30,7 @@ OK
  create mode 100644 reports/execution/insight_rebuild_module_13_execution_report.md
  create mode 100644 reports/testing/insight_rebuild_module_13_test_result.json
  rewrite reports/testing/latest_test_result.json (74%)
+[main 8147315] insight-rebuild(module-13): record managed database evidence commit sha
+ 2 files changed, 7 insertions(+), 1 deletion(-)
+To github.com:ShanGouXueHui/oris-commercial-insight-employee.git
+   1394788..8147315  main -> main

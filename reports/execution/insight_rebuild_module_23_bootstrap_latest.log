@@ -40,3 +40,7 @@ OK
  create mode 100644 reports/execution/insight_rebuild_module_23_execution_report.md
  create mode 100644 reports/testing/insight_rebuild_module_23_test_result.json
  rewrite reports/testing/latest_test_result.json (76%)
+[main a44da75] insight-rebuild(module-23): record tenant middleware evidence commit sha
+ 2 files changed, 7 insertions(+), 1 deletion(-)
+To github.com:ShanGouXueHui/oris-commercial-insight-employee.git
+   cbbedf0..a44da75  main -> main

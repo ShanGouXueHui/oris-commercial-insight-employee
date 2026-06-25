@@ -37,3 +37,7 @@ OK
  create mode 100644 reports/execution/insight_rebuild_module_20_execution_report.md
  create mode 100644 reports/testing/insight_rebuild_module_20_test_result.json
  rewrite reports/testing/latest_test_result.json (78%)
+[main f03bdec] insight-rebuild(module-20): record evidence harness commit sha
+ 2 files changed, 7 insertions(+), 1 deletion(-)
+To github.com:ShanGouXueHui/oris-commercial-insight-employee.git
+   8b8dfd3..f03bdec  main -> main

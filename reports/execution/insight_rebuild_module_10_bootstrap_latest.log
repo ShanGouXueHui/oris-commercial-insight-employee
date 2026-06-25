@@ -27,3 +27,7 @@ OK
  create mode 100644 reports/execution/insight_rebuild_module_10_execution_report.md
  create mode 100644 reports/testing/insight_rebuild_module_10_test_result.json
  rewrite reports/testing/latest_test_result.json (90%)
+[main c7f803d] insight-rebuild(module-10): record guardrail evidence commit sha
+ 2 files changed, 7 insertions(+), 1 deletion(-)
+To github.com:ShanGouXueHui/oris-commercial-insight-employee.git
+   6ec4d95..c7f803d  main -> main

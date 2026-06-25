@@ -39,3 +39,7 @@ OK
  create mode 100644 reports/execution/insight_rebuild_module_22_execution_report.md
  create mode 100644 reports/testing/insight_rebuild_module_22_test_result.json
  rewrite reports/testing/latest_test_result.json (73%)
+[main b3ab1e1] insight-rebuild(module-22): record tenant guardrail evidence commit sha
+ 2 files changed, 7 insertions(+), 1 deletion(-)
+To github.com:ShanGouXueHui/oris-commercial-insight-employee.git
+   5f1e14c..b3ab1e1  main -> main

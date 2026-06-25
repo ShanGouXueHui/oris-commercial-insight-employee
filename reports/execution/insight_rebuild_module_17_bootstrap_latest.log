@@ -34,3 +34,7 @@ OK
  create mode 100644 reports/execution/insight_rebuild_module_17_execution_report.md
  create mode 100644 reports/testing/insight_rebuild_module_17_test_result.json
  rewrite reports/testing/latest_test_result.json (77%)
+[main 57acd03] insight-rebuild(module-17): record reuse adoption evidence commit sha
+ 2 files changed, 7 insertions(+), 1 deletion(-)
+To github.com:ShanGouXueHui/oris-commercial-insight-employee.git
+   94a7cab..57acd03  main -> main

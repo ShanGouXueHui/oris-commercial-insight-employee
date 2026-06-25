@@ -4,7 +4,15 @@ Date: 2026-06-25
 
 ## Status
 
-prepared_pending_local_unit_validation
+accepted
+
+## Acceptance Evidence
+
+- Local validation evidence commit: `b3ab1e10a725fa2b19def561a0a2f21a344191da`
+- Evidence commit recorded in report: `7bfeb151a1bee40c4d43ed9351d0b55e899aac24`
+- Test command: `python3 -m unittest discover -s tests -p test_*.py -q`
+- Test exit code: `0`
+- Expected unit test count: `122`
 
 ## Purpose
 
@@ -54,10 +62,6 @@ Module 22 does not add:
 - live provider calls;
 - live remote runtime dispatch.
 
-## Acceptance Rule
-
-Module 22 is accepted only after the official bootstrap script runs in the user-controlled local/server environment and pushes unit-test evidence to GitHub.
-
 ## Next Recommended Module After Acceptance
 
-Module 23 should either activate the tenant guardrail bridge in the API middleware behind explicit configuration, or continue selective bootstrap migration to `app.evidence_harness`.
+Module 23 should activate the tenant guardrail bridge in API middleware behind explicit configuration, while preserving default production behavior.

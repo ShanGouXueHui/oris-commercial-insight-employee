@@ -4,7 +4,15 @@ Date: 2026-06-25
 
 ## Status
 
-prepared_pending_local_unit_validation
+accepted
+
+## Acceptance Evidence
+
+- Local validation evidence commit: `a44da751b6cdbf0fe4b56ba9f3d4020e59c60ff5`
+- Evidence commit recorded in report: `8ae78b3aa4de9ab458e90f7c1b20b5062e0ec9b5`
+- Test command: `python3 -m unittest discover -s tests -p test_*.py -q`
+- Test exit code: `0`
+- Expected unit test count: `130`
 
 ## Purpose
 
@@ -56,10 +64,6 @@ Module 23 does not add:
 - live provider calls;
 - live remote runtime dispatch.
 
-## Acceptance Rule
-
-Module 23 is accepted only after the official bootstrap script runs in the user-controlled local/server environment and pushes unit-test evidence to GitHub.
-
 ## Next Recommended Module After Acceptance
 
-Module 24 should focus on a local tenant entitlement usage ledger, or a selective migration of another bootstrap script to `app.evidence_harness`.
+Module 24 should focus on a local tenant entitlement usage ledger so enabled tenant middleware can consume deterministic monthly usage without external storage.

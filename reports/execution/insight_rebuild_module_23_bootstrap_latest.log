@@ -34,3 +34,9 @@ Already up to date.
 Ran 130 tests in 0.142s
 
 OK
+[main 8ae78b3] insight-rebuild(module-23): add tenant middleware evidence
+ 4 files changed, 153 insertions(+), 30 deletions(-)
+ create mode 100644 reports/execution/insight_rebuild_module_23_bootstrap_latest.log
+ create mode 100644 reports/execution/insight_rebuild_module_23_execution_report.md
+ create mode 100644 reports/testing/insight_rebuild_module_23_test_result.json
+ rewrite reports/testing/latest_test_result.json (76%)

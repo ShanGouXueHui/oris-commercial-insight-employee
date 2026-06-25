@@ -84,7 +84,12 @@ class CommercialGuardrailsSettings:
     quota_per_day: int = 1000
     default_client_id: str = "anonymous"
     error_policy: str = "structured_json"
-    exempt_paths: tuple[str, ...] = ("/healthz", "/healthz/details", "/healthz/observability")
+    exempt_paths: tuple[str, ...] = (
+        "/healthz",
+        "/healthz/details",
+        "/healthz/observability",
+        "/insights/admin/tenant-usage",
+    )
 
     def to_dict(self) -> dict[str, object]:
         payload = asdict(self)
@@ -108,11 +113,16 @@ class TenantGuardrailsSettings:
     tenant_usage_ledger_storage: str = "in_memory"
     tenant_usage_ledger_path: str = "reports/tenant_usage/tenant_usage_ledger.sqlite3"
     tenant_usage_ledger_schema_version: str = MODULE_26_TENANT_USAGE_LEDGER_STORAGE_SCHEMA_VERSION
+    tenant_usage_admin_api_enabled: bool = False
+    tenant_usage_admin_header: str = "x-oris-admin-key"
+    tenant_usage_admin_keys: tuple[str, ...] = ()
     billing_provider_integrated: bool = False
     payment_processing_enabled: bool = False
 
     def to_dict(self) -> dict[str, object]:
-        return asdict(self)
+        payload = asdict(self)
+        payload["tenant_usage_admin_keys"] = ["configured"] if self.tenant_usage_admin_keys else []
+        return payload
 
 
 @dataclass(frozen=True)
@@ -181,7 +191,12 @@ def load_product_settings(env: Mapping[str, str] | None = None) -> ProductSettin
             error_policy=values.get("ORIS_INSIGHT_ERROR_POLICY", "structured_json"),
             exempt_paths=_csv_from_env(
                 values.get("ORIS_INSIGHT_EXEMPT_PATHS"),
-                ("/healthz", "/healthz/details", "/healthz/observability"),
+                (
+                    "/healthz",
+                    "/healthz/details",
+                    "/healthz/observability",
+                    "/insights/admin/tenant-usage",
+                ),
             ),
         ),
         tenant_guardrails=TenantGuardrailsSettings(
@@ -212,6 +227,11 @@ def load_product_settings(env: Mapping[str, str] | None = None) -> ProductSettin
                 "ORIS_INSIGHT_TENANT_USAGE_LEDGER_SCHEMA_VERSION",
                 MODULE_26_TENANT_USAGE_LEDGER_STORAGE_SCHEMA_VERSION,
             ),
+            tenant_usage_admin_api_enabled=_bool_from_env(
+                values.get("ORIS_INSIGHT_TENANT_USAGE_ADMIN_API_ENABLED"), False
+            ),
+            tenant_usage_admin_header=values.get("ORIS_INSIGHT_TENANT_USAGE_ADMIN_HEADER", "x-oris-admin-key"),
+            tenant_usage_admin_keys=_csv_from_env(values.get("ORIS_INSIGHT_TENANT_USAGE_ADMIN_KEYS"), ()),
             billing_provider_integrated=False,
             payment_processing_enabled=False,
         ),

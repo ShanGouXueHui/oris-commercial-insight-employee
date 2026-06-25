@@ -8,44 +8,45 @@ The current conversation is long. Continue with GitHub documents as the source o
 
 ## Must Read First
 
-1. `docs/status/COMMERCIAL_INSIGHT_REBUILD_STATUS_2026-06-25_MODULES_1_26.md`
+1. `docs/status/COMMERCIAL_INSIGHT_REBUILD_STATUS_2026-06-25_MODULES_1_27.md`
 2. `docs/engineering/OPERATING_CONTEXT_AND_RULES_2026-06-25.md`
-3. `docs/rebuild/INSIGHT_REBUILD_MODULE_26_DURABLE_TENANT_USAGE_LEDGER.md`
+3. `docs/rebuild/INSIGHT_REBUILD_MODULE_27_TENANT_USAGE_ADMIN_API.md`
 4. `reports/testing/latest_test_result.json`
-5. `reports/execution/insight_rebuild_module_26_execution_report.md`
+5. `reports/execution/insight_rebuild_module_27_execution_report.md`
 6. `AGENTS.md`
 7. `app/config.py`
 8. `app/main.py`
-9. `app/tenant_guardrails.py`
+9. `app/tenant_usage_admin_api.py`
 10. `app/tenant_usage_ledger.py`
 11. `app/evidence_harness.py`
 
 ## Project State
 
-- Modules 1-26 are accepted.
-- Current full-suite count is 151.
+- Modules 1-27 are accepted.
+- Current full-suite count is 160.
 - Module 24 added the local deterministic tenant usage ledger.
 - Module 25 connected that ledger to tenant middleware behind explicit configuration.
 - Module 26 added optional local durable SQLite tenant usage storage behind explicit configuration.
-- Module 26 bootstrap evidence was user-controlled and pushed.
+- Module 27 added bounded read-only tenant usage admin visibility behind explicit configuration.
+- Module 27 bootstrap evidence was user-controlled and pushed.
 
 ## Latest Accepted Evidence
 
-- Module: Insight Rebuild Module 26
-- User-controlled bootstrap final pushed commit: `ea9602f496baaa6bb47a1d686b5280db62158d18`
-- Evidence commit recorded in report: `de98bdaf0c54214fc94879552ceea6f41696a272`
-- Product base commit tested by bootstrap: `81068d73ce55b3309d7125e1221b37db6991e38e`
+- Module: Insight Rebuild Module 27
+- User-controlled bootstrap final pushed commit: `2b9a7ac57627f3dfd517a3da905ec48d06f6d9c2`
+- Evidence commit recorded in report: `03f2b6a2acc162e5882afcda14bba39b9092dbc9`
+- Product base commit tested by bootstrap: `12318c835d0a594509b8a2314b859397170c8d27`
 - Test command: `python3 -m unittest discover -s tests -p test_*.py -q`
 - Test exit code: `0`
-- Expected unit test count: `151`
+- Expected unit test count: `160`
 
 ## Next Task
 
-Proceed with Module 27 after reading GitHub state first.
+Proceed with Module 28 after reading GitHub state first.
 
-Recommended Module 27 direction:
+Recommended Module 28 direction:
 
-- Bounded tenant usage/admin read API or operational visibility surface behind explicit configuration.
+- Bounded tenant operational audit event trail behind explicit configuration.
 
 Default behavior must remain unchanged. No external billing, payment, provider call, remote runtime dispatch, or live external database connection should be enabled unless explicitly scoped and evidenced.
 

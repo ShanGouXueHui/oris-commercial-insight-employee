@@ -13,6 +13,11 @@ from app.commercial_guardrails import build_guardrail_ledger, evaluate_guardrail
 from app.config import PRODUCT_API_VERSION, load_product_settings
 from app.observability import build_runtime_observability_snapshot
 from app.rebuild_api import router as rebuild_router
+from app.tenant_guardrails import (
+    build_local_tenant_entitlements,
+    evaluate_tenant_entitlement_guardrails,
+    tenant_guardrail_policy_from_settings,
+)
 
 
 app = FastAPI(
@@ -33,12 +38,48 @@ app.add_middleware(
 @app.middleware("http")
 async def commercial_guardrail_middleware(request: Request, call_next):
     settings = load_product_settings()
+    ledger = build_guardrail_ledger()
+    if settings.tenant_guardrails.enabled:
+        tenant_decision = evaluate_tenant_entitlement_guardrails(
+            path=request.url.path,
+            method=request.method,
+            headers=request.headers,
+            settings=settings.commercial_guardrails,
+            entitlements=build_local_tenant_entitlements(settings.tenant_guardrails),
+            policy=tenant_guardrail_policy_from_settings(settings.tenant_guardrails),
+            ledger=ledger,
+        )
+        commercial_decision = tenant_decision.commercial_guardrail
+        if not tenant_decision.allowed:
+            response = JSONResponse(
+                status_code=tenant_decision.status_code,
+                content={"tenant_guardrail": tenant_decision.to_dict()},
+            )
+        else:
+            response = await call_next(request)
+        response.headers["X-ORIS-Guardrail-Policy"] = str(commercial_decision.get("policy_version", ""))
+        response.headers["X-ORIS-Guardrail-Mode"] = str(commercial_decision.get("enforcement_mode", ""))
+        response.headers["X-ORIS-Guardrail-Reason"] = str(commercial_decision.get("reason", ""))
+        response.headers["X-ORIS-Tenant-Guardrail-Version"] = tenant_decision.tenant_guardrail_version
+        response.headers["X-ORIS-Tenant-Guardrail-Reason"] = tenant_decision.reason
+        response.headers["X-ORIS-Tenant-ID"] = tenant_decision.tenant_id
+        remaining_minute = commercial_decision.get("remaining_minute")
+        remaining_day = commercial_decision.get("remaining_day")
+        retry_after = commercial_decision.get("retry_after_seconds")
+        if remaining_minute is not None:
+            response.headers["X-ORIS-RateLimit-Remaining-Minute"] = str(remaining_minute)
+        if remaining_day is not None:
+            response.headers["X-ORIS-Quota-Remaining-Day"] = str(remaining_day)
+        if retry_after is not None:
+            response.headers["Retry-After"] = str(retry_after)
+        return response
+
     decision = evaluate_guardrails(
         path=request.url.path,
         method=request.method,
         headers=request.headers,
         settings=settings.commercial_guardrails,
-        ledger=build_guardrail_ledger(),
+        ledger=ledger,
     )
     if not decision.allowed:
         payload = {
@@ -145,6 +186,8 @@ async def health_details() -> Dict[str, object]:
         "module_9_observability": True,
         "module_10_commercial_guardrails": True,
         "module_11_persistent_quota_ledger": True,
+        "module_23_tenant_guardrail_middleware": True,
+        "tenant_guardrails": settings.tenant_guardrails.to_dict(),
         "dependencies": {"fastapi": "ok", "pydantic": "ok", "sqlite3": "ok"},
         "observability": observation.to_dict(),
     }

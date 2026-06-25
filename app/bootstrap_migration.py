@@ -54,7 +54,7 @@ def inspect_bootstrap_script(path: str) -> BootstrapScriptMigrationStatus:
     exists = script_path.exists()
     content = script_path.read_text(encoding="utf-8") if exists else ""
     uses_harness = EVIDENCE_HARNESS_IMPORT in content
-    module_number = _module_number_from_path(path)
+    module_number = _module_number_from_path(path) if exists else None
     return BootstrapScriptMigrationStatus(
         path=path,
         exists=exists,

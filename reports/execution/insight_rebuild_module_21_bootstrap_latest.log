@@ -1,6 +1,6 @@
 # Insight Rebuild Module 21 bootstrap log
 version=2026-06-25-insight-rebuild-module-21-official
-started_at=2026-06-25T19:35:52Z
+started_at=2026-06-25T19:39:53Z
 product_dir=/home/admin/projects/oris-commercial-insight-employee
 branch=main
 python_bin=python3
@@ -18,6 +18,7 @@ M	reports/execution/insight_rebuild_module_18_bootstrap_latest.log
 M	reports/execution/insight_rebuild_module_19_bootstrap_latest.log
 M	reports/execution/insight_rebuild_module_1_bootstrap_latest.log
 M	reports/execution/insight_rebuild_module_20_bootstrap_latest.log
+M	reports/execution/insight_rebuild_module_21_bootstrap_latest.log
 M	reports/execution/insight_rebuild_module_2_bootstrap_latest.log
 M	reports/execution/insight_rebuild_module_3_bootstrap_latest.log
 M	reports/execution/insight_rebuild_module_4_bootstrap_latest.log
@@ -28,21 +29,7 @@ Your branch is up to date with 'origin/main'.
 From github.com:ShanGouXueHui/oris-commercial-insight-employee
  * branch            main       -> FETCH_HEAD
 Already up to date.
-======================================================================
-FAIL: test_inspect_script_marks_missing_as_not_required (test_module_21_bootstrap_migration.Module21BootstrapMigrationTests)
 ----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "/home/admin/projects/oris-commercial-insight-employee/tests/test_module_21_bootstrap_migration.py", line 25, in test_inspect_script_marks_missing_as_not_required
-    self.assertIsNone(status.module_number)
-AssertionError: 999 is not None
+Ran 115 tests in 0.125s
 
-----------------------------------------------------------------------
-Ran 115 tests in 0.123s
-
-FAILED (failures=1)
-[main be42381] insight-rebuild(module-21): add bootstrap migration evidence
- 4 files changed, 154 insertions(+), 29 deletions(-)
- create mode 100644 reports/execution/insight_rebuild_module_21_bootstrap_latest.log
- create mode 100644 reports/execution/insight_rebuild_module_21_execution_report.md
- create mode 100644 reports/testing/insight_rebuild_module_21_test_result.json
- rewrite reports/testing/latest_test_result.json (76%)
+OK

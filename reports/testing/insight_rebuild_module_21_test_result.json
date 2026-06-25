@@ -1,13 +1,13 @@
 {
   "module": "Insight Rebuild Module 21",
   "bootstrap_version": "2026-06-25-insight-rebuild-module-21-official",
-  "status": "failed",
-  "generated_at": "2026-06-25T19:35:52.898201+00:00",
+  "status": "passed",
+  "generated_at": "2026-06-25T19:39:53.904461+00:00",
   "test_command": "python3 -m unittest discover -s tests -p test_*.py -q",
-  "test_exit_code": 1,
-  "product_base_sha": "9b709644c2c0ff5ec512d6b5b096d594e326dcc1",
+  "test_exit_code": 0,
+  "product_base_sha": "fb2c5ed7de62b6dacba39375c46fb5d6e2be6115",
   "evidence_harness_version": "2026-06-25-module-20",
-  "expected_unit_test_count": 90,
+  "expected_unit_test_count": 115,
   "log_file": "/home/admin/projects/oris-commercial-insight-employee/reports/execution/insight_rebuild_module_21_bootstrap_latest.log",
   "checks": [
     "prior_module_test_compatibility",

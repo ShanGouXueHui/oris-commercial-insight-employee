@@ -20,6 +20,7 @@ from app.tenant_guardrails import (
     tenant_guardrail_policy_from_settings,
 )
 from app.tenant_operational_audit import summarize_tenant_operational_audit_trail
+from app.tenant_operational_audit_query import summarize_tenant_operational_audit_query
 from app.tenant_usage_admin_api import router as tenant_usage_admin_router, summarize_tenant_usage_admin_api
 from app.tenant_usage_ledger import build_tenant_usage_ledger, summarize_tenant_usage_ledger
 
@@ -209,11 +210,13 @@ async def health_details() -> Dict[str, object]:
         "module_26_durable_tenant_usage_ledger": True,
         "module_27_tenant_usage_admin_api": True,
         "module_28_tenant_operational_audit_trail": True,
+        "module_29_tenant_operational_audit_query": True,
         "tenant_guardrails": settings.tenant_guardrails.to_dict(),
         "tenant_middleware_usage_ledger": summarize_tenant_middleware_usage_ledger_bridge(settings.tenant_guardrails),
         "tenant_usage_ledger_storage": summarize_tenant_usage_ledger(settings=settings.tenant_guardrails),
         "tenant_usage_admin_api": summarize_tenant_usage_admin_api(settings.tenant_guardrails),
         "tenant_operational_audit_trail": summarize_tenant_operational_audit_trail(settings=settings.tenant_guardrails),
+        "tenant_operational_audit_query": summarize_tenant_operational_audit_query(),
         "dependencies": {"fastapi": "ok", "pydantic": "ok", "sqlite3": "ok"},
         "observability": observation.to_dict(),
     }

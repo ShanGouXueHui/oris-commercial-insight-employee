@@ -2,6 +2,7 @@
 
 # Insight Rebuild Module 19 official bootstrap script.
 # Policy: do not use set -e; terminal output stays short; detailed logs are written as GitHub evidence.
+# Module 21 migration: evidence payload/report writing uses app.evidence_harness.
 
 VERSION="2026-06-25-insight-rebuild-module-19-official"
 WORKDIR="${INSIGHT_WORKDIR:-$HOME/projects}"
@@ -45,6 +46,7 @@ LOG_FILE="$PRODUCT_DIR/reports/execution/insight_rebuild_module_19_bootstrap_lat
   echo "product_dir=$PRODUCT_DIR"
   echo "branch=$BRANCH"
   echo "python_bin=$PYTHON_BIN"
+  echo "module_21_migrated_to_evidence_harness=true"
   echo ""
   cat /tmp/insight_module_19_git.log 2>/dev/null || true
 } > "$LOG_FILE" 2>&1
@@ -60,106 +62,77 @@ summary "Running Module 19 unit tests quietly..."
 TEST_COMMAND="$PYTHON_BIN -m unittest discover -s tests -p test_*.py -q"
 $PYTHON_BIN -m unittest discover -s tests -p 'test_*.py' -q >> "$LOG_FILE" 2>&1
 TEST_RC=$?
-if [ "$TEST_RC" -eq 0 ]; then TEST_STATUS="passed"; else TEST_STATUS="failed"; fi
 PRODUCT_BASE_SHA="$(git rev-parse HEAD 2>> "$LOG_FILE")"
 
-export TEST_RC TEST_STATUS PRODUCT_BASE_SHA TEST_COMMAND VERSION LOG_FILE
+export TEST_RC PRODUCT_BASE_SHA TEST_COMMAND VERSION LOG_FILE
 "$PYTHON_BIN" - <<'PY' >> "$LOG_FILE" 2>&1
-import json
 import os
-from datetime import datetime, timezone
-from pathlib import Path
-result = {
-    "module": "Insight Rebuild Module 19",
-    "bootstrap_version": os.environ.get("VERSION", ""),
-    "status": os.environ.get("TEST_STATUS", "failed"),
-    "generated_at": datetime.now(timezone.utc).isoformat(),
-    "test_command": os.environ.get("TEST_COMMAND", ""),
-    "test_exit_code": int(os.environ.get("TEST_RC", "1")),
-    "product_base_sha": os.environ.get("PRODUCT_BASE_SHA", ""),
-    "harness_upgrade_loop_boundary": True,
-    "openclaw_harness_candidate": True,
-    "agents_md_candidate": True,
-    "package_installation_enabled": False,
-    "remote_code_fetch_enabled": False,
-    "production_harness_modified": False,
-    "human_acceptance_required": True,
-    "evidence_required": True,
-    "harness_upgrade_loop_version": "2026-06-25-module-19",
-    "expected_unit_test_count": 77,
-    "log_file": os.environ.get("LOG_FILE", ""),
-    "checks": [
+from app.evidence_harness import EvidenceHarnessConfig, TestRunSnapshot, write_harness_evidence
+config = EvidenceHarnessConfig(
+    module_name="Insight Rebuild Module 19",
+    bootstrap_version=os.environ.get("VERSION", ""),
+    expected_unit_test_count=84,
+    result_filename="insight_rebuild_module_19_test_result.json",
+    report_filename="insight_rebuild_module_19_execution_report.md",
+    implemented_boundaries=(
+        "harness upgrade candidate contract",
+        "harness upgrade step contract",
+        "harness upgrade plan contract",
+        "OpenClaw execution harness upgrade candidate",
+        "AGENTS.md operating rules upgrade candidate",
+        "reuse assessment integration",
+        "loop assessment integration",
+        "no package installation in Module 19",
+        "no remote code fetch in Module 19",
+        "no production harness modification in Module 19",
+        "Module 21 migration uses app.evidence_harness",
+    ),
+    evidence_files=(
+        "app/harness_upgrade_loop.py",
+        "tests/test_module_19_harness_upgrade_loop.py",
+        "docs/product/HARNESS_UPGRADE_LOOP_GUIDE.md",
+        "docs/rebuild/INSIGHT_REBUILD_MODULE_19_HARNESS_UPGRADE_LOOP.md",
+        "docs/testing/INSIGHT_REBUILD_MODULE_19_TEST_PLAN.md",
+        "scripts/bootstrap_insight_rebuild_module_19.sh",
+        "reports/testing/insight_rebuild_module_19_test_result.json",
+        "reports/testing/latest_test_result.json",
+        "reports/execution/insight_rebuild_module_19_bootstrap_latest.log",
+    ),
+    next_module="Module 20 should implement a controlled harness upgrade using Module 19 plans, or integrate tenant entitlements into commercial guardrails.",
+)
+snapshot = TestRunSnapshot(
+    test_command=os.environ.get("TEST_COMMAND", ""),
+    test_exit_code=int(os.environ.get("TEST_RC", "1")),
+    product_base_sha=os.environ.get("PRODUCT_BASE_SHA", ""),
+    log_file=os.environ.get("LOG_FILE", ""),
+)
+write_harness_evidence(
+    config,
+    snapshot,
+    flags={
+        "harness_upgrade_loop_boundary": True,
+        "openclaw_harness_candidate": True,
+        "agents_md_candidate": True,
+        "package_installation_enabled": False,
+        "remote_code_fetch_enabled": False,
+        "production_harness_modified": False,
+        "human_acceptance_required": True,
+        "evidence_required": True,
+        "harness_upgrade_loop_version": "2026-06-25-module-19",
+        "module_21_migrated_to_evidence_harness": True,
+    },
+    checks=(
         "prior_module_test_compatibility",
         "default_candidates_include_openclaw_and_agents_md",
         "harness_upgrade_steps_boundary_only",
         "plan_uses_loop_and_reuse_assessments",
         "plan_does_not_modify_live_harness",
         "default_plans_cover_default_candidates",
-        "summary_reports_no_live_actions"
-    ]
-}
-Path("reports/testing/insight_rebuild_module_19_test_result.json").write_text(json.dumps(result, indent=2, ensure_ascii=False), encoding="utf-8")
-Path("reports/testing/latest_test_result.json").write_text(json.dumps(result, indent=2, ensure_ascii=False), encoding="utf-8")
+        "summary_reports_no_live_actions",
+        "module_19_bootstrap_uses_evidence_harness",
+    ),
+)
 PY
-
-cat > reports/execution/insight_rebuild_module_19_execution_report.md <<EOF
-# Insight Rebuild Module 19 Execution Report
-
-## Module
-
-Harness Upgrade Loop Runner Boundary
-
-## Bootstrap Version
-
-$VERSION
-
-## Product Base Commit
-
-$PRODUCT_BASE_SHA
-
-## Test Command
-
-$TEST_COMMAND
-
-## Test Result
-
-- test exit code: $TEST_RC
-- status: $TEST_STATUS
-- expected unit test count: 77
-
-## Implemented Boundaries
-
-- harness upgrade candidate contract
-- harness upgrade step contract
-- harness upgrade plan contract
-- OpenClaw execution harness upgrade candidate
-- AGENTS.md operating rules upgrade candidate
-- reuse assessment integration
-- loop assessment integration
-- no package installation in Module 19
-- no remote code fetch in Module 19
-- no production harness modification in Module 19
-
-## Evidence Files
-
-- app/harness_upgrade_loop.py
-- tests/test_module_19_harness_upgrade_loop.py
-- docs/product/HARNESS_UPGRADE_LOOP_GUIDE.md
-- docs/rebuild/INSIGHT_REBUILD_MODULE_19_HARNESS_UPGRADE_LOOP.md
-- docs/testing/INSIGHT_REBUILD_MODULE_19_TEST_PLAN.md
-- scripts/bootstrap_insight_rebuild_module_19.sh
-- reports/testing/insight_rebuild_module_19_test_result.json
-- reports/testing/latest_test_result.json
-- reports/execution/insight_rebuild_module_19_bootstrap_latest.log
-
-## Insight Rebuild Module 19 Evidence Commit SHA
-
-Pending until evidence commit completes.
-
-## Next Module
-
-Module 20 should implement a controlled harness upgrade using Module 19 plans, or integrate tenant entitlements into commercial guardrails.
-EOF
 
 ensure_git_identity
 git add reports/testing/insight_rebuild_module_19_test_result.json reports/testing/latest_test_result.json reports/execution/insight_rebuild_module_19_execution_report.md reports/execution/insight_rebuild_module_19_bootstrap_latest.log >> "$LOG_FILE" 2>&1
@@ -168,10 +141,8 @@ rc=$?
 if [ "$rc" -ne 0 ]; then fail_short "git commit failed for Module 19 evidence"; fi
 EVIDENCE_SHA="$(git rev-parse HEAD 2>> "$LOG_FILE")"
 "$PYTHON_BIN" - <<PY >> "$LOG_FILE" 2>&1
-from pathlib import Path
-p = Path("reports/execution/insight_rebuild_module_19_execution_report.md")
-text = p.read_text(encoding="utf-8").replace("Pending until evidence commit completes.", "$EVIDENCE_SHA")
-p.write_text(text, encoding="utf-8")
+from app.evidence_harness import record_evidence_commit_sha
+record_evidence_commit_sha("reports/execution/insight_rebuild_module_19_execution_report.md", "$EVIDENCE_SHA")
 PY
 git add reports/execution/insight_rebuild_module_19_execution_report.md reports/execution/insight_rebuild_module_19_bootstrap_latest.log >> "$LOG_FILE" 2>&1
 git commit -m "insight-rebuild(module-19): record harness upgrade loop evidence commit sha" >> "$LOG_FILE" 2>&1

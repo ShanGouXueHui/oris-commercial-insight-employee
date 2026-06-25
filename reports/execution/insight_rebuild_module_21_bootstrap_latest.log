@@ -33,3 +33,5 @@ Already up to date.
 Ran 115 tests in 0.125s
 
 OK
+[main a004997] insight-rebuild(module-21): add bootstrap migration evidence
+ 4 files changed, 19 insertions(+), 32 deletions(-)

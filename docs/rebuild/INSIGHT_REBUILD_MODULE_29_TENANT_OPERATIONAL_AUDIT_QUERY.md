@@ -4,7 +4,17 @@ Date: 2026-06-25
 
 ## Status
 
-implemented_pending_user_controlled_evidence
+accepted
+
+## Acceptance Evidence
+
+- User-controlled bootstrap evidence commit: `7a0dedff50bf051c7e9f6f22af304ebf70910c99`
+- Evidence report SHA fix commit: `157525756be826213a9bca073de5b02346739e6b`
+- Product base commit tested by bootstrap: `4c837b5d6efd7bcfd527cd39b4f105ac6d929813`
+- Bootstrap version: `2026-06-25-insight-rebuild-module-29-official`
+- Test command: `python3 -m unittest discover -s tests -p test_*.py -q`
+- Test exit code: `0`
+- Expected unit test count: `174`
 
 ## Purpose
 
@@ -30,36 +40,12 @@ Module 29 adds a bounded read-only tenant operational audit query helper behind 
 - No external storage service, billing provider, payment processor, provider call, remote runtime dispatch, or live external database connection is enabled.
 - Existing default request behavior remains unchanged.
 
-## Embedded Test Plan
-
-Command:
-
-`python3 -m unittest discover -s tests -p test_*.py -q`
-
-Required coverage:
-
-1. Prior modules remain compatible.
-2. Audit query is disabled by default.
-3. Enabled query returns matching tenant events.
-4. Enabled query supports all-tenant local visibility.
-5. Query limit is bounded.
-6. Query reads SQLite audit trail records.
-7. Summary reports safe defaults and explicit enablement.
-8. Health details reports Module 29 query summary.
-9. Official Module 29 bootstrap writes evidence.
-
-## Acceptance Boundary
-
-This module is not accepted yet. Acceptance requires execution evidence and verification of:
+## Verified Evidence Files
 
 - `reports/testing/latest_test_result.json`
 - `reports/testing/insight_rebuild_module_29_test_result.json`
 - `reports/execution/insight_rebuild_module_29_execution_report.md`
 - `reports/execution/insight_rebuild_module_29_bootstrap_latest.log`
-
-## Expected Test Count
-
-The expected full-suite unittest count after Module 29 is 174.
 
 ## Next Recommended Module After Acceptance
 

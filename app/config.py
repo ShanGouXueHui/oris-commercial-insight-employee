@@ -102,6 +102,8 @@ class TenantGuardrailsSettings:
     local_entitlements_enabled: bool = False
     local_tenant_id: str = "tenant-demo"
     local_plan_id: str = "free"
+    tenant_usage_ledger_enabled: bool = False
+    tenant_usage_consume_on_allowed_request: bool = False
     billing_provider_integrated: bool = False
     payment_processing_enabled: bool = False
 
@@ -191,6 +193,12 @@ def load_product_settings(env: Mapping[str, str] | None = None) -> ProductSettin
             ),
             local_tenant_id=values.get("ORIS_INSIGHT_LOCAL_TENANT_ID", "tenant-demo"),
             local_plan_id=values.get("ORIS_INSIGHT_LOCAL_TENANT_PLAN", "free"),
+            tenant_usage_ledger_enabled=_bool_from_env(
+                values.get("ORIS_INSIGHT_TENANT_USAGE_LEDGER_ENABLED"), False
+            ),
+            tenant_usage_consume_on_allowed_request=_bool_from_env(
+                values.get("ORIS_INSIGHT_TENANT_USAGE_CONSUME_ON_ALLOWED_REQUEST"), False
+            ),
             billing_provider_integrated=False,
             payment_processing_enabled=False,
         ),

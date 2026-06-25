@@ -16,6 +16,7 @@ from app.rebuild_api import router as rebuild_router
 from app.tenant_guardrails import (
     build_local_tenant_entitlements,
     evaluate_tenant_entitlement_guardrails,
+    summarize_tenant_middleware_usage_ledger_bridge,
     tenant_guardrail_policy_from_settings,
 )
 
@@ -63,6 +64,15 @@ async def commercial_guardrail_middleware(request: Request, call_next):
         response.headers["X-ORIS-Tenant-Guardrail-Version"] = tenant_decision.tenant_guardrail_version
         response.headers["X-ORIS-Tenant-Guardrail-Reason"] = tenant_decision.reason
         response.headers["X-ORIS-Tenant-ID"] = tenant_decision.tenant_id
+        if tenant_decision.tenant_usage_ledger_enabled:
+            response.headers["X-ORIS-Tenant-Usage-Ledger-Version"] = str(
+                tenant_decision.tenant_usage_ledger_version or ""
+            )
+            response.headers["X-ORIS-Tenant-Usage-Consumed"] = str(tenant_decision.tenant_usage_consumed).lower()
+            if tenant_decision.tenant_usage_request_count is not None:
+                response.headers["X-ORIS-Tenant-Usage-Request-Count"] = str(
+                    tenant_decision.tenant_usage_request_count
+                )
         remaining_minute = commercial_decision.get("remaining_minute")
         remaining_day = commercial_decision.get("remaining_day")
         retry_after = commercial_decision.get("retry_after_seconds")
@@ -187,7 +197,9 @@ async def health_details() -> Dict[str, object]:
         "module_10_commercial_guardrails": True,
         "module_11_persistent_quota_ledger": True,
         "module_23_tenant_guardrail_middleware": True,
+        "module_25_tenant_middleware_usage_ledger_bridge": True,
         "tenant_guardrails": settings.tenant_guardrails.to_dict(),
+        "tenant_middleware_usage_ledger": summarize_tenant_middleware_usage_ledger_bridge(settings.tenant_guardrails),
         "dependencies": {"fastapi": "ok", "pydantic": "ok", "sqlite3": "ok"},
         "observability": observation.to_dict(),
     }

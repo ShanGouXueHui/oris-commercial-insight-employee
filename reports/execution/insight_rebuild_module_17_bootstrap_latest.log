@@ -28,3 +28,9 @@ Already up to date.
 Ran 88 tests in 0.129s
 
 OK
+[main bd2167e] insight-rebuild(module-17): add reuse adoption evidence
+ 4 files changed, 147 insertions(+), 36 deletions(-)
+ create mode 100644 reports/execution/insight_rebuild_module_17_bootstrap_latest.log
+ create mode 100644 reports/execution/insight_rebuild_module_17_execution_report.md
+ create mode 100644 reports/testing/insight_rebuild_module_17_test_result.json
+ rewrite reports/testing/latest_test_result.json (77%)

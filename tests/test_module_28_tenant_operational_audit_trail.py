@@ -21,6 +21,12 @@ from app.tenant_operational_audit_query import (
     summarize_tenant_operational_audit_query,
     tenant_operational_audit_query_enabled,
 )
+from app.tenant_operational_audit_retention import (
+    MAX_RETENTION_DAYS,
+    MIN_RETENTION_DAYS,
+    build_tenant_operational_audit_retention_policy,
+    summarize_tenant_operational_audit_retention_policy,
+)
 
 
 class Module28TenantOperationalAuditTrailTests(unittest.TestCase):
@@ -189,6 +195,47 @@ class Module29TenantOperationalAuditQueryTests(unittest.TestCase):
         self.assertTrue(disabled["read_only"])
         self.assertFalse(disabled["external_storage_enabled"])
         self.assertFalse(disabled["live_external_action_enabled"])
+
+
+class Module30TenantOperationalAuditRetentionTests(unittest.TestCase):
+    def test_retention_policy_disabled_by_default(self):
+        policy = build_tenant_operational_audit_retention_policy(env={})
+        self.assertFalse(policy.enabled)
+        self.assertEqual(policy.retention_days, 90)
+        self.assertTrue(policy.to_dict()["request_path_unchanged_by_default"])
+
+    def test_retention_policy_can_be_enabled_explicitly(self):
+        policy = build_tenant_operational_audit_retention_policy(
+            env={
+                "ORIS_INSIGHT_TENANT_OPERATIONAL_AUDIT_RETENTION_ENABLED": "true",
+                "ORIS_INSIGHT_TENANT_OPERATIONAL_AUDIT_RETENTION_DAYS": "180",
+            }
+        )
+        self.assertTrue(policy.enabled)
+        self.assertEqual(policy.retention_days, 180)
+
+    def test_retention_days_are_bounded(self):
+        low = build_tenant_operational_audit_retention_policy(
+            env={"ORIS_INSIGHT_TENANT_OPERATIONAL_AUDIT_RETENTION_DAYS": "0"}
+        )
+        high = build_tenant_operational_audit_retention_policy(
+            env={"ORIS_INSIGHT_TENANT_OPERATIONAL_AUDIT_RETENTION_DAYS": "99999"}
+        )
+        self.assertEqual(low.retention_days, MIN_RETENTION_DAYS)
+        self.assertEqual(high.retention_days, MAX_RETENTION_DAYS)
+
+    def test_retention_summary_is_visibility_only(self):
+        summary = summarize_tenant_operational_audit_retention_policy(env={})
+        self.assertTrue(summary["visibility_only"])
+        self.assertTrue(summary["explicit_configuration_required"])
+        self.assertFalse(summary["external_storage_enabled"])
+        self.assertFalse(summary["live_external_action_enabled"])
+
+    def test_invalid_retention_days_falls_back_to_default(self):
+        policy = build_tenant_operational_audit_retention_policy(
+            env={"ORIS_INSIGHT_TENANT_OPERATIONAL_AUDIT_RETENTION_DAYS": "not-a-number"}
+        )
+        self.assertEqual(policy.retention_days, 90)
 
 
 if __name__ == "__main__":

@@ -4,7 +4,14 @@ Date: 2026-06-26
 
 ## Status
 
-implemented_pending_execution_evidence
+accepted
+
+## Acceptance Evidence
+
+- Evidence commit: `90cdc37`
+- Product base: `4655adce56fbdb456e9a864636bef68fcc928afe`
+- Result: passed
+- Expected test count: 215
 
 ## Purpose
 
@@ -24,6 +31,8 @@ Module 39 adds local rollup health visibility.
 - No file export is written.
 - Existing request behavior remains unchanged.
 
-## Expected Test Count
+## Verified Evidence
 
-215
+- `reports/testing/latest_test_result.json`
+- `reports/testing/insight_rebuild_module_39_test_result.json`
+- `reports/execution/insight_rebuild_module_39_execution_report.md`

@@ -4,7 +4,14 @@ Date: 2026-06-26
 
 ## Status
 
-implemented_pending_execution_evidence
+accepted
+
+## Acceptance Evidence
+
+- Evidence commit: `07471ef`
+- Product base: `aad46c38df8dae5c111b4e3664929e2f938a408f`
+- Result: passed
+- Expected test count: 207
 
 ## Purpose
 
@@ -25,6 +32,8 @@ Module 37 adds local health advisory visibility.
 - No external action is executed.
 - Existing request behavior remains unchanged.
 
-## Expected Test Count
+## Verified Evidence
 
-207
+- `reports/testing/latest_test_result.json`
+- `reports/testing/insight_rebuild_module_37_test_result.json`
+- `reports/execution/insight_rebuild_module_37_execution_report.md`

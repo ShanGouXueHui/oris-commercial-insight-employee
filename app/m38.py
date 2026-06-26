@@ -179,3 +179,28 @@ def build_m44_summary(gate, env=None):
 def summarize_m44(env=None):
     enabled = m44_enabled(env)
     return {'enabled': enabled, 'enabled_by_default': False, 'file_written': False}
+
+
+def m45_enabled(env=None):
+    values = {} if env is None else env
+    return str(values.get('ORIS_INSIGHT_M45_ENABLED', '')).lower() == 'true'
+
+
+def build_m45_snapshot(summary, env=None):
+    if not m45_enabled(env):
+        return {'allowed': False, 'version': '2026-06-26-module-45', 'file_written': False}
+    state = str(summary.get('summary_state', 'hold'))
+    gate_status = str(summary.get('gate_status', 'closed'))
+    return {
+        'allowed': True,
+        'version': '2026-06-26-module-45',
+        'snapshot_state': state,
+        'gate_status': gate_status,
+        'snapshot_visible': True,
+        'file_written': False,
+    }
+
+
+def summarize_m45(env=None):
+    enabled = m45_enabled(env)
+    return {'enabled': enabled, 'enabled_by_default': False, 'file_written': False}

@@ -4,7 +4,14 @@ Date: 2026-06-26
 
 ## Status
 
-implemented_pending_execution_evidence
+accepted
+
+## Acceptance Evidence
+
+- Evidence commit: `5c518bf`
+- Product base: `9d7d4edcf79aaa87081352068780a465d44c3d3a`
+- Result: passed
+- Expected test count: 211
 
 ## Purpose
 
@@ -24,6 +31,8 @@ Module 38 adds local rollup visibility.
 - No file export is written.
 - Existing request behavior remains unchanged.
 
-## Expected Test Count
+## Verified Evidence
 
-211
+- `reports/testing/latest_test_result.json`
+- `reports/testing/insight_rebuild_module_38_test_result.json`
+- `reports/execution/insight_rebuild_module_38_execution_report.md`

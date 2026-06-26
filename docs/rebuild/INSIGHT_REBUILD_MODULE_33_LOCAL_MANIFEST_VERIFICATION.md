@@ -4,7 +4,14 @@ Date: 2026-06-26
 
 ## Status
 
-implemented_pending_execution_evidence
+accepted
+
+## Acceptance Evidence
+
+- Evidence commit: `12caac7`
+- Product base: `21857a7a1374c8aa721bc8244bfdddf23745b00d`
+- Result: passed
+- Expected test count: 191
 
 ## Purpose
 
@@ -24,6 +31,8 @@ Module 33 adds local verification visibility for local manifests.
 - No file export is written.
 - Existing request behavior remains unchanged.
 
-## Expected Test Count
+## Verified Evidence
 
-191
+- `reports/testing/latest_test_result.json`
+- `reports/testing/insight_rebuild_module_33_test_result.json`
+- `reports/execution/insight_rebuild_module_33_execution_report.md`

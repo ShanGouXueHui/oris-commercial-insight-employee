@@ -4,7 +4,14 @@ Date: 2026-06-26
 
 ## Status
 
-implemented_pending_execution_evidence
+accepted
+
+## Acceptance Evidence
+
+- Evidence commit: `c2372c9`
+- Product base: `1c4c10075ee2ef68d1432f919361cab3ab63f7db`
+- Result: passed
+- Expected test count: 203
 
 ## Purpose
 
@@ -24,6 +31,8 @@ Module 36 adds local receipt bundle health summary visibility.
 - No file export is written.
 - Existing request behavior remains unchanged.
 
-## Expected Test Count
+## Verified Evidence
 
-203
+- `reports/testing/latest_test_result.json`
+- `reports/testing/insight_rebuild_module_36_test_result.json`
+- `reports/execution/insight_rebuild_module_36_execution_report.md`

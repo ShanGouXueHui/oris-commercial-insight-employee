@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import hashlib
+import json
 import os
 import uuid
 from dataclasses import dataclass
@@ -8,6 +10,7 @@ from typing import Mapping
 
 MODULE_30_TENANT_OPERATIONAL_AUDIT_RETENTION_VERSION = "2026-06-25-module-30"
 MODULE_31_LOCAL_AUDIT_MANIFEST_VERSION = "2026-06-25-module-31"
+MODULE_32_LOCAL_MANIFEST_CHECKSUM_VERSION = "2026-06-26-module-32"
 DEFAULT_RETENTION_DAYS = 90
 MIN_RETENTION_DAYS = 1
 MAX_RETENTION_DAYS = 3650
@@ -135,6 +138,57 @@ def summarize_local_audit_manifest(env: Mapping[str, str] | None = None) -> dict
         "enabled": enabled,
         "enabled_by_default": False,
         "manifest_only": True,
+        "file_written": False,
+        "explicit_configuration_required": True,
+        "request_path_unchanged_by_default": not enabled,
+        "external_storage_enabled": False,
+        "live_external_action_enabled": False,
+    }
+
+
+def local_manifest_checksum_enabled(env: Mapping[str, str] | None = None) -> bool:
+    values = os.environ if env is None else env
+    return _env_bool(values, "ORIS_INSIGHT_LOCAL_MANIFEST_CHECKSUM_ENABLED", False)
+
+
+def build_local_manifest_checksum(
+    manifest: Mapping[str, object],
+    env: Mapping[str, str] | None = None,
+) -> dict[str, object]:
+    values = os.environ if env is None else env
+    if not local_manifest_checksum_enabled(values):
+        return {
+            "allowed": False,
+            "reason": "local_manifest_checksum_disabled",
+            "local_manifest_checksum_version": MODULE_32_LOCAL_MANIFEST_CHECKSUM_VERSION,
+            "checksum_visible": False,
+            "file_written": False,
+            "external_storage_enabled": False,
+            "live_external_action_enabled": False,
+        }
+    canonical = json.dumps(dict(manifest), sort_keys=True, separators=(",", ":"), default=str)
+    checksum = hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+    return {
+        "allowed": True,
+        "reason": "local_manifest_checksum_visible",
+        "checksum_algorithm": "sha256",
+        "checksum": checksum,
+        "local_manifest_checksum_version": MODULE_32_LOCAL_MANIFEST_CHECKSUM_VERSION,
+        "checksum_visible": True,
+        "file_written": False,
+        "external_storage_enabled": False,
+        "live_external_action_enabled": False,
+    }
+
+
+def summarize_local_manifest_checksum(env: Mapping[str, str] | None = None) -> dict[str, object]:
+    values = os.environ if env is None else env
+    enabled = local_manifest_checksum_enabled(values)
+    return {
+        "local_manifest_checksum_version": MODULE_32_LOCAL_MANIFEST_CHECKSUM_VERSION,
+        "enabled": enabled,
+        "enabled_by_default": False,
+        "checksum_visible": enabled,
         "file_written": False,
         "explicit_configuration_required": True,
         "request_path_unchanged_by_default": not enabled,

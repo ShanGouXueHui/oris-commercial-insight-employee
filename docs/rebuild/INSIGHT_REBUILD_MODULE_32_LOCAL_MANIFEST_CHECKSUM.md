@@ -4,7 +4,16 @@ Date: 2026-06-26
 
 ## Status
 
-implemented_pending_execution_evidence
+accepted
+
+## Acceptance Evidence
+
+- Evidence commit: `87664a2`
+- Product base: `80ee7ab700e3ab124b29472c6523d6e5622a1172`
+- Bootstrap: `2026-06-26-insight-rebuild-module-32-official`
+- Test command: `python3 -m unittest discover -s tests -p test_*.py -q`
+- Result: passed
+- Expected test count: 187
 
 ## Purpose
 
@@ -24,6 +33,8 @@ Module 32 adds local checksum visibility for local manifests.
 - No file export is written.
 - Existing request behavior remains unchanged.
 
-## Expected Test Count
+## Verified Evidence
 
-187
+- `reports/testing/latest_test_result.json`
+- `reports/testing/insight_rebuild_module_32_test_result.json`
+- `reports/execution/insight_rebuild_module_32_execution_report.md`

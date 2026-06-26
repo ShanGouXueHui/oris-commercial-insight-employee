@@ -4,7 +4,14 @@ Date: 2026-06-26
 
 ## Status
 
-implemented_pending_execution_evidence
+accepted
+
+## Acceptance Evidence
+
+- Evidence commit: `94383f1`
+- Product base: `40b3c263e8d33924344541ee9228d751c4fd250e`
+- Result: passed
+- Expected test count: 195
 
 ## Purpose
 
@@ -24,6 +31,8 @@ Module 34 adds local receipt visibility for manifest integrity status.
 - No file export is written.
 - Existing request behavior remains unchanged.
 
-## Expected Test Count
+## Verified Evidence
 
-195
+- `reports/testing/latest_test_result.json`
+- `reports/testing/insight_rebuild_module_34_test_result.json`
+- `reports/execution/insight_rebuild_module_34_execution_report.md`

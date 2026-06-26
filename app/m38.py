@@ -131,3 +131,27 @@ def build_m42_summary(checklist, env=None):
 def summarize_m42(env=None):
     enabled = m42_enabled(env)
     return {'enabled': enabled, 'enabled_by_default': False, 'file_written': False}
+
+
+def m43_enabled(env=None):
+    values = {} if env is None else env
+    return str(values.get('ORIS_INSIGHT_M43_ENABLED', '')).lower() == 'true'
+
+
+def build_m43_gate(summary, env=None):
+    if not m43_enabled(env):
+        return {'allowed': False, 'version': '2026-06-26-module-43', 'file_written': False}
+    status = str(summary.get('summary_status', 'incomplete'))
+    open_gate = status == 'complete'
+    return {
+        'allowed': True,
+        'version': '2026-06-26-module-43',
+        'gate_status': 'open' if open_gate else 'closed',
+        'source_summary_status': status,
+        'file_written': False,
+    }
+
+
+def summarize_m43(env=None):
+    enabled = m43_enabled(env)
+    return {'enabled': enabled, 'enabled_by_default': False, 'file_written': False}

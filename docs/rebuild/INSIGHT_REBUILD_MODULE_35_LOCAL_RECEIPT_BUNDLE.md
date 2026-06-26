@@ -4,7 +4,14 @@ Date: 2026-06-26
 
 ## Status
 
-implemented_pending_execution_evidence
+accepted
+
+## Acceptance Evidence
+
+- Evidence commit: `ead5296`
+- Product base: `f772ba740135af7ef0cd999a12122530e0e13ba8`
+- Result: passed
+- Expected test count: 199
 
 ## Purpose
 
@@ -24,6 +31,8 @@ Module 35 adds local receipt bundle summary visibility.
 - No file export is written.
 - Existing request behavior remains unchanged.
 
-## Expected Test Count
+## Verified Evidence
 
-199
+- `reports/testing/latest_test_result.json`
+- `reports/testing/insight_rebuild_module_35_test_result.json`
+- `reports/execution/insight_rebuild_module_35_execution_report.md`

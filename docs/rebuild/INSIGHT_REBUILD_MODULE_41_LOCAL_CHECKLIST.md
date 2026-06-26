@@ -4,7 +4,14 @@ Date: 2026-06-26
 
 ## Status
 
-implemented_pending_execution_evidence
+accepted
+
+## Acceptance Evidence
+
+- Evidence commit: `f902c59`
+- Product base: `bd131db61ba8444376dfdaad24aea568fc2e856d`
+- Result: passed
+- Expected test count: 223
 
 ## Purpose
 
@@ -25,6 +32,8 @@ Module 41 adds local checklist visibility.
 - No release is published.
 - Existing request behavior remains unchanged.
 
-## Expected Test Count
+## Verified Evidence
 
-223
+- `reports/testing/latest_test_result.json`
+- `reports/testing/insight_rebuild_module_41_test_result.json`
+- `reports/execution/insight_rebuild_module_41_execution_report.md`

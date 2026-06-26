@@ -72,3 +72,34 @@ def build_m40_readiness(health, env=None):
 def summarize_m40(env=None):
     enabled = m40_enabled(env)
     return {'enabled': enabled, 'enabled_by_default': False, 'file_written': False}
+
+
+def m41_enabled(env=None):
+    values = {} if env is None else env
+    return str(values.get('ORIS_INSIGHT_M41_ENABLED', '')).lower() == 'true'
+
+
+def build_m41_checklist(readiness, env=None):
+    if not m41_enabled(env):
+        return {'allowed': False, 'version': '2026-06-26-module-41', 'file_written': False}
+    status = str(readiness.get('readiness_status', 'blocked'))
+    checks = [
+        {'name': 'readiness_visible', 'passed': True},
+        {'name': 'ready_status', 'passed': status == 'ready'},
+        {'name': 'local_only', 'passed': True},
+    ]
+    passed_count = sum(1 for item in checks if item['passed'])
+    return {
+        'allowed': True,
+        'version': '2026-06-26-module-41',
+        'check_count': len(checks),
+        'passed_count': passed_count,
+        'blocked_count': len(checks) - passed_count,
+        'checks': checks,
+        'file_written': False,
+    }
+
+
+def summarize_m41(env=None):
+    enabled = m41_enabled(env)
+    return {'enabled': enabled, 'enabled_by_default': False, 'file_written': False}

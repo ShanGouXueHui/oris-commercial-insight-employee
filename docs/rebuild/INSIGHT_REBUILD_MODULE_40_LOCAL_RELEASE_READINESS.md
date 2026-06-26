@@ -4,7 +4,14 @@ Date: 2026-06-26
 
 ## Status
 
-implemented_pending_execution_evidence
+accepted
+
+## Acceptance Evidence
+
+- Evidence commit: `245fc03`
+- Product base: `643bc5191924806a914c8eba4621bb17024af0c0`
+- Result: passed
+- Expected test count: 219
 
 ## Purpose
 
@@ -25,6 +32,8 @@ Module 40 adds local release readiness visibility.
 - No release is published.
 - Existing request behavior remains unchanged.
 
-## Expected Test Count
+## Verified Evidence
 
-219
+- `reports/testing/latest_test_result.json`
+- `reports/testing/insight_rebuild_module_40_test_result.json`
+- `reports/execution/insight_rebuild_module_40_execution_report.md`

@@ -11,6 +11,7 @@ from typing import Mapping
 MODULE_30_TENANT_OPERATIONAL_AUDIT_RETENTION_VERSION = "2026-06-25-module-30"
 MODULE_31_LOCAL_AUDIT_MANIFEST_VERSION = "2026-06-25-module-31"
 MODULE_32_LOCAL_MANIFEST_CHECKSUM_VERSION = "2026-06-26-module-32"
+MODULE_33_LOCAL_MANIFEST_VERIFICATION_VERSION = "2026-06-26-module-33"
 DEFAULT_RETENTION_DAYS = 90
 MIN_RETENTION_DAYS = 1
 MAX_RETENTION_DAYS = 3650
@@ -189,6 +190,65 @@ def summarize_local_manifest_checksum(env: Mapping[str, str] | None = None) -> d
         "enabled": enabled,
         "enabled_by_default": False,
         "checksum_visible": enabled,
+        "file_written": False,
+        "explicit_configuration_required": True,
+        "request_path_unchanged_by_default": not enabled,
+        "external_storage_enabled": False,
+        "live_external_action_enabled": False,
+    }
+
+
+def local_manifest_verification_enabled(env: Mapping[str, str] | None = None) -> bool:
+    values = os.environ if env is None else env
+    return _env_bool(values, "ORIS_INSIGHT_LOCAL_MANIFEST_VERIFICATION_ENABLED", False)
+
+
+def verify_local_manifest_checksum(
+    manifest: Mapping[str, object],
+    expected_checksum: str,
+    env: Mapping[str, str] | None = None,
+) -> dict[str, object]:
+    values = os.environ if env is None else env
+    if not local_manifest_verification_enabled(values):
+        return {
+            "allowed": False,
+            "reason": "local_manifest_verification_disabled",
+            "local_manifest_verification_version": MODULE_33_LOCAL_MANIFEST_VERIFICATION_VERSION,
+            "verification_visible": False,
+            "verified": False,
+            "file_written": False,
+            "external_storage_enabled": False,
+            "live_external_action_enabled": False,
+        }
+    checksum_result = build_local_manifest_checksum(
+        manifest,
+        env={"ORIS_INSIGHT_LOCAL_MANIFEST_CHECKSUM_ENABLED": "true"},
+    )
+    actual_checksum = str(checksum_result["checksum"])
+    verified = actual_checksum == expected_checksum
+    return {
+        "allowed": True,
+        "reason": "local_manifest_verification_visible",
+        "checksum_algorithm": "sha256",
+        "verified": verified,
+        "verification_visible": True,
+        "expected_checksum": expected_checksum,
+        "actual_checksum": actual_checksum,
+        "local_manifest_verification_version": MODULE_33_LOCAL_MANIFEST_VERIFICATION_VERSION,
+        "file_written": False,
+        "external_storage_enabled": False,
+        "live_external_action_enabled": False,
+    }
+
+
+def summarize_local_manifest_verification(env: Mapping[str, str] | None = None) -> dict[str, object]:
+    values = os.environ if env is None else env
+    enabled = local_manifest_verification_enabled(values)
+    return {
+        "local_manifest_verification_version": MODULE_33_LOCAL_MANIFEST_VERIFICATION_VERSION,
+        "enabled": enabled,
+        "enabled_by_default": False,
+        "verification_visible": enabled,
         "file_written": False,
         "explicit_configuration_required": True,
         "request_path_unchanged_by_default": not enabled,

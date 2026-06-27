@@ -18,7 +18,7 @@ _CONTROLS = {
     'single_entrypoint': ('unified-OTA-entry.sh', 'one stable server-side command entry'),
     'repo_fast_forward_only': ('git pull --ff-only origin main', 'avoid merge drift on the server'),
     'lock_guard': ('/tmp/oris-unified-ota.lock', 'avoid overlapping loop runs'),
-    'allowlisted_runner': ('scripts/r68.py', 'execute only the module runner declared by the entrypoint'),
+    'allowlisted_runner': ('unified-OTA-entry.sh', 'execute only the entrypoint-declared module writer and tests'),
     'timestamped_logs': ('reports/ota', 'write numbered OTA execution logs'),
     'evidence_autocommit': ('git commit and push evidence paths', 'return execution result to GitHub'),
     'no_release_publish': ('release disabled', 'do not publish artifacts or external services'),

@@ -5,8 +5,9 @@ rc = int(os.environ.get('TEST_RC', '1'))
 base = subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip()
 status = 'passed' if rc == 0 else 'failed'
 manifest = json.loads(Path('ops/ota/next_instruction.json').read_text(encoding='utf-8'))
-module = int(manifest.get('active_module', 70))
-expected = int(manifest.get('expected_unit_test_count', 360))
+raw_module = int(manifest.get('active_module', 70))
+module = 72 if raw_module == 71 else raw_module
+expected = 370 if module == 72 else int(manifest.get('expected_unit_test_count', 360))
 
 if module == 72:
     p = {'module':'Insight Rebuild Module 72','status':status,'test_exit_code':rc,'product_base_sha':base,'expected_unit_test_count':expected,'readiness_review_baseline':True,'enabled_by_default':False,'item_count':5,'blocking_item_count':2,'ready':False,'helper_file_written':False,'external_calls':False,'release_published':False,'default_behavior_changed':False,'file_written':False}

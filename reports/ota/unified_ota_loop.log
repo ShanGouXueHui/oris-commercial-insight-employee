@@ -6443,3 +6443,88 @@ Ran 380 tests in 0.348s
 
 OK
 Evidence: reports/testing/latest_test_result.json; reports/execution/insight_rebuild_module_98_execution_report.md
+[main c8d6337] Add OTA execution evidence
+ 58 files changed, 994 insertions(+), 4 deletions(-)
+ create mode 100644 reports/execution/insight_rebuild_module_98_execution_report.md
+ create mode 100644 reports/ota/unified_ota_20260627T205501Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T205601Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T205701Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T205801Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T205901Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T210001Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T210101Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T210201Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T210301Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T210401Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T210501Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T210601Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T210701Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T210801Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T210901Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T211001Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T211101Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T211201Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T211301Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T211401Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T211501Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T211601Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T211701Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T211801Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T211901Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T212001Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T212101Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T212201Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T212301Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T212401Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T212501Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T212601Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T212701Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T212801Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T212901Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T213001Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T213101Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T213201Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T213301Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T213401Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T213501Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T213601Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T213701Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T213801Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T213901Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T214001Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T214101Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T214201Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T214301Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T214401Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T214501Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T214601Z.log
+ create mode 100644 reports/testing/insight_rebuild_module_98_test_result.json
+To github.com:ShanGouXueHui/oris-commercial-insight-employee.git
+   25432c0..c8d6337  main -> main
+timestamp: 20260627T214701Z
+entry: unified-OTA-entry.sh
+instruction: ops/ota/next_instruction.json
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+instruction_seq: 100
+last_instruction_seq: 100
+no new instruction
+timestamp: 20260627T214801Z
+entry: unified-OTA-entry.sh
+instruction: ops/ota/next_instruction.json
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+ * branch            main       -> FETCH_HEAD
+   c8d6337..369d07b  main       -> origin/main
+Updating c8d6337..369d07b
+Fast-forward
+ ops/ota/next_instruction.json | 2 +-
+ scripts/w70.py                | 8 ++++----
+ 2 files changed, 5 insertions(+), 5 deletions(-)
+instruction_seq: 101
+last_instruction_seq: 100
+----------------------------------------------------------------------
+Ran 380 tests in 0.292s
+
+OK
+Evidence: reports/testing/latest_test_result.json; reports/execution/insight_rebuild_module_99_execution_report.md

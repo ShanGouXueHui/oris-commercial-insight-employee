@@ -2,7 +2,7 @@
   "module": "Insight Rebuild Module 69",
   "status": "passed",
   "test_exit_code": 0,
-  "product_base_sha": "b193489ecdf0f0686bb35cdefce1b9b7f05804af",
+  "product_base_sha": "95df5e41e0a5552b202ffd89765998f0d1d47310",
   "expected_unit_test_count": 354,
   "ota_scheduler_baseline": true,
   "ota_scheduler_enabled_by_default": false,

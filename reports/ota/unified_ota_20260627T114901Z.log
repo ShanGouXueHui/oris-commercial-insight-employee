@@ -1,0 +1,26 @@
+timestamp: 20260627T114901Z
+entry: unified-OTA-entry.sh
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+ * branch            main       -> FETCH_HEAD
+   7505ac0..95df5e4  main       -> origin/main
+Updating 7505ac0..95df5e4
+Fast-forward
+ app/ota_instruction_manifest.py                    | 112 +++++++++++++++++++++
+ docs/rebuild/M69.md                                |  12 ++-
+ docs/rebuild/M70.md                                |  13 +++
+ .../CURRENT_PROGRESS_2026-06-27_MODULES_1_62.md    |  12 +--
+ ops/ota/next_instruction.json                      |  16 +++
+ scripts/w70.py                                     |  12 +++
+ tests/test_module_70_ota_instruction_manifest.py   |  65 ++++++++++++
+ unified-OTA-entry.sh                               |  18 +++-
+ 8 files changed, 247 insertions(+), 13 deletions(-)
+ create mode 100644 app/ota_instruction_manifest.py
+ create mode 100644 docs/rebuild/M70.md
+ create mode 100644 ops/ota/next_instruction.json
+ create mode 100644 scripts/w70.py
+ create mode 100644 tests/test_module_70_ota_instruction_manifest.py
+----------------------------------------------------------------------
+Ran 360 tests in 0.314s
+
+OK
+Evidence: reports/testing/latest_test_result.json; reports/execution/insight_rebuild_module_69_execution_report.md

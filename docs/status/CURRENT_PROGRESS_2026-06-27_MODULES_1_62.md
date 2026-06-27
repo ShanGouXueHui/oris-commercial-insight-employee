@@ -6,7 +6,7 @@ Modules 1-69 are accepted.
 
 Latest accepted module: Module 69 unified OTA scheduler baseline.
 
-Latest evidence commit: `pending-full-sha-lookup`.
+Latest evidence commit: `7505ac0`.
 
 Latest tested product base: `b193489ecdf0f0686bb35cdefce1b9b7f05804af`.
 

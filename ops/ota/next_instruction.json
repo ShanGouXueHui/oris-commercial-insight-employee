@@ -1,0 +1,15 @@
+{
+  "version": "2026-06-27-module-70-ota-instruction-manifest",
+  "active_module": 70,
+  "entrypoint": "unified-OTA-entry.sh",
+  "writer": "scripts/w70.py",
+  "expected_unit_test_count": 360,
+  "allowed_paths": [
+    "reports/testing/latest_test_result.json",
+    "reports/testing/insight_rebuild_module_70_test_result.json",
+    "reports/execution/insight_rebuild_module_70_execution_report.md",
+    "reports/ota"
+  ],
+  "stop_condition": "commercial_ready_true",
+  "next_after_pass": "Module 71 commercialization target gates"
+}

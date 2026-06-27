@@ -1,16 +1,5 @@
 {
-  "instruction_seq": 71,
-  "version": "2026-06-27-module-71-commercialization-gates",
+  "instruction_seq": 72,
   "active_module": 71,
-  "entrypoint": "unified-OTA-entry.sh",
-  "writer": "scripts/w71.py",
-  "expected_unit_test_count": 365,
-  "allowed_paths": [
-    "reports/testing/latest_test_result.json",
-    "reports/testing/insight_rebuild_module_71_test_result.json",
-    "reports/execution/insight_rebuild_module_71_execution_report.md",
-    "reports/ota"
-  ],
-  "stop_condition": "commercial_ready_true",
-  "next_after_pass": "Module 72 release readiness review baseline"
+  "expected_unit_test_count": 365
 }

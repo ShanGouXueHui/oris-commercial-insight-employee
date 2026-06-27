@@ -38,7 +38,7 @@ class Module68UnifiedOtaTests(unittest.TestCase):
         lock = get_ota_control('lock_guard')
         runner = get_ota_control('allowlisted_runner')
         self.assertIn('lock', lock['implementation'])
-        self.assertEqual(runner['implementation'], 'scripts/r68.py')
+        self.assertEqual(runner['implementation'], 'unified-OTA-entry.sh')
 
     def test_logs_and_evidence_controls_are_defined(self):
         logs = get_ota_control('timestamped_logs')

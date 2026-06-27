@@ -8,7 +8,9 @@ manifest = json.loads(Path('ops/ota/next_instruction.json').read_text(encoding='
 module = int(manifest.get('active_module', 70))
 expected = int(manifest.get('expected_unit_test_count', 360))
 
-if module == 71:
+if module == 72:
+    p = {'module':'Insight Rebuild Module 72','status':status,'test_exit_code':rc,'product_base_sha':base,'expected_unit_test_count':expected,'readiness_review_baseline':True,'enabled_by_default':False,'item_count':5,'blocking_item_count':2,'ready':False,'helper_file_written':False,'external_calls':False,'release_published':False,'default_behavior_changed':False,'file_written':False}
+elif module == 71:
     p = {'module':'Insight Rebuild Module 71','status':status,'test_exit_code':rc,'product_base_sha':base,'expected_unit_test_count':expected,'commercialization_gates_baseline':True,'commercialization_gates_enabled_by_default':False,'gate_scope':'local_read_only_commercialization_target_gates','gate_count':8,'blocking_gate_count':1,'blocking_gates':['commercial_stop_rule'],'commercial_ready':False,'operator_approval_required':True,'helper_file_written':False,'external_calls':False,'release_published':False,'default_behavior_changed':False,'file_written':False}
 else:
     p = {'module':'Insight Rebuild Module 70','status':status,'test_exit_code':rc,'product_base_sha':base,'expected_unit_test_count':expected,'ota_instruction_manifest_baseline':True,'ota_instruction_manifest_enabled_by_default':False,'manifest_scope':'github_hosted_safe_ota_instruction_source','manifest_path':'ops/ota/next_instruction.json','manifest_control_count':7,'active_module':70,'server_polling_supported':True,'helper_file_written':False,'external_calls':False,'release_published':False,'default_behavior_changed':False,'file_written':False}

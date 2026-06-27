@@ -1,0 +1,22 @@
+{
+  "module": "Insight Rebuild Module 71",
+  "status": "passed",
+  "test_exit_code": 0,
+  "product_base_sha": "51eddaaa4431ca69c802a95aef9a1cbecfcb6e8c",
+  "expected_unit_test_count": 365,
+  "commercialization_gates_baseline": true,
+  "commercialization_gates_enabled_by_default": false,
+  "gate_scope": "local_read_only_commercialization_target_gates",
+  "gate_count": 8,
+  "blocking_gate_count": 1,
+  "blocking_gates": [
+    "commercial_stop_rule"
+  ],
+  "commercial_ready": false,
+  "operator_approval_required": true,
+  "helper_file_written": false,
+  "external_calls": false,
+  "release_published": false,
+  "default_behavior_changed": false,
+  "file_written": false
+}

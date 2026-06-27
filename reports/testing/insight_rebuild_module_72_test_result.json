@@ -1,0 +1,17 @@
+{
+  "module": "Insight Rebuild Module 72",
+  "status": "passed",
+  "test_exit_code": 0,
+  "product_base_sha": "2bda5df676483263c8e1c1d55819383ff9ace040",
+  "expected_unit_test_count": 370,
+  "readiness_review_baseline": true,
+  "enabled_by_default": false,
+  "item_count": 5,
+  "blocking_item_count": 2,
+  "ready": false,
+  "helper_file_written": false,
+  "external_calls": false,
+  "release_published": false,
+  "default_behavior_changed": false,
+  "file_written": false
+}

@@ -2,14 +2,14 @@
 
 Date: 2026-06-27
 
-Modules 1-64 are accepted.
+Modules 1-65 are accepted.
 
-Latest accepted module: Module 64 commercial API contract baseline.
+Latest accepted module: Module 65 commercial storage boundary baseline.
 
-Latest evidence commit: `f3cb3fd`.
+Latest evidence commit: `97eface`.
 
-Latest tested product base: `8041378aa1ec9769a7b76db311c45c19310ac6c1`.
+Latest tested product base: `3f2564d65e20363b5a3caac28cba2c696bf24797`.
 
-Expected full-suite test count: 325.
+Expected full-suite test count: 331.
 
-Next recommended module: Module 65 commercial storage boundary baseline.
+Next recommended module: Module 66 commercial security and RBAC baseline.

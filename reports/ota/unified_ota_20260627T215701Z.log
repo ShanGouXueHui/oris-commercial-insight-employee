@@ -1,0 +1,16 @@
+timestamp: 20260627T215701Z
+entry: unified-OTA-entry.sh
+instruction: ops/ota/next_instruction.json
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+ * branch            main       -> FETCH_HEAD
+   74971f5..5b17e28  main       -> origin/main
+Updating 74971f5..5b17e28
+Fast-forward
+ docs/architecture/ENGINEERING_GUARDRAILS.md | 121 ++++++++++++++++++++++++++++
+ docs/ops/OTA_TASK_PROGRESS.md               |  83 +++++++++++++++++++
+ 2 files changed, 204 insertions(+)
+ create mode 100644 docs/architecture/ENGINEERING_GUARDRAILS.md
+ create mode 100644 docs/ops/OTA_TASK_PROGRESS.md
+instruction_seq: 105
+last_instruction_seq: 105
+no new instruction

@@ -6648,3 +6648,82 @@ Ran 380 tests in 0.297s
 
 OK
 Evidence: reports/testing/latest_test_result.json; reports/execution/insight_rebuild_module_103_execution_report.md
+[main 0bf2232] Add OTA execution evidence
+ 8 files changed, 90 insertions(+), 4 deletions(-)
+ create mode 100644 reports/execution/insight_rebuild_module_103_execution_report.md
+ create mode 100644 reports/ota/unified_ota_20260627T215301Z.log
+ create mode 100644 reports/ota/unified_ota_20260627T215401Z.log
+ create mode 100644 reports/testing/insight_rebuild_module_103_test_result.json
+To github.com:ShanGouXueHui/oris-commercial-insight-employee.git
+   2a6e81c..0bf2232  main -> main
+timestamp: 20260627T215501Z
+entry: unified-OTA-entry.sh
+instruction: ops/ota/next_instruction.json
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+instruction_seq: 105
+last_instruction_seq: 105
+no new instruction
+timestamp: 20260627T215601Z
+entry: unified-OTA-entry.sh
+instruction: ops/ota/next_instruction.json
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+ * branch            main       -> FETCH_HEAD
+   0bf2232..74971f5  main       -> origin/main
+Updating 0bf2232..74971f5
+Fast-forward
+ docs/ops/PROJECT_CONTINUITY_2026-06-27.md | 120 ++++++++++++++++++++++++++++++
+ 1 file changed, 120 insertions(+)
+ create mode 100644 docs/ops/PROJECT_CONTINUITY_2026-06-27.md
+instruction_seq: 105
+last_instruction_seq: 105
+no new instruction
+timestamp: 20260627T215701Z
+entry: unified-OTA-entry.sh
+instruction: ops/ota/next_instruction.json
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+ * branch            main       -> FETCH_HEAD
+   74971f5..5b17e28  main       -> origin/main
+Updating 74971f5..5b17e28
+Fast-forward
+ docs/architecture/ENGINEERING_GUARDRAILS.md | 121 ++++++++++++++++++++++++++++
+ docs/ops/OTA_TASK_PROGRESS.md               |  83 +++++++++++++++++++
+ 2 files changed, 204 insertions(+)
+ create mode 100644 docs/architecture/ENGINEERING_GUARDRAILS.md
+ create mode 100644 docs/ops/OTA_TASK_PROGRESS.md
+instruction_seq: 105
+last_instruction_seq: 105
+no new instruction
+timestamp: 20260627T215801Z
+entry: unified-OTA-entry.sh
+instruction: ops/ota/next_instruction.json
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+ * branch            main       -> FETCH_HEAD
+   5b17e28..3c62ecb  main       -> origin/main
+Updating 5b17e28..3c62ecb
+Fast-forward
+ docs/ops/OTA_TASK_PROGRESS_ADDENDUM_2026-06-27.md | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+ create mode 100644 docs/ops/OTA_TASK_PROGRESS_ADDENDUM_2026-06-27.md
+instruction_seq: 105
+last_instruction_seq: 105
+no new instruction
+timestamp: 20260627T215901Z
+entry: unified-OTA-entry.sh
+instruction: ops/ota/next_instruction.json
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+ * branch            main       -> FETCH_HEAD
+   3c62ecb..30ee4f3  main       -> origin/main
+Updating 3c62ecb..30ee4f3
+Fast-forward
+ ops/ota/next_instruction.json | 2 +-
+ scripts/w70.py                | 8 ++++----
+ 2 files changed, 5 insertions(+), 5 deletions(-)
+instruction_seq: 106
+last_instruction_seq: 105
+----------------------------------------------------------------------
+Ran 380 tests in 0.306s
+
+OK
+Evidence: reports/testing/latest_test_result.json; reports/execution/insight_rebuild_module_104_execution_report.md

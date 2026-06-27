@@ -2,7 +2,7 @@
   "module": "Insight Rebuild Module 74",
   "status": "passed",
   "test_exit_code": 0,
-  "product_base_sha": "f884e0f8af354f101e71f99a8540e0b968fc1831",
+  "product_base_sha": "c75dc74156745595dd5a0957da31dedeb532bc96",
   "expected_unit_test_count": 380,
   "module_74_baseline": true,
   "external_calls": false,

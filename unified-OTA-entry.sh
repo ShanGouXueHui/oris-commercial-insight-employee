@@ -10,16 +10,27 @@ trap 'rmdir "$LOCK"' EXIT
 mkdir -p reports/ota
 ts="$(date -u +%Y%m%dT%H%M%SZ)"
 log="reports/ota/unified_ota_${ts}.log"
+state="reports/ota/last_instruction_seq.txt"
 {
   echo "timestamp: $ts"
   echo "entry: unified-OTA-entry.sh"
   echo "instruction: ops/ota/next_instruction.json"
   git pull --ff-only origin main
+  seq="$(python3 -c "import json; print(json.load(open('ops/ota/next_instruction.json')).get('instruction_seq',''))")"
+  last=""
+  if [ -f "$state" ]; then last="$(cat "$state")"; fi
+  echo "instruction_seq: $seq"
+  echo "last_instruction_seq: $last"
+  if [ -n "$seq" ] && [ "$seq" = "$last" ]; then
+    echo "no new instruction"
+    exit 0
+  fi
   python3 -m unittest discover -s tests -p 'test_*.py' -q
   TEST_RC=$?
   export TEST_RC
   python3 scripts/w70.py
-  git add reports/testing/latest_test_result.json reports/testing/insight_rebuild_module_70_test_result.json reports/execution/insight_rebuild_module_70_execution_report.md reports/ota "$log"
+  if [ "$TEST_RC" = "0" ]; then echo "$seq" > "$state"; fi
+  git add reports/testing/latest_test_result.json reports/testing/insight_rebuild_module_70_test_result.json reports/execution/insight_rebuild_module_70_execution_report.md reports/ota "$log" "$state"
   git commit -m "Add module 70 execution evidence" || true
   git push origin main || true
   exit "$TEST_RC"

@@ -2,7 +2,7 @@
 
 status: passed
 expected_unit_test_count: 360
-product_base_sha: 14aca8a5ffab7ded6b6a275aa24d8d162d112f08
+product_base_sha: 630780f5884b145739acf9638450a24ea70a1b39
 ota_instruction_manifest_baseline: true
 manifest_path: ops/ota/next_instruction.json
 manifest_control_count: 7

@@ -2,7 +2,7 @@
   "module": "Insight Rebuild Module 70",
   "status": "passed",
   "test_exit_code": 0,
-  "product_base_sha": "14aca8a5ffab7ded6b6a275aa24d8d162d112f08",
+  "product_base_sha": "630780f5884b145739acf9638450a24ea70a1b39",
   "expected_unit_test_count": 360,
   "ota_instruction_manifest_baseline": true,
   "ota_instruction_manifest_enabled_by_default": false,

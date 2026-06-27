@@ -2,14 +2,14 @@
 
 Date: 2026-06-27
 
-Modules 1-67 are accepted.
+Modules 1-68 are accepted.
 
-Latest accepted module: Module 67 commercial observability baseline.
+Latest accepted module: Module 68 unified OTA loop entry baseline.
 
-Latest evidence commit: `98dcd83`.
+Latest evidence commit: `17dcefb`.
 
-Latest tested product base: `635a647ab656535638993ed42e087d586aad0699`.
+Latest tested product base: `09d6830d3f83cb2414fcb75b1c10aa416131026e`.
 
-Expected full-suite test count: 343.
+Expected full-suite test count: 349.
 
-Next recommended module: Module 68 unified OTA loop entry baseline.
+Next recommended module: Module 69 unified OTA scheduler installer baseline.

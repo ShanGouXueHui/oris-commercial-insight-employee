@@ -2,14 +2,14 @@
 
 Date: 2026-06-27
 
-Modules 1-66 are accepted.
+Modules 1-67 are accepted.
 
-Latest accepted module: Module 66 commercial security and RBAC baseline.
+Latest accepted module: Module 67 commercial observability baseline.
 
-Latest evidence commit: `7cd3b5b`.
+Latest evidence commit: `98dcd83`.
 
-Latest tested product base: `67eb8086148a9e9939665622a74ffc2da8dae854`.
+Latest tested product base: `635a647ab656535638993ed42e087d586aad0699`.
 
-Expected full-suite test count: 337.
+Expected full-suite test count: 343.
 
-Next recommended module: Module 67 commercial observability baseline.
+Next recommended module: Module 68 unified OTA loop entry baseline.

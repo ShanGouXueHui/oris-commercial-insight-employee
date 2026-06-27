@@ -13,13 +13,14 @@ log="reports/ota/unified_ota_${ts}.log"
 {
   echo "timestamp: $ts"
   echo "entry: unified-OTA-entry.sh"
+  echo "instruction: ops/ota/next_instruction.json"
   git pull --ff-only origin main
   python3 -m unittest discover -s tests -p 'test_*.py' -q
   TEST_RC=$?
   export TEST_RC
-  python3 scripts/w69.py
-  git add reports/testing/latest_test_result.json reports/testing/insight_rebuild_module_69_test_result.json reports/execution/insight_rebuild_module_69_execution_report.md "$log"
-  git commit -m "Add module 69 execution evidence" || true
+  python3 scripts/w70.py
+  git add reports/testing/latest_test_result.json reports/testing/insight_rebuild_module_70_test_result.json reports/execution/insight_rebuild_module_70_execution_report.md reports/ota "$log"
+  git commit -m "Add module 70 execution evidence" || true
   git push origin main || true
   exit "$TEST_RC"
 } 2>&1 | tee "$log"

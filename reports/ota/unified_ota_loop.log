@@ -453,3 +453,28 @@ Ran 380 tests in 0.327s
 
 OK
 Evidence: reports/testing/latest_test_result.json; reports/execution/insight_rebuild_module_76_execution_report.md
+[main d0ebee6] Add OTA execution evidence
+ 7 files changed, 77 insertions(+), 6 deletions(-)
+ create mode 100644 reports/execution/insight_rebuild_module_76_execution_report.md
+ create mode 100644 reports/ota/unified_ota_20260627T121601Z.log
+ create mode 100644 reports/testing/insight_rebuild_module_76_test_result.json
+To github.com:ShanGouXueHui/oris-commercial-insight-employee.git
+   a0fb975..d0ebee6  main -> main
+timestamp: 20260627T121701Z
+entry: unified-OTA-entry.sh
+instruction: ops/ota/next_instruction.json
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+ * branch            main       -> FETCH_HEAD
+   d0ebee6..c58907e  main       -> origin/main
+Updating d0ebee6..c58907e
+Fast-forward
+ ops/ota/next_instruction.json | 2 +-
+ scripts/w70.py                | 8 ++++----
+ 2 files changed, 5 insertions(+), 5 deletions(-)
+instruction_seq: 79
+last_instruction_seq: 78
+----------------------------------------------------------------------
+Ran 380 tests in 0.308s
+
+OK
+Evidence: reports/testing/latest_test_result.json; reports/execution/insight_rebuild_module_77_execution_report.md

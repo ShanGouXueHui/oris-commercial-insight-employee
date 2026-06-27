@@ -17,9 +17,9 @@ log="reports/ota/unified_ota_${ts}.log"
   python3 -m unittest discover -s tests -p 'test_*.py' -q
   TEST_RC=$?
   export TEST_RC
-  python3 scripts/w68.py
-  git add reports/testing/latest_test_result.json reports/testing/insight_rebuild_module_68_test_result.json reports/execution/insight_rebuild_module_68_execution_report.md "$log"
-  git commit -m "Add module 68 execution evidence" || true
+  python3 scripts/w69.py
+  git add reports/testing/latest_test_result.json reports/testing/insight_rebuild_module_69_test_result.json reports/execution/insight_rebuild_module_69_execution_report.md "$log"
+  git commit -m "Add module 69 execution evidence" || true
   git push origin main || true
   exit "$TEST_RC"
 } 2>&1 | tee "$log"

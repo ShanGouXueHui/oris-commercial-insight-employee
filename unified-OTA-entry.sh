@@ -30,8 +30,8 @@ state="reports/ota/last_instruction_seq.txt"
   export TEST_RC
   python3 scripts/w70.py
   if [ "$TEST_RC" = "0" ]; then echo "$seq" > "$state"; fi
-  git add reports/testing/latest_test_result.json reports/testing/insight_rebuild_module_70_test_result.json reports/execution/insight_rebuild_module_70_execution_report.md reports/ota "$log" "$state"
-  git commit -m "Add module 70 execution evidence" || true
+  git add reports/testing reports/execution reports/ota "$log" "$state"
+  git commit -m "Add OTA execution evidence" || true
   git push origin main || true
   exit "$TEST_RC"
 } 2>&1 | tee "$log"

@@ -19511,3 +19511,40 @@ Ran 380 tests in 0.305s
 
 OK
 Evidence: reports/testing/latest_test_result.json; reports/execution/insight_rebuild_module_160_execution_report.md
+[main 9f2fa42] Add OTA execution evidence
+ 10 files changed, 124 insertions(+), 4 deletions(-)
+ create mode 100644 reports/execution/insight_rebuild_module_160_execution_report.md
+ create mode 100644 reports/ota/unified_ota_20260628T175101Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T175201Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T175301Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T175401Z.log
+ create mode 100644 reports/testing/insight_rebuild_module_160_test_result.json
+To github.com:ShanGouXueHui/oris-commercial-insight-employee.git
+   df0a79e..9f2fa42  main -> main
+timestamp: 20260628T175501Z
+entry: unified-OTA-entry.sh
+instruction: ops/ota/next_instruction.json
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+instruction_seq: 162
+last_instruction_seq: 162
+no new instruction
+timestamp: 20260628T175601Z
+entry: unified-OTA-entry.sh
+instruction: ops/ota/next_instruction.json
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+ * branch            main       -> FETCH_HEAD
+   9f2fa42..4164294  main       -> origin/main
+Updating 9f2fa42..4164294
+Fast-forward
+ ops/ota/next_instruction.json | 2 +-
+ scripts/w70.py                | 8 ++++----
+ 2 files changed, 5 insertions(+), 5 deletions(-)
+instruction_seq: 163
+last_instruction_seq: 162
+----------------------------------------------------------------------
+Ran 380 tests in 0.303s
+
+OK
+Evidence: reports/testing/latest_test_result.json; reports/execution/insight_rebuild_module_161_execution_report.md

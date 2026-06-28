@@ -15330,3 +15330,97 @@ Ran 380 tests in 0.305s
 
 OK
 Evidence: reports/testing/latest_test_result.json; reports/execution/insight_rebuild_module_117_execution_report.md
+[main f78b2b3] Add OTA execution evidence
+ 10 files changed, 124 insertions(+), 4 deletions(-)
+ create mode 100644 reports/execution/insight_rebuild_module_117_execution_report.md
+ create mode 100644 reports/ota/unified_ota_20260628T115601Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T115701Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T115801Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T115901Z.log
+ create mode 100644 reports/testing/insight_rebuild_module_117_test_result.json
+To github.com:ShanGouXueHui/oris-commercial-insight-employee.git
+   a87a82e..f78b2b3  main -> main
+timestamp: 20260628T120001Z
+entry: unified-OTA-entry.sh
+instruction: ops/ota/next_instruction.json
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+instruction_seq: 119
+last_instruction_seq: 119
+no new instruction
+timestamp: 20260628T120101Z
+entry: unified-OTA-entry.sh
+instruction: ops/ota/next_instruction.json
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+instruction_seq: 119
+last_instruction_seq: 119
+no new instruction
+timestamp: 20260628T120201Z
+entry: unified-OTA-entry.sh
+instruction: ops/ota/next_instruction.json
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+instruction_seq: 119
+last_instruction_seq: 119
+no new instruction
+timestamp: 20260628T120301Z
+entry: unified-OTA-entry.sh
+instruction: ops/ota/next_instruction.json
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+instruction_seq: 119
+last_instruction_seq: 119
+no new instruction
+timestamp: 20260628T120401Z
+entry: unified-OTA-entry.sh
+instruction: ops/ota/next_instruction.json
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+instruction_seq: 119
+last_instruction_seq: 119
+no new instruction
+timestamp: 20260628T120501Z
+entry: unified-OTA-entry.sh
+instruction: ops/ota/next_instruction.json
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+instruction_seq: 119
+last_instruction_seq: 119
+no new instruction
+timestamp: 20260628T120601Z
+entry: unified-OTA-entry.sh
+instruction: ops/ota/next_instruction.json
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+ * branch            main       -> FETCH_HEAD
+   f78b2b3..27e6b1e  main       -> origin/main
+Updating f78b2b3..27e6b1e
+Fast-forward
+ scripts/w70.py | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+instruction_seq: 119
+last_instruction_seq: 119
+no new instruction
+timestamp: 20260628T120701Z
+entry: unified-OTA-entry.sh
+instruction: ops/ota/next_instruction.json
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+ * branch            main       -> FETCH_HEAD
+   27e6b1e..f778c15  main       -> origin/main
+Updating 27e6b1e..f778c15
+Fast-forward
+ ops/ota/next_instruction.json | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+instruction_seq: 120
+last_instruction_seq: 119
+----------------------------------------------------------------------
+Ran 380 tests in 0.324s
+
+OK
+Evidence: reports/testing/latest_test_result.json; reports/execution/insight_rebuild_module_118_execution_report.md

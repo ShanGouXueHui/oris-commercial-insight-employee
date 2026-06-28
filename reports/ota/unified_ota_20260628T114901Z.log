@@ -1,0 +1,26 @@
+timestamp: 20260628T114901Z
+entry: unified-OTA-entry.sh
+instruction: ops/ota/next_instruction.json
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+ * branch            main       -> FETCH_HEAD
+warning: fetch updated the current branch head.
+fast-forwarding your working tree from
+commit 94b8e413434e531126d73a29454062b4a829d0d5.
+error: Your local changes to the following files would be overwritten by merge:
+	ops/ota/next_instruction.json
+	scripts/w70.py
+Please commit your changes or stash them before you merge.
+Aborting
+fatal: Cannot fast-forward your working tree.
+After making sure that you saved anything precious from
+$ git diff 94b8e413434e531126d73a29454062b4a829d0d5
+output, run
+$ git reset --hard
+to recover.
+instruction_seq: 116
+last_instruction_seq: 115
+----------------------------------------------------------------------
+Ran 380 tests in 0.316s
+
+OK
+Evidence: reports/testing/latest_test_result.json; reports/execution/insight_rebuild_module_114_execution_report.md

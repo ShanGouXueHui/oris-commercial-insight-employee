@@ -19373,3 +19373,60 @@ Ran 380 tests in 0.312s
 
 OK
 Evidence: reports/testing/latest_test_result.json; reports/execution/insight_rebuild_module_157_execution_report.md
+[main 0f69b85] Add OTA execution evidence
+ 8 files changed, 274 insertions(+), 4 deletions(-)
+ create mode 100644 reports/execution/insight_rebuild_module_157_execution_report.md
+ create mode 100644 reports/ota/unified_ota_20260628T174301Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T174401Z.log
+ create mode 100644 reports/testing/insight_rebuild_module_157_test_result.json
+To github.com:ShanGouXueHui/oris-commercial-insight-employee.git
+   36ce5c0..0f69b85  main -> main
+timestamp: 20260628T174501Z
+entry: unified-OTA-entry.sh
+instruction: ops/ota/next_instruction.json
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+instruction_seq: 159
+last_instruction_seq: 159
+no new instruction
+timestamp: 20260628T174601Z
+entry: unified-OTA-entry.sh
+instruction: ops/ota/next_instruction.json
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+instruction_seq: 159
+last_instruction_seq: 159
+no new instruction
+timestamp: 20260628T174701Z
+entry: unified-OTA-entry.sh
+instruction: ops/ota/next_instruction.json
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+instruction_seq: 159
+last_instruction_seq: 159
+no new instruction
+timestamp: 20260628T174801Z
+entry: unified-OTA-entry.sh
+instruction: ops/ota/next_instruction.json
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+instruction_seq: 159
+last_instruction_seq: 159
+no new instruction
+timestamp: 20260628T174901Z
+entry: unified-OTA-entry.sh
+instruction: ops/ota/next_instruction.json
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+instruction_seq: 160
+last_instruction_seq: 159
+----------------------------------------------------------------------
+Ran 380 tests in 0.311s
+
+OK
+Evidence: reports/testing/latest_test_result.json; reports/execution/insight_rebuild_module_158_execution_report.md

@@ -16,3 +16,53 @@ Ran 380 tests in 0.322s
 
 OK
 Evidence: reports/testing/latest_test_result.json; reports/execution/insight_rebuild_module_108_execution_report.md
+[main 46cf7c2] Add OTA execution evidence
+ 50 files changed, 2208 insertions(+), 4 deletions(-)
+ create mode 100644 reports/execution/insight_rebuild_module_108_execution_report.md
+ create mode 100644 reports/ota/unified_ota_20260628T094101Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T094201Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T094301Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T094401Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T094501Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T094601Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T094701Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T094801Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T094901Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T095001Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T095101Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T095201Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T095301Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T095401Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T095501Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T095601Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T095701Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T095801Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T095901Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T100001Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T100101Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T100201Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T100301Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T100401Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T100501Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T100601Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T100701Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T100801Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T100901Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T101001Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T101101Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T101201Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T101301Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T101401Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T101501Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T101601Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T101701Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T101801Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T101901Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T102001Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T102101Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T102202Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T102301Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T102401Z.log
+ create mode 100644 reports/testing/insight_rebuild_module_108_test_result.json
+To github.com:ShanGouXueHui/oris-commercial-insight-employee.git
+   6cd97e3..46cf7c2  main -> main

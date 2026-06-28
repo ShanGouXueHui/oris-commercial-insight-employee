@@ -14382,3 +14382,41 @@ Ran 380 tests in 0.317s
 
 OK
 Evidence: reports/testing/latest_test_result.json; reports/execution/insight_rebuild_module_109_execution_report.md
+[main c1d342c] Add OTA execution evidence
+ 20 files changed, 380 insertions(+), 4 deletions(-)
+ create mode 100644 reports/execution/insight_rebuild_module_109_execution_report.md
+ create mode 100644 reports/ota/unified_ota_20260628T102501Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T102601Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T102701Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T102801Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T102901Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T103001Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T103101Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T103201Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T103301Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T103401Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T103501Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T103601Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T103701Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T103801Z.log
+ create mode 100644 reports/testing/insight_rebuild_module_109_test_result.json
+To github.com:ShanGouXueHui/oris-commercial-insight-employee.git
+   9094749..c1d342c  main -> main
+timestamp: 20260628T103901Z
+entry: unified-OTA-entry.sh
+instruction: ops/ota/next_instruction.json
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+ * branch            main       -> FETCH_HEAD
+   c1d342c..ad0de35  main       -> origin/main
+Updating c1d342c..ad0de35
+Fast-forward
+ ops/ota/next_instruction.json | 2 +-
+ scripts/w70.py                | 8 ++++----
+ 2 files changed, 5 insertions(+), 5 deletions(-)
+instruction_seq: 112
+last_instruction_seq: 111
+----------------------------------------------------------------------
+Ran 380 tests in 0.440s
+
+OK
+Evidence: reports/testing/latest_test_result.json; reports/execution/insight_rebuild_module_110_execution_report.md

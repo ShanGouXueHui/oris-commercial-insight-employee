@@ -1,0 +1,13 @@
+timestamp: 20260628T154701Z
+entry: unified-OTA-entry.sh
+instruction: ops/ota/next_instruction.json
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+ * branch            main       -> FETCH_HEAD
+   97cebc6..dccbd45  main       -> origin/main
+Updating 97cebc6..dccbd45
+Fast-forward
+ scripts/w70.py | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+instruction_seq: 148
+last_instruction_seq: 148
+no new instruction

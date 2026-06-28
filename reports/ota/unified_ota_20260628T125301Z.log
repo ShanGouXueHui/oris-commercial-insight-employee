@@ -16,3 +16,11 @@ Ran 380 tests in 0.314s
 
 OK
 Evidence: reports/testing/latest_test_result.json; reports/execution/insight_rebuild_module_127_execution_report.md
+[main 7ad336f] Add OTA execution evidence
+ 8 files changed, 88 insertions(+), 4 deletions(-)
+ create mode 100644 reports/execution/insight_rebuild_module_127_execution_report.md
+ create mode 100644 reports/ota/unified_ota_20260628T125201Z.log
+ create mode 100644 reports/ota/unified_ota_20260628T125301Z.log
+ create mode 100644 reports/testing/insight_rebuild_module_127_test_result.json
+To github.com:ShanGouXueHui/oris-commercial-insight-employee.git
+   bb1f4b4..7ad336f  main -> main

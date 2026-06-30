@@ -1,0 +1,11 @@
+timestamp: 20260630T081601Z
+entry: unified-OTA-entry.sh
+instruction: ops/ota/next_instruction.json
+git@github.com: Permission denied (publickey).
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+instruction_seq: 167
+last_instruction_seq: 167
+no new instruction

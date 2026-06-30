@@ -1,0 +1,9 @@
+timestamp: 20260630T120801Z
+entry: unified-OTA-entry.sh
+instruction: ops/ota/next_instruction.json
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+instruction_seq: 167
+last_instruction_seq: 167
+no new instruction

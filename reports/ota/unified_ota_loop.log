@@ -49382,3 +49382,64 @@ Ran 380 tests in 0.304s
 
 OK
 Evidence: reports/testing/latest_test_result.json; reports/execution/insight_rebuild_module_170_execution_report.md
+[main 667ad49] Add OTA execution evidence
+ 31 files changed, 502 insertions(+), 4 deletions(-)
+ create mode 100644 reports/execution/insight_rebuild_module_170_execution_report.md
+ create mode 100644 reports/ota/unified_ota_20260630T190901Z.log
+ create mode 100644 reports/ota/unified_ota_20260630T191001Z.log
+ create mode 100644 reports/ota/unified_ota_20260630T191101Z.log
+ create mode 100644 reports/ota/unified_ota_20260630T191201Z.log
+ create mode 100644 reports/ota/unified_ota_20260630T191301Z.log
+ create mode 100644 reports/ota/unified_ota_20260630T191401Z.log
+ create mode 100644 reports/ota/unified_ota_20260630T191501Z.log
+ create mode 100644 reports/ota/unified_ota_20260630T191601Z.log
+ create mode 100644 reports/ota/unified_ota_20260630T191701Z.log
+ create mode 100644 reports/ota/unified_ota_20260630T191801Z.log
+ create mode 100644 reports/ota/unified_ota_20260630T191901Z.log
+ create mode 100644 reports/ota/unified_ota_20260630T192001Z.log
+ create mode 100644 reports/ota/unified_ota_20260630T192101Z.log
+ create mode 100644 reports/ota/unified_ota_20260630T192201Z.log
+ create mode 100644 reports/ota/unified_ota_20260630T192301Z.log
+ create mode 100644 reports/ota/unified_ota_20260630T192401Z.log
+ create mode 100644 reports/ota/unified_ota_20260630T192501Z.log
+ create mode 100644 reports/ota/unified_ota_20260630T192601Z.log
+ create mode 100644 reports/ota/unified_ota_20260630T192701Z.log
+ create mode 100644 reports/ota/unified_ota_20260630T192801Z.log
+ create mode 100644 reports/ota/unified_ota_20260630T192901Z.log
+ create mode 100644 reports/ota/unified_ota_20260630T193001Z.log
+ create mode 100644 reports/ota/unified_ota_20260630T193101Z.log
+ create mode 100644 reports/ota/unified_ota_20260630T193201Z.log
+ create mode 100644 reports/ota/unified_ota_20260630T193301Z.log
+ create mode 100644 reports/testing/insight_rebuild_module_170_test_result.json
+To github.com:ShanGouXueHui/oris-commercial-insight-employee.git
+   102427a..667ad49  main -> main
+timestamp: 20260630T193401Z
+entry: unified-OTA-entry.sh
+instruction: ops/ota/next_instruction.json
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+ * branch            main       -> FETCH_HEAD
+   667ad49..27a9ee0  main       -> origin/main
+Updating 667ad49..27a9ee0
+Fast-forward
+ scripts/w70.py | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+instruction_seq: 172
+last_instruction_seq: 172
+no new instruction
+timestamp: 20260630T193501Z
+entry: unified-OTA-entry.sh
+instruction: ops/ota/next_instruction.json
+From github.com:ShanGouXueHui/oris-commercial-insight-employee
+ * branch            main       -> FETCH_HEAD
+   27a9ee0..3f5b060  main       -> origin/main
+Updating 27a9ee0..3f5b060
+Fast-forward
+ ops/ota/next_instruction.json | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+instruction_seq: 173
+last_instruction_seq: 172
+----------------------------------------------------------------------
+Ran 380 tests in 0.304s
+
+OK
+Evidence: reports/testing/latest_test_result.json; reports/execution/insight_rebuild_module_171_execution_report.md
